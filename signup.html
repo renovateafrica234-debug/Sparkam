@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkam | Join the Beta</title>
+    <style>
+        body {
+            background-color: #0b0114;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .signup-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 380px;
+            backdrop-filter: blur(10px);
+        }
+        .free-tag {
+            display: inline-block;
+            color: #00ff00;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        h2 { font-size: 1.8rem; margin: 0 0 10px 0; }
+        p { color: #b0b0b0; font-size: 0.9rem; margin-bottom: 30px; }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input:focus { border-color: #ff00ff; }
+
+        .submit-btn {
+            background: linear-gradient(90deg, #ff007a, #7e00ff);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+        .submit-btn:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+    <div class="signup-card">
+        <span class="free-tag">20% Features Unlocked Free</span>
+        <h2>Ignite Your Sound</h2>
+        <p>Create your account to start your first campaign.</p>
+        
+        <input type="text" placeholder="Artist or Label Name">
+        <input type="email" placeholder="Email Address">
+        <input type="password" placeholder="Create Password">
+        
+        <button class="submit-btn" onclick="window.location.href='dashboard.html'">
+            Create Account &rarr;
+        </button>
+    </div>
+</body>
+</html>
+
