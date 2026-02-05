@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkam | Artist Dashboard</title>
+    <style>
+        body { background-color: #0b0114; color: white; font-family: sans-serif; margin: 0; padding: 20px; }
+        .nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .logo { font-weight: bold; font-size: 1.2rem; }
+        
+        /* The Connect Wallet Button from your vision */
+        .wallet-btn { 
+            border: 1px solid #7e00ff; padding: 8px 15px; border-radius: 10px; 
+            font-size: 0.8rem; background: rgba(126, 0, 255, 0.1); color: white; cursor: pointer;
+        }
+
+        .velocity-card {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px; padding: 25px; backdrop-filter: blur(10px);
+        }
+        .graph-svg { width: 100%; height: auto; filter: drop-shadow(0 0 8px rgba(255, 0, 122, 0.6)); }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .stat-box { background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 15px; }
+        .label { font-size: 0.7rem; color: #b0b0b0; text-transform: uppercase; }
+        .value { font-size: 1.2rem; font-weight: bold; margin-top: 5px; }
+        .growth { color: #00ff00; font-size: 0.8rem; }
+
+        .feature-limit {
+            margin-top: 25px; padding: 15px; border-radius: 12px;
+            background: linear-gradient(90deg, rgba(255, 0, 122, 0.1), rgba(126, 0, 255, 0.1));
+            border: 1px solid rgba(255, 0, 122, 0.3); font-size: 0.8rem; text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">S.</div>
+        <button class="wallet-btn">Connect Wallet</button>
+    </div>
+
+    <div class="velocity-card">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <span class="label" style="color: #ff00ff;">Campaign Velocity</span>
+            <span style="font-size: 0.7rem; color: #00ff00;">● LIVE</span>
+        </div>
+        
+        <svg viewBox="0 0 100 40" class="graph-svg">
+            <path d="M0 35 Q 20 35, 40 25 T 70 10 T 100 5" fill="none" stroke="url(#g)" stroke-width="3" />
+            <defs>
+                <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#ff007a" />
+                    <stop offset="100%" style="stop-color:#7e00ff" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="label">Total Reach</div>
+                <div class="value">1.5M+</div>
+                <div class="growth">↑ 29%</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">Conversions</div>
+                <div class="value">12.4K</div>
+                <div class="growth">↑ 12%</div>
+            </div>
+        </div>
+
+        <div class="feature-limit">
+            <strong>Free Tier:</strong> 20% AI Features Active. 
+            <span style="color: #ff00ff; cursor: pointer; display: block; margin-top: 5px;">Upgrade for full Hit Potential analysis →</span>
+        </div>
+    </div>
+</body>
+</html>
+
