@@ -3,118 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparkam | Pro Dashboard</title>
+    <title>Sparkam | Professional Dashboard</title>
     <style>
         :root {
             --bg: #090212;
-            --card: #12081d;
+            --sidebar-bg: #050108;
+            --card-bg: #12081d;
             --accent: #ff007a;
             --secondary: #7e00ff;
-            --glass: rgba(255, 255, 255, 0.03);
+            --text-dim: #888;
             --border: rgba(255, 255, 255, 0.08);
         }
 
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; display: flex; min-height: 100vh; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; display: flex; min-height: 100vh; overflow: hidden; }
+
+        /* --- SIDEBAR REFINEMENT --- */
+        .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 25px 15px; }
+        .logo { font-size: 1.6rem; font-weight: 900; background: linear-gradient(to right, var(--accent), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 35px; padding-left: 10px; }
+        .nav-item { padding: 12px 15px; color: var(--text-dim); text-decoration: none; display: flex; align-items: center; gap: 12px; border-radius: 12px; margin-bottom: 5px; font-size: 0.95rem; transition: 0.2s; }
+        .nav-item.active { background: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border); }
         
-        /* Sidebar Refinement */
-        .sidebar { width: 260px; background: #050108; border-right: 1px solid var(--border); padding: 30px 20px; }
-        .logo-pro { font-size: 1.5rem; font-weight: 900; background: linear-gradient(to right, var(--accent), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 40px; }
-        .nav-item { padding: 14px 18px; color: #888; text-decoration: none; display: flex; align-items: center; gap: 12px; border-radius: 12px; margin-bottom: 8px; transition: 0.3s; }
-        .nav-item.active { background: var(--glass); color: white; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); }
+        .user-profile { display: flex; align-items: center; gap: 12px; padding: 10px; }
+        .avatar { width: 35px; height: 35px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
-        .main { flex: 1; padding: 40px 60px; overflow-y: auto; }
+        /* --- MAIN CONTENT --- */
+        .main { flex: 1; padding: 40px 50px; overflow-y: auto; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 35px; }
+        .stat-card { background: var(--card-bg); padding: 20px; border-radius: 18px; border: 1px solid var(--border); }
+        .stat-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-val { font-size: 1.6rem; font-weight: 800; margin-top: 8px; }
+
+        /* --- QUICK ACTIONS REFINEMENT --- */
+        .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .action-card { background: var(--card-bg); border: 1px solid var(--border); padding: 20px; border-radius: 18px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; }
+        .action-card:hover { border-color: var(--accent); background: rgba(255, 0, 122, 0.03); }
         
-        /* Stat Cards */
-        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
-        .stat-card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); position: relative; overflow: hidden; }
-        .stat-card::after { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--secondary); opacity: 0.5; }
-        .val { font-size: 1.8rem; font-weight: 800; margin-top: 10px; }
+        .icon-box { 
+            width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border);
+        }
 
-        /* Actions Grid */
-        .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
-        .action-tile { background: var(--card); border: 1px solid var(--border); padding: 25px; border-radius: 20px; display: flex; align-items: center; gap: 20px; cursor: pointer; transition: 0.3s; }
-        .action-tile:hover { border-color: var(--accent); transform: scale(1.02); background: rgba(255, 0, 122, 0.02); }
-        .tile-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; background: var(--glass); border: 1px solid var(--border); }
-
-        /* Recent Campaigns List */
-        .campaign-list { background: var(--card); border-radius: 20px; border: 1px solid var(--border); padding: 25px; }
-        .campaign-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
-        .campaign-item:last-child { border: none; }
-        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-        .status-active { background: rgba(0, 255, 0, 0.1); color: #00ff00; }
+        /* --- LIST VIEW --- */
+        .recent-section { margin-top: 35px; }
+        .list-container { background: var(--card-bg); border-radius: 18px; border: 1px solid var(--border); padding: 5px 20px; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
+        .list-item:last-child { border: none; }
+        .status { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="logo-pro">Sparkam <span style="font-size: 0.6rem; color: #888; border: 1px solid #444; padding: 2px 5px; border-radius: 4px; vertical-align: middle;">PRO</span></div>
-        <a href="#" class="nav-item active">Dashboard</a>
-        <a href="#" class="nav-item">Campaigns</a>
-        <a href="#" class="nav-item">Analytics</a>
-        <a href="#" class="nav-item">AI Tools</a>
-    </div>
+    <nav class="sidebar">
+        <div class="logo">Sparkam <span style="font-size: 0.6rem; color: #888; border: 1px solid #444; padding: 2px 4px; border-radius: 4px; vertical-align: middle;">PRO</span></div>
+        <a href="#" class="nav-item active">🏠 Dashboard</a>
+        <a href="#" class="nav-item">📈 Campaigns</a>
+        <a href="#" class="nav-item">📊 Analytics</a>
+        <a href="#" class="nav-item">🔗 Platforms</a>
+        <a href="#" class="nav-item">🤖 AI Tools</a>
 
-    <div class="main">
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="avatar">A</div>
+                <div>
+                    <div style="font-size: 0.85rem; font-weight: bold;">Admin</div>
+                    <div style="font-size: 0.7rem; color: var(--text-dim);">Sign Out</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h1 style="font-size: 2rem;">Welcome back, Admin!</h1>
-            <button style="background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: bold; cursor: pointer;">Admin Access</button>
+            <h1 style="margin: 0; font-size: 1.8rem;">Welcome back, Admin!</h1>
+            <button style="background: var(--accent); border: none; color: white; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer;">Admin Access</button>
         </div>
 
         <div class="stats-row">
             <div class="stat-card">
-                <div style="color: #888; font-size: 0.8rem;">Total Campaigns</div>
-                <div class="val">24</div>
+                <div class="stat-label">Total Campaigns</div>
+                <div class="stat-val">24</div>
             </div>
             <div class="stat-card">
-                <div style="color: #888; font-size: 0.8rem;">Active Promotions</div>
-                <div class="val" style="color: #00ff00;">7</div>
+                <div class="stat-label">Active Promotions</div>
+                <div class="stat-val" style="color: #00ff00;">7</div>
             </div>
             <div class="stat-card">
-                <div style="color: #888; font-size: 0.8rem;">Total Reach</div>
-                <div class="val">128K</div>
+                <div class="stat-label">Total Reach</div>
+                <div class="stat-val">128K</div>
             </div>
             <div class="stat-card">
-                <div style="color: #888; font-size: 0.8rem;">Engagement</div>
-                <div class="val">4.8%</div>
+                <div class="stat-label">Engagement Rate</div>
+                <div class="stat-val">4.8%</div>
             </div>
         </div>
 
-        <h3 style="margin-bottom: 20px;">Quick Actions</h3>
-        <div class="actions">
-            <div class="action-tile">
-                <div class="tile-icon">🚀</div>
-                <div>
-                    <div style="font-weight: bold;">New Campaign</div>
-                    <div style="font-size: 0.8rem; color: #888;">Start a pre or post-release push</div>
-                </div>
+        <h3>Quick Actions</h3>
+        <div class="actions-grid">
+            <div class="action-card">
+                <div class="icon-box" style="color: var(--accent);">🚀</div>
+                <div><div style="font-weight: bold; font-size: 0.9rem;">New Campaign</div><div style="font-size: 0.75rem; color: var(--text-dim);">Start a new push</div></div>
             </div>
-            <div class="action-tile">
-                <div class="tile-icon">🎵</div>
-                <div>
-                    <div style="font-weight: bold;">Upload Track</div>
-                    <div style="font-size: 0.8rem; color: #888;">Add music for AI analysis</div>
-                </div>
+            <div class="action-card">
+                <div class="icon-box" style="color: var(--secondary);">🔗</div>
+                <div><div style="font-weight: bold; font-size: 0.9rem;">Connect Platforms</div><div style="font-size: 0.75rem; color: var(--text-dim);">Link your socials</div></div>
+            </div>
+            <div class="action-card">
+                <div class="icon-box" style="color: #00ff00;">📊</div>
+                <div><div style="font-weight: bold; font-size: 0.9rem;">View Analytics</div><div style="font-size: 0.75rem; color: var(--text-dim);">Check metrics</div></div>
+            </div>
+            <div class="action-card">
+                <div class="icon-box" style="color: #00d1ff;">🎵</div>
+                <div><div style="font-weight: bold; font-size: 0.9rem;">Upload Track</div><div style="font-size: 0.75rem; color: var(--text-dim);">AI audio analysis</div></div>
             </div>
         </div>
 
-        <h3 style="margin-bottom: 20px;">Recent Campaigns</h3>
-        <div class="campaign-list">
-            <div class="campaign-item">
-                <div>
-                    <div style="font-weight: bold;">Summer Vibes EP</div>
-                    <div style="font-size: 0.75rem; color: #888;">Post-release campaign • Started 3 days ago</div>
+        <div class="recent-section">
+            <h3>Recent Campaigns</h3>
+            <div class="list-container">
+                <div class="list-item">
+                    <div><div style="font-weight: bold;">Summer Vibes EP</div><div style="font-size: 0.7rem; color: var(--text-dim);">Started 3 days ago</div></div>
+                    <span class="status" style="background: rgba(0, 255, 0, 0.1); color: #00ff00;">Active</span>
                 </div>
-                <span class="status-badge status-active">Active</span>
-            </div>
-            <div class="campaign-item">
-                <div>
-                    <div style="font-weight: bold;">Midnight Dreams</div>
-                    <div style="font-size: 0.75rem; color: #888;">Pre-release teaser • Started 1 week ago</div>
+                <div class="list-item">
+                    <div><div style="font-weight: bold;">Midnight Dreams</div><div style="font-size: 0.7rem; color: var(--text-dim);">Started 1 week ago</div></div>
+                    <span class="status" style="background: rgba(126, 0, 255, 0.1); color: #7e00ff;">Running</span>
                 </div>
-                <span class="status-badge" style="background: rgba(126, 0, 255, 0.1); color: #7e00ff;">Running</span>
             </div>
         </div>
-    </div>
+    </main>
 
 </body>
-</html>
+    </html>
+                                                                                                                
