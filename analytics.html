@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkam | Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --pink: #ff007a; --gray: #888888; --white: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--white); display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+        aside { background: #000; border-right: 1px solid #222; padding: 40px 30px; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--pink); text-decoration: none; display: block; margin-bottom: 60px; }
+        nav li { list-style: none; margin-bottom: 25px; }
+        nav a { color: var(--gray); text-decoration: none; font-size: 15px; font-weight: 600; }
+        nav a.active { color: var(--white); }
+        main { padding: 60px 6%; }
+        .chart-placeholder { background: #111; height: 300px; border-radius: 20px; border: 1px solid #222; margin-bottom: 40px; display: flex; align-items: center; justify-content: center; color: #333; font-weight: 800; font-size: 24px; }
+        .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .metric-card { background: #111; padding: 30px; border-radius: 16px; border: 1px solid #222; }
+    </style>
+</head>
+<body>
+    <aside>
+        <a href="dashboard.html" class="logo">Sparkam.</a>
+        <nav><ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="campaigns.html">Campaigns</a></li>
+            <li><a href="analytics.html" class="active">Analytics</a></li>
+            <li><a href="ai-studio.html">AI Studio</a></li>
+        </ul></nav>
+    </aside>
+    <main>
+        <h1>Global Impact</h1>
+        <div class="chart-placeholder">[ DATA VISUALIZATION GRAPH ]</div>
+        <div class="metrics">
+            <div class="metric-card"><span>Shares</span><h2 style="font-size:32px">12.4K</h2></div>
+            <div class="metric-card"><span>Saves</span><h2 style="font-size:32px">8.1K</h2></div>
+            <div class="metric-card"><span>Conversion</span><h2 style="font-size:32px; color:#00ff41">14.2%</h2></div>
+        </div>
+    </main>
+</body>
+</html>
+
