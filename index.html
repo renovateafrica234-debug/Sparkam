@@ -15,13 +15,14 @@
         margin: 0;
         padding: 0;
         background-color: var(--bg);
-        /* This creates the aurora glow from the demo video */
+        /* This creates the moving aura glow from your demo video */
         background-image: 
             radial-gradient(at 0% 0%, rgba(126, 0, 255, 0.18) 0px, transparent 55%),
             radial-gradient(at 100% 100%, rgba(255, 0, 122, 0.18) 0px, transparent 55%);
         background-attachment: fixed;
         color: white;
         font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
     }
 
     /* Adds the missing glass navbar from your demo */
@@ -34,8 +35,31 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         position: sticky;
         top: 0;
+        z-index: 1000;
+    }
+
+    .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); }
+
+    /* Hero Section with proper depth and spacing */
+    .hero {
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 20px;
+        background: linear-gradient(to bottom, #fff, #888);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 </style>
+
 
         .hero-container {
             text-align: center;
