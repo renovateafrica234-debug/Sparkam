@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkam | AI Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --pink: #ff007a; --gray: #888888; --white: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--white); display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+        aside { background: #000; border-right: 1px solid #222; padding: 40px 30px; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--pink); text-decoration: none; display: block; margin-bottom: 60px; }
+        nav li { list-style: none; margin-bottom: 25px; }
+        nav a { color: var(--gray); text-decoration: none; font-size: 15px; font-weight: 600; }
+        nav a.active { color: var(--white); }
+        main { padding: 60px 6%; }
+        .upload-zone { border: 2px dashed #333; padding: 100px; border-radius: 24px; text-align: center; background: #0a0a0a; transition: 0.3s; }
+        .upload-zone:hover { border-color: var(--pink); background: #111; }
+        .ai-status { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .status-card { background: #111; padding: 30px; border-radius: 16px; border: 1px solid #222; }
+    </style>
+</head>
+<body>
+    <aside>
+        <a href="dashboard.html" class="logo">Sparkam.</a>
+        <nav><ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="campaigns.html">Campaigns</a></li>
+            <li><a href="analytics.html">Analytics</a></li>
+            <li><a href="ai-studio.html" class="active">AI Studio</a></li>
+        </ul></nav>
+    </aside>
+    <main>
+        <h1>AI Studio</h1>
+        <p style="color:var(--gray); margin-bottom: 40px;">Upload your track to predict hit potential and viral velocity.</p>
+        <div class="upload-zone">
+            <span style="font-size: 40px;">🎵</span>
+            <h3>Drop audio file here</h3>
+            <p style="color:var(--gray); font-size: 14px;">WAV, MP3, or AIFF up to 50MB</p>
+        </div>
+        <div class="ai-status">
+            <div class="status-card"><h4>Neural Engine</h4><p style="color:#00ff41">Ready to analyze</p></div>
+            <div class="status-card"><h4>Hit Probability</h4><p style="color:var(--gray)">Waiting for upload...</p></div>
+        </div>
+    </main>
+</body>
+</html>
+
