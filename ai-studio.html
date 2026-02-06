@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparkam | AI Studio</title>
+    <script src="brain-core.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #050505; --pink: #ff007a; --gray: #888888; --white: #fff; }
@@ -20,6 +21,21 @@
         .status-card { background: #111; padding: 30px; border-radius: 16px; border: 1px solid #222; }
     </style>
 </head>
+   <script>
+    // This looks for your button and tells it what to do
+    const analyzeBtn = document.querySelector('button'); // Or use the specific ID if you have one
+
+    analyzeBtn.addEventListener('click', function() {
+        // This pulls data from your existing inputs
+        const trackTitle = document.querySelector('input[type="text"]')?.value || "New Track";
+        
+        // This triggers the Brain file
+        const result = MusicAIBrain.processNewTrack(trackTitle, "General", "Energetic");
+        
+        alert("Brain Connected! Strategy: " + result.recommendation);
+    });
+   </script>
+    
 <body>
     <aside>
         <a href="dashboard.html" class="logo">Sparkam.</a>
