@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkam | Notifications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --pink: #ff007a; --gray: #888888; --white: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--white); display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+        aside { background: #000; border-right: 1px solid #222; padding: 40px 30px; }
+        main { padding: 60px 6%; }
+        .notif-card { background: #111; padding: 20px; border-radius: 12px; border-left: 4px solid var(--pink); margin-bottom: 15px; }
+        .time { color: var(--gray); font-size: 11px; float: right; }
+    </style>
+</head>
+<body>
+    <aside><a href="dashboard.html" class="logo">Sparkam.</a></aside>
+    <main>
+        <h1>Activity Feed</h1>
+        <div class="notif-card"><span class="time">2m ago</span><h4>🚀 Campaign Spike</h4><p style="color:var(--gray); font-size:14px">"Midnight City" just hit 5k shares in 10 minutes.</p></div>
+        <div class="notif-card"><span class="time">1h ago</span><h4>♫ Analysis Complete</h4><p style="color:var(--gray); font-size:14px">Your track "Neon Dream" has a 88% hit probability.</p></div>
+    </main>
+</body>
+</html>
+
