@@ -4,32 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparkam | Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --sidebar: #000000;
-            --pink: #ff007a;
-            --white: #ffffff;
-            --gray: #888888;
-            --green: #00ff41;
+            --bg-deep: #050505;
+            --sidebar-black: #000000;
+            --sparkam-pink: #ff007a;
+            --text-high: #ffffff;
+            --text-low: #888888;
+            --glow: rgba(255, 0, 122, 0.4);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--white);
+            background-color: var(--bg-deep);
+            color: var(--text-high);
             display: grid;
-            grid-template-columns: 240px 1fr; /* Rigid layout: Sidebar is always 240px */
+            grid-template-columns: 260px 1fr; /* Rigid sidebar width */
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Sidebar - High Contrast */
+        /* --- Sidebar --- */
         aside {
-            background: var(--sidebar);
-            border-right: 1px solid #222;
-            padding: 40px 24px;
+            background-color: var(--sidebar-black);
+            border-right: 1px solid #1a1a1a;
+            padding: 40px 30px;
             display: flex;
             flex-direction: column;
         }
@@ -37,82 +39,108 @@
         .logo {
             font-size: 24px;
             font-weight: 800;
-            color: var(--pink);
+            color: var(--sparkam-pink);
             text-decoration: none;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            letter-spacing: -1px;
         }
 
-        .nav-list { list-style: none; }
-        .nav-list li { margin-bottom: 25px; }
-        .nav-list a {
-            color: var(--gray);
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 25px; }
+        nav a {
+            color: var(--text-low);
             text-decoration: none;
             font-size: 15px;
             font-weight: 600;
-            transition: 0.2s;
+            transition: 0.3s ease;
         }
-        .nav-list a:hover, .nav-list a.active { color: var(--white); }
+        nav a:hover, nav a.active { color: var(--text-high); }
 
-        /* Main Dashboard Content */
-        main { padding: 60px 5%; overflow-y: auto; }
+        /* --- Main Content --- */
+        main {
+            padding: 60px 6%;
+            max-width: 1400px;
+        }
 
-        h1 { font-size: 42px; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
-        
-        .badge {
-            background: var(--pink);
-            padding: 5px 15px;
-            border-radius: 4px;
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -2px;
+        }
+
+        .admin-tag {
+            background: var(--sparkam-pink);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 6px;
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
             display: inline-block;
             margin-bottom: 50px;
+            box-shadow: 0 0 15px var(--glow);
         }
 
-        /* Stats Grid - Will NOT stack vertically */
-        .stats-wrapper {
+        /* --- Stats Layout (Grid Fix) --- */
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* Forces 4 items across */
-            gap: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
             margin-bottom: 60px;
         }
 
-        .stat-card {
-            background: #111;
-            padding: 25px;
-            border-radius: 12px;
+        .card {
+            background: #111111;
+            padding: 30px;
+            border-radius: 16px;
             border: 1px solid #222;
         }
 
-        .label { color: var(--gray); font-size: 13px; display: block; margin-bottom: 10px; }
-        .value { font-size: 30px; font-weight: 700; }
-        .success { color: var(--green); }
+        .card .label {
+            color: var(--text-low);
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: block;
+        }
 
-        /* Quick Launch Actions */
-        .action-row {
+        .card .value {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .success-text { color: #00ff41; }
+
+        /* --- Quick Launch --- */
+        .quick-launch {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            gap: 30px;
         }
 
-        .action-card {
-            background: #0c0c0c;
+        .launch-btn {
+            background: #0a0a0a;
             border: 1px dashed #333;
-            padding: 35px;
-            border-radius: 15px;
+            padding: 40px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .action-card:hover { border-color: var(--pink); background: #141414; }
-        .action-card h3 { font-size: 18px; margin-bottom: 5px; }
-        .action-card p { color: var(--gray); font-size: 14px; }
+        .launch-btn:hover {
+            border-color: var(--sparkam-pink);
+            background: #111;
+            transform: translateY(-2px);
+        }
 
-        /* Responsive Fix */
-        @media (max-width: 900px) {
+        .launch-btn h3 { margin-bottom: 8px; font-size: 20px; }
+        .launch-btn p { color: var(--text-low); font-size: 14px; line-height: 1.5; }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
             body { grid-template-columns: 1fr; }
             aside { display: none; }
-            .stats-wrapper { grid-template-columns: 1fr 1fr; }
+            .dashboard-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -120,46 +148,48 @@
 
     <aside>
         <a href="#" class="logo">Sparkam.</a>
-        <ul class="nav-list">
-            <li><a href="#" class="active">Dashboard</a></li>
-            <li><a href="#">Campaigns</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">AI Studio</a></li>
-        </ul>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#">Campaigns</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">AI Studio</a></li>
+            </ul>
+        </nav>
     </aside>
 
     <main>
         <h1>Welcome back, Admin!</h1>
-        <div class="badge">Admin Portal</div>
+        <div class="admin-tag">Admin Portal</div>
 
-        <div class="stats-wrapper">
-            <div class="stat-card">
+        <div class="dashboard-grid">
+            <div class="card">
                 <span class="label">Campaigns</span>
                 <span class="value">24</span>
             </div>
-            <div class="stat-card">
+            <div class="card">
                 <span class="label">Active</span>
-                <span class="value success">07</span>
+                <span class="value success-text">07</span>
             </div>
-            <div class="stat-card">
+            <div class="card">
                 <span class="label">Reach</span>
                 <span class="value">128K</span>
             </div>
-            <div class="stat-card">
+            <div class="card">
                 <span class="label">Impact</span>
                 <span class="value">4.8%</span>
             </div>
         </div>
 
-        <h2 style="margin-bottom: 25px; font-size: 20px;">Quick Launch</h2>
-        <div class="action-row">
-            <div class="action-card">
+        <h2 style="margin-bottom: 30px; font-size: 22px;">Quick Launch</h2>
+        <div class="quick-launch">
+            <div class="launch-btn">
                 <h3>🚀 New Campaign</h3>
-                <p>Start a viral rollout instantly.</p>
+                <p>Launch a viral rollout and start tracking real-time engagement data.</p>
             </div>
-            <div class="action-card">
+            <div class="launch-btn">
                 <h3>♫ AI Analysis</h3>
-                <p>Check hit track probability.</p>
+                <p>Run your tracks through the neural hit-predictor for instant feedback.</p>
             </div>
         </div>
     </main>
