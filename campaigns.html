@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkam | Campaigns</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --pink: #ff007a; --gray: #888888; --white: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--white); display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+        aside { background: #000; border-right: 1px solid #222; padding: 40px 30px; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--pink); text-decoration: none; display: block; margin-bottom: 60px; }
+        nav li { list-style: none; margin-bottom: 25px; }
+        nav a { color: var(--gray); text-decoration: none; font-size: 15px; font-weight: 600; }
+        nav a.active { color: var(--white); }
+        main { padding: 60px 6%; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .btn-new { background: var(--pink); color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; }
+        .campaign-list { display: flex; flex-direction: column; gap: 15px; }
+        .row { background: #111; padding: 20px 30px; border-radius: 12px; border: 1px solid #222; display: grid; grid-template-columns: 2fr 1fr 1fr 100px; align-items: center; }
+        .status { font-size: 12px; text-transform: uppercase; font-weight: 800; }
+        .active { color: #00ff41; }
+    </style>
+</head>
+<body>
+    <aside>
+        <a href="dashboard.html" class="logo">Sparkam.</a>
+        <nav><ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="campaigns.html" class="active">Campaigns</a></li>
+            <li><a href="analytics.html">Analytics</a></li>
+            <li><a href="ai-studio.html">AI Studio</a></li>
+        </ul></nav>
+    </aside>
+    <main>
+        <div class="header">
+            <h1>Campaigns</h1>
+            <a href="#" class="btn-new">+ New Rollout</a>
+        </div>
+        <div class="campaign-list">
+            <div class="row"><span>Midnight City - Viral Remix</span><span class="status active">● Active</span><span>45.2K Reach</span><a href="#" style="color:var(--pink)">View</a></div>
+            <div class="row"><span>Electric Soul - EP Launch</span><span class="status active">● Active</span><span>12.8K Reach</span><a href="#" style="color:var(--pink)">View</a></div>
+            <div class="row" style="opacity: 0.5;"><span>Summer Vibes - Playlist Push</span><span class="status">Offline</span><span>110K Reach</span><a href="#" style="color:var(--pink)">View</a></div>
+        </div>
+    </main>
+</body>
+  </html>
+
