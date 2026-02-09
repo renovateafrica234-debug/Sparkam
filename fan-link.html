@@ -8,24 +8,22 @@
     <style>
         body { background: #000; color: #fff; font-family: 'Courier New', Courier, monospace; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; text-transform: uppercase; }
         .container { width: 90%; max-width: 450px; border: 4px solid #fff; padding: 40px; text-align: center; }
-        .artwork { width: 100%; aspect-ratio: 1/1; background: #fff; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; }
-        .artwork span { color: #000; font-size: 5rem; font-weight: bold; }
-        .track-title { font-size: 2.2rem; margin: 0; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .artwork { width: 100%; aspect-ratio: 1/1; background: #fff; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 4rem; }
         .player { border: 2px solid #333; margin: 30px 0; padding: 20px; display: flex; align-items: center; gap: 20px; }
-        .play-head { flex: 1; height: 4px; background: #222; position: relative; }
+        .play-head { flex: 1; height: 2px; background: #222; position: relative; }
         .progress { position: absolute; height: 100%; background: #fff; width: 0%; }
-        .link-row { display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; padding: 20px; margin-bottom: 10px; text-decoration: none; color: #fff; font-weight: bold; }
+        .link-row { display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; padding: 20px; margin-bottom: 10px; text-decoration: none; color: #fff; font-weight: bold; font-size: 0.9rem; }
         .link-row:hover { background: #fff; color: #000; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="artwork"><span>SPKM</span></div>
-        <h1 id="track-display" class="track-title">LOADING...</h1>
+        <div class="artwork">SPKM</div>
+        <h1 id="track-display" style="font-size: 2.2rem; margin: 0;">LOADING...</h1>
         
         <div class="player">
-            <div id="play-btn" style="cursor:pointer; font-size: 1.5rem;">▶</div>
+            <div id="play-btn" style="cursor:pointer; font-weight: bold;">[PLAY]</div>
             <div class="play-head"><div id="progress" class="progress"></div></div>
         </div>
 
@@ -37,23 +35,21 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const name = params.get('track') || "UNKNOWN_TRACK";
+            const name = params.get('track') || "UNKNOWN_NODE";
             document.getElementById('track-display').textContent = name.toUpperCase();
 
             const playBtn = document.getElementById('play-btn');
             const prog = document.getElementById('progress');
-            let active = false;
-            let p = 0;
+            let active = false; let p = 0;
 
             playBtn.onclick = () => {
                 active = !active;
-                playBtn.textContent = active ? "||" : "▶";
+                playBtn.textContent = active ? "[STOP]" : "[PLAY]";
                 if(active) {
                     const t = setInterval(() => {
                         if(!active || p >= 100) { clearInterval(t); return; }
-                        p += 0.5;
-                        prog.style.width = p + "%";
-                    }, 100);
+                        p += 0.2; prog.style.width = p + "%";
+                    }, 50);
                 }
             };
         });
