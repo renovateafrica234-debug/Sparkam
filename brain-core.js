@@ -1,26 +1,26 @@
 const MusicAIBrain = {
-    // Persistent memory for the Sparkam ecosystem
+    // Persistent Sparkam Data Storage
     memory: JSON.parse(localStorage.getItem('sparkam_brain_memory')) || { tracks: [] },
 
-    // Core logic for scheduling and metadata
+    // The logic that bridges Studio and Dashboard
     processNewTrack: function(name, mood) {
         const now = new Date();
         let releaseDate = new Date();
-        let releaseTime = "8:00 PM";
+        let releaseTime = "20:00"; // Military time for industrial feel
 
-        // Logic: Energetic = Friday, Chill = Sunday
+        // Logic: Energetic (Friday) / Chill (Sunday)
         if (mood === "Energetic") {
             releaseDate.setDate(now.getDate() + (5 - now.getDay() + 7) % 7);
-            releaseTime = "07:30 PM";
+            releaseTime = "19:30";
         } else {
             releaseDate.setDate(now.getDate() + (7 - now.getDay() + 7) % 7);
-            releaseTime = "10:00 AM";
+            releaseTime = "10:00";
         }
 
         const newTrack = {
-            id: Date.now(),
-            name: name.toUpperCase(), // Sparkam style: Uppercase titles
-            mood: mood,
+            id: "SPKM-" + Math.floor(Math.random() * 9000 + 1000),
+            name: name.toUpperCase(),
+            mood: mood.toUpperCase(),
             scheduledDate: releaseDate.toDateString().toUpperCase(),
             scheduledTime: releaseTime
         };
