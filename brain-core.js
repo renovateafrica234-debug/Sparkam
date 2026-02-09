@@ -1,47 +1,50 @@
 const MusicAIBrain = {
-    // Initialize Memory from LocalStorage
+    // 1. Storage Setup
     memory: JSON.parse(localStorage.getItem('sparkam_brain_memory')) || { tracks: [] },
 
-    // The Decision Maker (Friday for Energy, Sunday for Chill)
+    // 2. The Decision Engine (Determines Release Timing)
     processNewTrack: function(name, genre, mood) {
         const now = new Date();
-        let bestDay = new Date();
-        let peakHour = "8:00 PM";
+        let releaseDate = new Date();
+        let releaseTime = "8:00 PM";
 
+        // Autonomous Logic: Energetic tracks = Friday, Chill tracks = Sunday
         if (mood === "Energetic") {
-            bestDay.setDate(now.getDate() + (5 - now.getDay() + 7) % 7);
-            peakHour = "7:30 PM";
+            // Find next Friday (Day 5)
+            releaseDate.setDate(now.getDate() + (5 - now.getDay() + 7) % 7);
+            releaseTime = "7:30 PM";
         } else {
-            bestDay.setDate(now.getDate() + (7 - now.getDay()) % 7);
-            peakHour = "10:00 AM";
+            // Find next Sunday (Day 0)
+            releaseDate.setDate(now.getDate() + (7 - now.getDay() + 7) % 7);
+            releaseTime = "10:00 AM";
         }
 
-        const trackData = {
+        const newTrack = {
             id: Date.now(),
             name: name,
             mood: mood,
             recommendation: mood === "Energetic" ? "HIGH_PULSE_SOCIAL_BLITZ" : "LOFI_PLAYLIST_SEEDING",
-            scheduledDate: bestDay.toDateString(),
-            scheduledTime: peakHour
+            scheduledDate: releaseDate.toDateString(),
+            scheduledTime: releaseTime
         };
 
-        this.memory.tracks.push(trackData);
+        this.memory.tracks.push(newTrack);
         this.saveMemory();
-        return trackData;
+        return newTrack;
     },
 
-    // AI Bio Generator
+    // 3. The Creative Engine (Generates Profile Bio)
     generateBio: function() {
         const tracks = this.memory.tracks;
-        if (tracks.length === 0) return "New creator in the Sparkam ecosystem.";
+        if (tracks.length === 0) return "Analyzing sound waves for a new sonic identity.";
         
-        const latestTrack = tracks[tracks.length - 1];
+        const latest = tracks[tracks.length - 1];
         const count = tracks.length;
 
-        if (latestTrack.mood === "Energetic") {
-            return `A high-octane creator currently pushing ${count} heavy hitters. Latest pulse: '${latestTrack.name}'.`;
+        if (latest.mood === "Energetic") {
+            return `A high-octane creator currently pushing ${count} heavy hitters. Latest pulse: '${latest.name}'.`;
         } else {
-            return `A visionary artist focused on atmospheric depth and chill vibes. Curating ${count} AI-optimized releases.`;
+            return `Visionary artist exploring ${count} chill-focused AI releases. Current vibe: '${latest.name}'.`;
         }
     },
 
