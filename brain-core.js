@@ -1,39 +1,28 @@
-// brain-core.js - The Central Intelligence Hub
-const MusicAIBrain = {
-    // This is the Brain's "Memory"
-    memory: JSON.parse(localStorage.getItem('ai_brain_memory')) || {
-        tracks: [],
-        currentStrategy: "IDLE",
-        totalEngagement: 0
-    },
+    processNewTrack: function(name, genre, mood) {
+        // AI Logic: Determine the best day/time autonomously
+        const now = new Date();
+        let bestDay = new Date();
+        let peakHour = "8:00 PM";
 
-    // Function to "Learn" from a new upload
-    processNewTrack: function(trackName, genre, mood) {
-        const newAnalysis = {
+        if (mood === "Energetic") {
+            // High energy tracks do best on Friday evenings
+            bestDay.setDate(now.getDate() + (5 - now.getDay() + 7) % 7);
+            peakHour = "7:30 PM";
+        } else {
+            // Chill tracks do best on Sunday mornings
+            bestDay.setDate(now.getDate() + (7 - now.getDay()) % 7);
+            peakHour = "10:00 AM";
+        }
+
+        const track = {
             id: Date.now(),
-            name: trackName,
-            genre: genre,
-            mood: mood,
-            timestamp: new Date().toISOString(),
-            recommendation: this.generateStrategy(mood)
+            name: name,
+            recommendation: mood === "Energetic" ? "HIGH_PULSE_SOCIAL_BLITZ" : "LOFI_PLAYLIST_SEEDING",
+            scheduledDate: bestDay.toDateString(),
+            scheduledTime: peakHour
         };
-        
-        this.memory.tracks.push(newAnalysis);
+
+        this.memory.tracks.push(track);
         this.saveMemory();
-        return newAnalysis;
+        return track;
     },
-
-    // The logic that makes the "Autonomous" decision
-    generateStrategy: function(mood) {
-        if (mood.toLowerCase() === 'energetic') return "HIGH_PULSE_SOCIAL_BLITZ";
-        if (mood.toLowerCase() === 'chill') return "LOFI_PLAYLIST_SEEDING";
-        return "STANDARD_GROWTH_PATH";
-    },
-
-    saveMemory: function() {
-        localStorage.setItem('ai_brain_memory', JSON.stringify(this.memory));
-    }
-};
-
-console.log("🧠 AI Brain Initialized and Monitoring...");
-
