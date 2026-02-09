@@ -2,19 +2,16 @@ const MusicAIBrain = {
     // 1. Storage Setup
     memory: JSON.parse(localStorage.getItem('sparkam_brain_memory')) || { tracks: [] },
 
-    // 2. The Decision Engine (Determines Release Timing)
+    // 2. The Decision Engine
     processNewTrack: function(name, genre, mood) {
         const now = new Date();
         let releaseDate = new Date();
         let releaseTime = "8:00 PM";
 
-        // Autonomous Logic: Energetic tracks = Friday, Chill tracks = Sunday
         if (mood === "Energetic") {
-            // Find next Friday (Day 5)
             releaseDate.setDate(now.getDate() + (5 - now.getDay() + 7) % 7);
             releaseTime = "7:30 PM";
         } else {
-            // Find next Sunday (Day 0)
             releaseDate.setDate(now.getDate() + (7 - now.getDay() + 7) % 7);
             releaseTime = "10:00 AM";
         }
@@ -23,7 +20,7 @@ const MusicAIBrain = {
             id: Date.now(),
             name: name,
             mood: mood,
-            recommendation: mood === "Energetic" ? "HIGH_PULSE_SOCIAL_BLITZ" : "LOFI_PLAYLIST_SEEDING",
+            recommendation: mood === "Energetic" ? "HIGH_PULSE_STRATEGY" : "LOFI_SEEDING_STRATEGY",
             scheduledDate: releaseDate.toDateString(),
             scheduledTime: releaseTime
         };
@@ -33,19 +30,16 @@ const MusicAIBrain = {
         return newTrack;
     },
 
-    // 3. The Creative Engine (Generates Profile Bio)
+    // 3. The Creative Engine (Bio)
     generateBio: function() {
         const tracks = this.memory.tracks;
-        if (tracks.length === 0) return "Analyzing sound waves for a new sonic identity.";
+        if (tracks.length === 0) return "Verified Sparkam Artist.";
         
         const latest = tracks[tracks.length - 1];
         const count = tracks.length;
 
-        if (latest.mood === "Energetic") {
-            return `A high-octane creator currently pushing ${count} heavy hitters. Latest pulse: '${latest.name}'.`;
-        } else {
-            return `Visionary artist exploring ${count} chill-focused AI releases. Current vibe: '${latest.name}'.`;
-        }
+        // Brand Voice: Direct, Modern, Professional
+        return `A creator within the Sparkam ecosystem with ${count} optimized releases. Currently featuring '${latest.name}'.`;
     },
 
     saveMemory: function() {
