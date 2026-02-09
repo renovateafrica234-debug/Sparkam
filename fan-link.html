@@ -3,71 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listen | Sparkam</title>
+    <title>STREAM | SPARKAM</title>
     <script src="brain-core.js"></script>
     <style>
-        :root { --sparkam-accent: #ffffff; --sparkam-bg: #000000; }
-        .btn-hover:hover { background: var(--sparkam-accent) !important; color: #000 !important; }
+        body { background: #000; color: #fff; font-family: 'Courier New', Courier, monospace; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; text-transform: uppercase; }
+        .container { width: 90%; max-width: 450px; border: 4px solid #fff; padding: 40px; text-align: center; }
+        .artwork { width: 100%; aspect-ratio: 1/1; background: #fff; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; }
+        .artwork span { color: #000; font-size: 5rem; font-weight: bold; }
+        .track-title { font-size: 2.2rem; margin: 0; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .player { border: 2px solid #333; margin: 30px 0; padding: 20px; display: flex; align-items: center; gap: 20px; }
+        .play-head { flex: 1; height: 4px; background: #222; position: relative; }
+        .progress { position: absolute; height: 100%; background: #fff; width: 0%; }
+        .link-row { display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; padding: 20px; margin-bottom: 10px; text-decoration: none; color: #fff; font-weight: bold; }
+        .link-row:hover { background: #fff; color: #000; }
     </style>
 </head>
-<body id="fan-body" style="background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+<body>
 
-    <main style="text-align: center; width: 90%; max-width: 400px; background: #0a0a0a; padding: 40px; border-radius: 20px; border: 1px solid #1a1a1a; box-shadow: 0 0 50px rgba(255,255,255,0.02);">
+    <div class="container">
+        <div class="artwork"><span>SPKM</span></div>
+        <h1 id="track-display" class="track-title">LOADING...</h1>
         
-        <div id="art-box" style="width: 220px; height: 220px; background: #111; margin: 0 auto 30px; border-radius: 15px; border: 1px solid #333; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 30px rgba(255,255,255,0.05);">
-            <span style="font-size: 4rem; filter: grayscale(1);">💿</span>
+        <div class="player">
+            <div id="play-btn" style="cursor:pointer; font-size: 1.5rem;">▶</div>
+            <div class="play-head"><div id="progress" class="progress"></div></div>
         </div>
 
-        <h1 id="track-title" style="margin: 0 0 10px 0; font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;">Sugar Daddy</h1>
-        <p id="artist-tag" style="color: #666; margin-bottom: 35px; letter-spacing: 4px; font-weight: bold; font-size: 0.7rem; text-transform: uppercase;">Sparkam Official</p>
-
-        <div style="background: #000; padding: 20px; border-radius: 12px; margin-bottom: 40px; border: 1px solid #1a1a1a;">
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <button id="play-btn" style="background: #fff; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;">▶</button>
-                <div style="flex: 1; height: 2px; background: #222; position: relative;">
-                    <div id="progress-bar" style="width: 0%; height: 100%; background: #fff; transition: 0.1s;"></div>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 10px; color: #444; font-size: 0.65rem; font-family: monospace;">
-                <span>0:00</span><span>PREVIEW</span>
-            </div>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-            <a href="#" class="btn-hover" style="display: flex; justify-content: space-between; padding: 18px; background: #111; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; border: 1px solid #222; font-size: 0.9rem;">
-                <span>Spotify</span><span>PLAY</span>
-            </a>
-            <a href="#" class="btn-hover" style="display: flex; justify-content: space-between; padding: 18px; background: #111; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; border: 1px solid #222; font-size: 0.9rem;">
-                <span>Apple Music</span><span>PLAY</span>
-            </a>
-            <button onclick="copy()" style="margin-top: 15px; background: transparent; border: none; color: #444; cursor: pointer; font-size: 0.75rem; letter-spacing: 1px;">COPY SHARE URL</button>
-        </div>
-    </main>
+        <a href="#" class="link-row"><span>SPOTIFY</span> <span>>></span></a>
+        <a href="#" class="link-row"><span>APPLE_MUSIC</span> <span>>></span></a>
+        <a href="#" class="link-row"><span>YOUTUBE</span> <span>>></span></a>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const trackName = params.get('track') || "Sugar Daddy";
-            document.getElementById('track-title').textContent = trackName;
+            const name = params.get('track') || "UNKNOWN_TRACK";
+            document.getElementById('track-display').textContent = name.toUpperCase();
 
             const playBtn = document.getElementById('play-btn');
-            const progress = document.getElementById('progress-bar');
-            
-            let playing = false;
-            let width = 0;
+            const prog = document.getElementById('progress');
+            let active = false;
+            let p = 0;
+
             playBtn.onclick = () => {
-                playing = !playing;
-                playBtn.textContent = playing ? "⏸" : "▶";
-                if (playing) {
-                    const timer = setInterval(() => {
-                        if (!playing || width >= 100) { clearInterval(timer); return; }
-                        width += 0.5;
-                        progress.style.width = width + "%";
+                active = !active;
+                playBtn.textContent = active ? "||" : "▶";
+                if(active) {
+                    const t = setInterval(() => {
+                        if(!active || p >= 100) { clearInterval(t); return; }
+                        p += 0.5;
+                        prog.style.width = p + "%";
                     }, 100);
                 }
             };
         });
-        function copy() { navigator.clipboard.writeText(window.location.href); alert("Saved to clipboard."); }
     </script>
 </body>
 </html>
