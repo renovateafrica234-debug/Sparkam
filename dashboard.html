@@ -2,54 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DASHBOARD | SPARKAM</title>
+    <title>COMMAND_CENTER | SPARKAM</title>
     <script src="brain-core.js"></script>
     <style>
-        body { background: #000; color: #fff; font-family: 'Courier New', Courier, monospace; padding: 40px; text-transform: uppercase; }
-        .header { border-bottom: 4px solid #fff; padding-bottom: 20px; margin-bottom: 50px; }
-        .campaign-card { border: 2px solid #fff; padding: 30px; margin-bottom: 30px; background: #000; transition: background 0.2s; }
-        .campaign-card:hover { background: #111; }
-        .status-tag { background: #fff; color: #000; padding: 5px 10px; font-weight: bold; font-size: 0.8rem; margin-bottom: 15px; display: inline-block; }
-        .btn { display: inline-block; border: 2px solid #fff; padding: 15px 30px; color: #fff; text-decoration: none; font-weight: bold; margin-right: 10px; cursor: pointer; background: none; }
+        body { background: #000; color: #fff; font-family: 'Courier New', Courier, monospace; padding: 40px; text-transform: uppercase; margin: 0; line-height: 1.4; }
+        .header { border-bottom: 4px solid #fff; padding-bottom: 20px; margin-bottom: 50px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .campaign-card { border: 2px solid #fff; padding: 30px; margin-bottom: 30px; background: #000; position: relative; }
+        .status-tag { background: #fff; color: #000; padding: 5px 12px; font-weight: bold; font-size: 0.8rem; margin-bottom: 20px; display: inline-block; }
+        .btn { display: inline-block; border: 2px solid #fff; padding: 15px 30px; color: #fff; text-decoration: none; font-weight: bold; cursor: pointer; background: none; text-transform: uppercase; }
         .btn:hover { background: #fff; color: #000; }
         .btn-filled { background: #fff; color: #000; }
+        
+        /* Terminal Styling */
+        .terminal { background: #050505; border: 1px solid #222; padding: 20px; margin-top: 60px; font-size: 0.8rem; color: #666; overflow: hidden; }
+        .terminal-header { border-bottom: 1px solid #222; margin-bottom: 10px; padding-bottom: 5px; color: #333; display: flex; justify-content: space-between; }
+        .log-line { margin: 5px 0; }
+        .log-line span { color: #fff; }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <h1 style="font-size: 2.5rem; margin: 0;">COMMAND_CENTER</h1>
-        <p style="letter-spacing: 5px; color: #666;">SPARKAM_SYSTEM_v1.0</p>
+        <div>
+            <h1 style="font-size: 2.5rem; margin: 0;">COMMAND_CENTER</h1>
+            <p style="letter-spacing: 5px; color: #444; margin: 5px 0 0 0;">SPARKAM_SYSTEM_v1.0</p>
+        </div>
+        <a href="ai-studio.html" class="btn" style="padding: 10px 20px; font-size: 0.8rem;">+ NEW_TRACK</a>
     </header>
 
-    <div id="campaign-list">
+    <main id="campaign-list">
+        </main>
+
+    <section class="terminal">
+        <div class="terminal-header">
+            <span>RAW_BRAIN_LOGS</span>
+            <span>STATUS: STABLE</span>
         </div>
+        <div id="log-container">
+            <div class="log-line">> INITIALIZING_SPARKAM_CORE...</div>
+            <div class="log-line">> CONNECTION_ESTABLISHED_WITH_MEMORY...</div>
+        </div>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const list = document.getElementById('campaign-list');
+            const logContainer = document.getElementById('log-container');
             const tracks = MusicAIBrain.memory.tracks || [];
 
             if (tracks.length === 0) {
-                list.innerHTML = "<h2>NO_ACTIVE_DATA_FOUND</h2>";
-                return;
-            }
-
-            tracks.slice().reverse().forEach(track => {
-                const card = document.createElement('div');
-                card.className = 'campaign-card';
-                card.innerHTML = `
-                    <div class="status-tag">ACTIVE_CAMPAIGN</div>
-                    <h2 style="font-size: 2rem; margin: 10px 0;">${track.name}</h2>
-                    <p style="margin-bottom: 30px;">TARGET_RELEASE: ${track.scheduledDate} // ${track.scheduledTime}</p>
-                    <div style="display: flex;">
-                        <a href="fan-link.html?track=${encodeURIComponent(track.name)}" class="btn btn-filled">VIEW_FAN_LINK</a>
-                        <button class="btn" onclick="alert('LOGS_COPIED')">EXPORT_LOGS</button>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-        });
-    </script>
-</body>
-</html>
+                list.innerHTML = "<h2 style='color: #222;'>NO_ACTIVE_DATA_STREAM</h2>";
+            } else {
+                tracks.slice().reverse().forEach(track => {
+                    // Create Card
+                    const card = document.createElement('div');
+                    card.className = 'campaign-card';
+                    card.innerHTML = `
+                        <div class="status-tag">ACTIVE_DEPLOYMENT</div>
+                        <h2 style="font-size: 2.2rem; margin: 10px 0; letter-spacing: -1px;">${track.name}</h2>
+                        <p style="margin-bottom: 30px; color: #888;">TARGET_RELEASE: <span>${track.scheduledDate}</span> // <span>${track.scheduledTime}</span></p>
+                        <div style="display: flex; gap: 15px;">
+                            <a href="fan-link.html?track=${encodeURIComponent(track.name)}" class="btn btn-filled">VIEW_FAN_LINK</a>
+                            <button class="btn" onclick="copyLogs('${
+        
