@@ -2,85 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparkam | AI Command Center</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Dashboard | Sparkam AI</title>
     <script src="brain-core.js"></script>
     <script src="promotion-engine.js"></script>
 </head>
-<body style="background: #000; color: #fff; font-family: sans-serif; margin: 0;">
-
-    <header style="padding: 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <h1 style="margin: 0; font-size: 1.5rem;">AI Command Center</h1>
-            <p style="color: #888; margin: 5px 0 0 0;">Monitoring Sparkam Brain Waves</p>
-        </div>
-        <nav>
-            <a href="ai-studio.html" style="color: #00ff41; text-decoration: none; font-weight: bold; border: 1px solid #00ff41; padding: 8px 15px; border-radius: 5px;">+ New Analysis</a>
-        </nav>
-    </header>
-
-    <main style="padding: 40px; max-width: 800px; margin: 0 auto;">
-        <div id="campaign-list">
-            <h2 style="color: #444;">Analyzing Data Flow...</h2>
-        </div>
-    </main>
+<body style="background: #000; color: #fff; font-family: sans-serif; padding: 20px;">
+    <h1>AI Command Center</h1>
+    <div id="campaign-list"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const listEl = document.getElementById('campaign-list');
-            const memory = MusicAIBrain.memory;
+            const tracks = MusicAIBrain.memory.tracks || [];
 
-            // Check if we have any tracks saved in the Brain's memory
-            if (!memory.tracks || memory.tracks.length === 0) {
-                listEl.innerHTML = `
-                    <div style="text-align: center; margin-top: 50px;">
-                        <h2>No Data Found</h2>
-                        <p style="color: #888;">Your AI Brain is empty. Go to the Studio to analyze your first track!</p>
-                    </div>`;
+            if (tracks.length === 0) {
+                listEl.innerHTML = "<h2>No tracks found. Go to Studio!</h2>";
                 return;
             }
 
-            listEl.innerHTML = "<h2 style='margin-bottom: 30px; border-left: 4px solid #00ff41; padding-left: 15px;'>Active AI Campaigns</h2>";
-            
-            // Render tracks from newest to oldest
-            memory.tracks.slice().reverse().forEach(track => {
+            listEl.innerHTML = "<h2>Active Campaigns</h2>";
+            tracks.slice().reverse().forEach(track => {
                 const campaign = PromotionEngine.generateCampaign(track);
                 
-                // Fallback for older tracks that don't have schedule data yet
-                const displayDate = track.scheduledDate || "Deployment Pending";
-                const displayTime = track.scheduledTime || "TBD";
+                // CRITICAL FIX: If scheduledDate is missing, don't crash, show fallback
+                const dateText = track.scheduledDate ? `${track.scheduledDate} @ ${track.scheduledTime}` : "Analysis Pending";
 
                 const card = document.createElement('div');
-                card.style.cssText = "background: #111; padding: 25px; border-radius: 15px; border: 1px solid #222; border-left: 5px solid #00ff41; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);";
-                
+                card.style.cssText = "background: #111; padding: 20px; border-radius: 10px; border-left: 5px solid #00ff41; margin-bottom: 20px;";
                 card.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                        <h3 style="color: #00ff41; margin: 0; font-size: 1.4rem;">${track.name}</h3>
-                        <span style="background: #00ff41; color: #000; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold;">ACTIVE</span>
-                    </div>
-
-                    <div style="background: rgba(255, 170, 0, 0.1); border: 1px solid #ffaa00; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
-                        <p style="color: #ffaa00; margin: 0; font-size: 0.9rem; font-weight: bold;">
-                            📅 AI SCHEDULED RELEASE: ${displayDate} @ ${displayTime}
-                        </p>
-                    </div>
-                    
-                    <p style="margin: 10px 0;"><strong>Strategy:</strong> ${track.recommendation.replace(/_/g, ' ')}</p>
-                    
-                    <div style="background: #050505; padding: 15px; border-radius: 8px; border: 1px solid #333; margin-bottom: 20px;">
-                        <p style="color: #ccc; font-style: italic; margin: 0; line-height: 1.5;">"${campaign.postContent}"</p>
-                    </div>
-
-                    <div style="display: flex; gap: 10px;">
-                        <button onclick="window.location.href='fan-link.html?track=${encodeURIComponent(track.name)}'" 
-                                style="background: #333; color: #fff; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; flex: 1;">
-                            View Fan-Link
-                        </button>
-                        <button style="background: #00ff41; color: #000; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; flex: 2;">
-                            Deploy Social Post
-                        </button>
-                    </div>
+                    <h3 style="color: #00ff41; margin: 0;">${track.name}</h3>
+                    <p style="color: #ffaa00; font-weight: bold; font-size: 0.8rem;">📅 RELEASE: ${dateText}</p>
+                    <p style="background: #000; padding: 10px; border: 1px solid #222; border-radius: 5px;">${campaign.postContent}</p>
+                    <button onclick="window.location.href='fan-link.html?track=${encodeURIComponent(track.name)}'" style="background: #00ff41; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">View Fan-Link</button>
                 `;
                 listEl.appendChild(card);
             });
