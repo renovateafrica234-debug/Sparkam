@@ -1,41 +1,75 @@
-<main>
-    <section class="upload-container">
-        <div style="margin-bottom: 20px;">
-    <p style="color: #888; margin-bottom: 5px;">Release Window:</p>
-    <input type="date" id="release-date" style="padding: 10px; border-radius: 8px; border: 1px solid #00ff41; background: #111; color: #fff;">
-        </div>
-        
-        <h2>AI Track Analysis</h2>
-        <p>Enter your track title to activate the Brain.</p>
-        
-        <input type="text" id="track-input" placeholder="Enter Track Title..." style="padding: 15px; width: 80%; margin-bottom: 20px; border-radius: 8px; border: 1px solid #00ff41; background: #000; color: #fff;">
-        
-        <div class="upload-zone" id="analyze-button" style="cursor: pointer; padding: 40px; border: 2px dashed #00ff41; text-align: center;">
-            <p>Click here to Analyze & Generate Strategy</p>
-        </div>
-    </section>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkam AI Studio | Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="brain-core.js"></script>
+    <script src="promotion-engine.js"></script>
+</head>
+<body style="background: #000; color: #fff; font-family: sans-serif; margin: 0;">
 
-<script src="brain-core.js"></script>
-<script src="promotion-engine.js"></script>
-<script>
-    const analyzeBtn = document.getElementById('analyze-button');
-    const trackInput = document.getElementById('track-input');
+    <header style="padding: 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="color: #00ff41; margin: 0; font-size: 1.5rem;">Sparkam Studio</h1>
+        <nav><a href="dashboard.html" style="color: #888; text-decoration: none;">Dashboard</a></nav>
+    </header>
 
-    if (analyzeBtn) {
-        analyzeBtn.addEventListener('click', function() {
-            const trackTitle = trackInput.value || "Untitled Sparkam Track";
+    <main style="padding: 40px; text-align: center; min-height: 80vh;">
+        <section class="upload-container" style="max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #00ff41; font-size: 2rem; margin-bottom: 10px;">AI Track Analysis</h2>
+            <p style="color: #888; margin-bottom: 30px;">Input your track details to activate the AI Brain's scheduler.</p>
             
-            // 1. Brain Analyzes
-            const analysis = MusicAIBrain.processNewTrack(trackTitle, "General", "Energetic");
+            <div style="margin-bottom: 25px;">
+                <input type="text" id="track-input" placeholder="Enter Track Title..." 
+                       style="padding: 15px; width: 100%; max-width: 400px; border-radius: 8px; 
+                              border: 2px solid #00ff41; background: #111; color: #fff; font-size: 1rem; outline: none;">
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p style="color: #00ff41; margin-bottom: 10px; font-weight: bold;">Select Track Vibe:</p>
+                <select id="mood-select" style="padding: 12px; width: 100%; max-width: 400px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; cursor: pointer;">
+                    <option value="Energetic">Energetic (Friday Release Target)</option>
+                    <option value="Chill">Chill (Sunday Release Target)</option>
+                </select>
+            </div>
             
-            // 2. Engine Generates
-            const campaign = PromotionEngine.generateCampaign(analysis);
-            
-            alert(`🧠 Brain Activated!\nTrack: ${trackTitle}\nStrategy: ${analysis.recommendation}`);
-            
-            // 3. Go to Dashboard to see results
-            window.location.href = 'dashboard.html';
-        });
-    }
-</script>
+            <div id="analyze-button" 
+                 style="cursor: pointer; padding: 30px; border: 2px dashed #00ff41; border-radius: 15px; 
+                        background: rgba(0, 255, 65, 0.05); transition: 0.3s; max-width: 400px; margin: 0 auto;">
+                <p style="margin: 0; font-weight: bold; color: #00ff41;">Analyze & Schedule Campaign</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const analyzeBtn = document.getElementById('analyze-button');
+        const trackInput = document.getElementById('track-input');
+        const moodSelect = document.getElementById('mood-select');
+
+        if (analyzeBtn) {
+            analyzeBtn.addEventListener('click', function() {
+                const trackTitle = trackInput.value.trim();
+                const selectedMood = moodSelect.value;
+                
+                if (!trackTitle) {
+                    alert("Please enter a track name first!");
+                    return;
+                }
+                
+                // 1. Send data to the AI Brain (it handles the scheduling math)
+                const analysis = MusicAIBrain.processNewTrack(trackTitle, "General", selectedMood);
+                
+                // 2. Promotion Engine prepares the content
+                const campaign = PromotionEngine.generateCampaign(analysis);
+                
+                // 3. Confirm activation
+                alert(`🧠 BRAIN ACTIVATED!\n\nTrack: ${trackTitle}\nVibe: ${selectedMood}\nScheduled for: ${analysis.scheduledDate}`);
+                
+                // 4. Redirect to Dashboard to see the schedule
+                window.location.href = 'dashboard.html';
+            });
+        }
+    </script>
+</body>
+</html>
