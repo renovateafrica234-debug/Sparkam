@@ -1,17 +1,88 @@
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const song = params.get('track') || "Exclusive Release";
-    document.getElementById('track-name').textContent = song;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listen Now | Sparkam AI</title>
+    <script src="brain-core.js"></script>
+</head>
+<body id="fan-body" style="background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; transition: 0.5s;">
 
-    // AI Theme Logic: Change colors based on the song title length or keywords
-    const card = document.querySelector('.fan-card');
-    if (song.toLowerCase().includes('freedom') || song.length > 10) {
-        // High Energy Theme
-        document.body.style.background = "linear-gradient(135deg, #000 0%, #004411 100%)";
-        card.style.borderColor = "#00ff41";
-    } else {
-        // Chill Theme
-        document.body.style.background = "linear-gradient(135deg, #000 0%, #110044 100%)";
-        card.style.borderColor = "#7700ff";
-    }
-</script>
+    <main style="text-align: center; width: 90%; max-width: 400px; background: rgba(255,255,255,0.05); padding: 40px; border-radius: 30px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);">
+        
+        <div id="art-box" style="width: 200px; height: 200px; background: #00ff41; margin: 0 auto 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 4rem;">🎵</span>
+        </div>
+
+        <h1 id="track-title" style="margin: 0 0 10px 0; font-size: 1.8rem;">Loading Track...</h1>
+        <p id="artist-name-display" style="color: #00ff41; margin-bottom: 30px; letter-spacing: 2px; font-weight: bold;">SPARKAM ARTIST</p>
+
+        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 50px; margin-bottom: 35px; display: flex; align-items: center; gap: 15px;">
+            <button id="play-btn" style="background: #00ff41; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-weight: bold;">▶</button>
+            <div style="flex: 1; height: 4px; background: #333; border-radius: 2px; position: relative;">
+                <div id="progress" style="position: absolute; width: 0%; height: 100%; background: #00ff41; border-radius: 2px;"></div>
+            </div>
+            <small id="timer" style="color: #888; font-family: monospace;">0:30</small>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <a href="#" class="platform-link" style="background: #1DB954; color: #fff; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; justify-content: space-between;">
+                <span>Spotify</span> <span>Play</span>
+            </a>
+            <a href="#" class="platform-link" style="background: #FC3C44; color: #fff; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; justify-content: space-between;">
+                <span>Apple Music</span> <span>Play</span>
+            </a>
+            <a href="#" class="platform-link" style="background: #FF0000; color: #fff; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; justify-content: space-between;">
+                <span>YouTube Music</span> <span>Watch</span>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const trackName = params.get('track') || "New Single";
+            const titleDisplay = document.getElementById('track-title');
+            const playBtn = document.getElementById('play-btn');
+            const progress = document.getElementById('progress');
+            const body = document.getElementById('fan-body');
+            const artBox = document.getElementById('art-box');
+
+            titleDisplay.textContent = trackName;
+
+            // 1. Theme Sync: Check if track is energetic or chill from memory
+            const memory = (window.MusicAIBrain) ? MusicAIBrain.memory : { tracks: [] };
+            const trackData = memory.tracks.find(t => t.name === trackName);
+
+            if (trackData && trackData.mood === "Chill") {
+                body.style.background = "#050510";
+                artBox.style.background = "#007aff";
+                document.querySelectorAll('.platform-link').forEach(l => l.style.borderColor = "#007aff");
+            } else {
+                body.style.background = "#051005";
+                artBox.style.background = "#00ff41";
+            }
+
+            // 2. Simulated Player Logic
+            let isPlaying = false;
+            let percent = 0;
+
+            playBtn.addEventListener('click', () => {
+                isPlaying = !isPlaying;
+                playBtn.textContent = isPlaying ? "⏸" : "▶";
+                
+                if (isPlaying) {
+                    const interval = setInterval(() => {
+                        if (!isPlaying || percent >= 100) {
+                            clearInterval(interval);
+                            return;
+                        }
+                        percent += 0.5;
+                        progress.style.width = percent + "%";
+                    }, 100);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
