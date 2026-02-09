@@ -36,6 +36,13 @@
                 const card = document.createElement('div');
                 card.style.cssText = "background: #111; padding: 20px; border-radius: 10px; border-left: 5px solid #00ff41; margin-bottom: 20px;";
                 card.innerHTML = `
+    <h3 style="color: #00ff41;">${track.name}</h3>
+    <p><strong>Strategy:</strong> ${track.recommendation}</p>
+    <p style="color: #ffaa00;"><strong>📅 AI Scheduled Time:</strong> ${track.scheduledDate} at ${track.scheduledTime}</p>
+    <p style="background: #222; padding: 10px; border-radius: 5px;"><em>"${campaign.postContent}"</em></p>
+    <button style="background: #00ff41; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Sync to Calendar</button>
+`;
+                                            
                     <h3 style="color: #00ff41;">${track.name}</h3>
                     <p><strong>Strategy:</strong> ${track.recommendation}</p>
                     <p style="background: #222; padding: 10px; border-radius: 5px;"><em>"${campaign.postContent}"</em></p>
