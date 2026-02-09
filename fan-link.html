@@ -5,84 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listen Now | Sparkam AI</title>
     <script src="brain-core.js"></script>
+    <style>
+        .platform-link:hover { transform: scale(1.02); background: rgba(255,255,255,0.1); }
+        .platform-link { transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+    </style>
 </head>
-<body id="fan-body" style="background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; transition: 0.5s;">
+<body id="fan-body" style="background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; transition: 0.8s ease;">
 
-    <main style="text-align: center; width: 90%; max-width: 400px; background: rgba(255,255,255,0.05); padding: 40px; border-radius: 30px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);">
+    <main style="text-align: center; width: 90%; max-width: 420px; background: rgba(10, 10, 10, 0.8); padding: 40px; border-radius: 40px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
         
-        <div id="art-box" style="width: 200px; height: 200px; background: #00ff41; margin: 0 auto 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
-            <span style="font-size: 4rem;">🎵</span>
+        <div id="art-box" style="width: 220px; height: 220px; background: #00ff41; margin: 0 auto 30px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,255,65,0.3); display: flex; align-items: center; justify-content: center; position: relative;">
+            <span style="font-size: 5rem;">💿</span>
         </div>
 
-        <h1 id="track-title" style="margin: 0 0 10px 0; font-size: 1.8rem;">Loading Track...</h1>
-        <p id="artist-name-display" style="color: #00ff41; margin-bottom: 30px; letter-spacing: 2px; font-weight: bold;">SPARKAM ARTIST</p>
+        <h1 id="track-title" style="margin: 0 0 10px 0; font-size: 2rem; letter-spacing: -1px;">Sugar Daddy</h1>
+        <p id="artist-tag" style="color: #00ff41; margin-bottom: 35px; letter-spacing: 3px; font-weight: bold; font-size: 0.8rem;">OFFICIAL AI RELEASE</p>
 
-        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 50px; margin-bottom: 35px; display: flex; align-items: center; gap: 15px;">
-            <button id="play-btn" style="background: #00ff41; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-weight: bold;">▶</button>
-            <div style="flex: 1; height: 4px; background: #333; border-radius: 2px; position: relative;">
-                <div id="progress" style="position: absolute; width: 0%; height: 100%; background: #00ff41; border-radius: 2px;"></div>
+        <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 20px; margin-bottom: 40px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button id="play-btn" style="background: #00ff41; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; font-weight: bold;">▶</button>
+                <div style="flex: 1; height: 6px; background: #222; border-radius: 3px; overflow: hidden;">
+                    <div id="progress-bar" style="width: 0%; height: 100%; background: #00ff41; transition: 0.1s;"></div>
+                </div>
             </div>
-            <small id="timer" style="color: #888; font-family: monospace;">0:30</small>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; color: #666; font-size: 0.7rem; font-family: monospace;">
+                <span>0:00</span><span>0:30 PREVIEW</span>
+            </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 15px;">
-            <a href="#" class="platform-link" style="background: #1DB954; color: #fff; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; justify-content: space-between;">
-                <span>Spotify</span> <span>Play</span>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="https://spotify.com" target="_blank" class="platform-link" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; background: #111; color: #fff; text-decoration: none; border-radius: 15px; font-weight: bold;">
+                <span style="display: flex; align-items: center; gap: 10px;">🟢 Spotify</span>
+                <span style="color: #00ff41; font-size: 0.8rem;">PLAY</span>
             </a>
-            <a href="#" class="platform-link" style="background: #FC3C44; color: #fff; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; justify-content: space-between;">
-                <span>Apple Music</span> <span>Play</span>
+            <a href="https://apple.com" target="_blank" class="platform-link" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; background: #111; color: #fff; text-decoration: none; border-radius: 15px; font-weight: bold;">
+                <span style="display: flex; align-items: center; gap: 10px;">🍎 Apple Music</span>
+                <span style="color: #00ff41; font-size: 0.8rem;">PLAY</span>
             </a>
-            <a href="#" class="platform-link" style="background: #FF0000; color: #fff; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; justify-content: space-between;">
-                <span>YouTube Music</span> <span>Watch</span>
-            </a>
+            <button onclick="shareTrack()" style="margin-top: 10px; background: transparent; border: 1px dashed #444; color: #888; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">
+                🔗 Share Fan-Link
+            </button>
         </div>
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const trackName = params.get('track') || "New Single";
-            const titleDisplay = document.getElementById('track-title');
+            const trackName = params.get('track') || "Sugar Daddy";
+            document.getElementById('track-title').textContent = trackName;
+
             const playBtn = document.getElementById('play-btn');
-            const progress = document.getElementById('progress');
+            const progress = document.getElementById('progress-bar');
             const body = document.getElementById('fan-body');
             const artBox = document.getElementById('art-box');
 
-            titleDisplay.textContent = trackName;
+            // Find track in memory to set theme
+            const tracks = (MusicAIBrain.memory && MusicAIBrain.memory.tracks) ? MusicAIBrain.memory.tracks : [];
+            const currentTrack = tracks.find(t => t.name === trackName);
 
-            // 1. Theme Sync: Check if track is energetic or chill from memory
-            const memory = (window.MusicAIBrain) ? MusicAIBrain.memory : { tracks: [] };
-            const trackData = memory.tracks.find(t => t.name === trackName);
-
-            if (trackData && trackData.mood === "Chill") {
-                body.style.background = "#050510";
+            if (currentTrack && currentTrack.mood === "Chill") {
+                body.style.background = "radial-gradient(circle at top, #050520, #000)";
                 artBox.style.background = "#007aff";
-                document.querySelectorAll('.platform-link').forEach(l => l.style.borderColor = "#007aff");
+                artBox.style.boxShadow = "0 10px 40px rgba(0,122,255,0.3)";
+                playBtn.style.background = "#007aff";
             } else {
-                body.style.background = "#051005";
-                artBox.style.background = "#00ff41";
+                body.style.background = "radial-gradient(circle at top, #052005, #000)";
             }
 
-            // 2. Simulated Player Logic
-            let isPlaying = false;
-            let percent = 0;
-
-            playBtn.addEventListener('click', () => {
-                isPlaying = !isPlaying;
-                playBtn.textContent = isPlaying ? "⏸" : "▶";
-                
-                if (isPlaying) {
-                    const interval = setInterval(() => {
-                        if (!isPlaying || percent >= 100) {
-                            clearInterval(interval);
-                            return;
-                        }
-                        percent += 0.5;
-                        progress.style.width = percent + "%";
+            // Simple Player Simulation
+            let playing = false;
+            let width = 0;
+            playBtn.onclick = () => {
+                playing = !playing;
+                playBtn.textContent = playing ? "⏸" : "▶";
+                if (playing) {
+                    const timer = setInterval(() => {
+                        if (!playing || width >= 100) { clearInterval(timer); return; }
+                        width += 0.5;
+                        progress.style.width = width + "%";
                     }, 100);
                 }
-            });
+            };
         });
+
+        function shareTrack() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url);
+            alert("Link copied to clipboard! Share it with your fans.");
+        }
     </script>
 </body>
 </html>
