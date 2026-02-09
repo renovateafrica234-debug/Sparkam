@@ -2,56 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparkam | AI Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="brain-core.js"></script>
     <script src="promotion-engine.js"></script>
 </head>
-<body>
-    <header>
+<body style="background: #000; color: #fff; font-family: sans-serif;">
+    <header style="padding: 20px; border-bottom: 1px solid #333;">
         <h1>AI Command Center</h1>
-        <nav><a href="ai-studio.html">Back to Studio</a></nav>
+        <nav><a href="ai-studio.html" style="color: #00ff41;">+ New Analysis</a></nav>
     </header>
 
-    <main>
-        <section id="status-board">
-            <h2>Current Autonomous Status</h2>
-            <div id="active-strategy" class="card">Loading Brain...</div>
-        </section>
-
-        <section id="campaign-queue">
-            <h2>AI Generated Campaigns</h2>
-            <div id="campaign-list">
-                </div>
-        </section>
+    <main style="padding: 40px;">
+        <div id="campaign-list">
+            <h2>Analyzing Brain Waves...</h2>
+        </div>
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const memory = MusicAIBrain.memory;
-            const strategyEl = document.getElementById('active-strategy');
             const listEl = document.getElementById('campaign-list');
+            const memory = MusicAIBrain.memory;
 
-            if (memory.tracks.length === 0) {
-                strategyEl.innerHTML = "<p>Brain is Idle. Analyze a track in the Studio to begin.</p>";
-            } else {
-                strategyEl.innerHTML = `<h3>Active Strategy: ${memory.currentStrategy}</h3>`;
-                
-                // Display each track and its AI-generated promotion
-                memory.tracks.forEach(track => {
-                    const campaign = PromotionEngine.generateCampaign(track);
-                    const div = document.createElement('div');
-                    div.className = 'card';
-                    div.innerHTML = `
-                        <strong>Track:</strong> ${track.name}<br>
-                        <strong>Platform:</strong> ${campaign.platform}<br>
-                        <strong>Draft:</strong> <em>"${campaign.postContent}"</em><br>
-                        <button onclick="alert('Deploying to API...')">Approve & Deploy</button>
-                    `;
-                    listEl.appendChild(div);
-                });
+            if (!memory.tracks || memory.tracks.length === 0) {
+                listEl.innerHTML = "<h2>No data yet.</h2><p>Go to the AI Studio and analyze a track first!</p>";
+                return;
             }
+
+            listEl.innerHTML = "<h2>Active AI Campaigns</h2>";
+            
+            memory.tracks.reverse().forEach(track => {
+                const campaign = PromotionEngine.generateCampaign(track);
+                const card = document.createElement('div');
+                card.style.cssText = "background: #111; padding: 20px; border-radius: 10px; border-left: 5px solid #00ff41; margin-bottom: 20px;";
+                card.innerHTML = `
+                    <h3 style="color: #00ff41;">${track.name}</h3>
+                    <p><strong>Strategy:</strong> ${track.recommendation}</p>
+                    <p style="background: #222; padding: 10px; border-radius: 5px;"><em>"${campaign.postContent}"</em></p>
+                    <button style="background: #00ff41; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Deploy Post</button>
+                `;
+                listEl.appendChild(card);
+            });
         });
     </script>
 </body>
