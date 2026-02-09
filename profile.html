@@ -1,41 +1,65 @@
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const feed = document.getElementById('track-feed');
-        const nameHeader = document.getElementById('artist-name');
-        const memory = MusicAIBrain.memory;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Profile | Sparkam AI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="brain-core.js"></script>
+</head>
+<body style="background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 50px;">
+    
+    <header style="margin-bottom: 50px;">
+        <div style="width: 120px; height: 120px; background: #00ff41; border-radius: 50%; margin: 0 auto 20px; box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);"></div>
+        <h1 id="artist-name" style="font-size: 2.5rem; margin: 0;">Verified Artist</h1>
+        <p style="color: #00ff41; letter-spacing: 2px;">SPARKAM AI OPTIMIZED FEED</p>
+    </header>
 
-        // 1. Let the artist set their name (Optional but cool)
-        const savedName = localStorage.getItem('sparkam_artist_name');
-        if (savedName) {
-            nameHeader.textContent = savedName;
-        } else {
-            const newName = prompt("What is your Artist Name?");
-            if (newName) {
-                localStorage.setItem('sparkam_artist_name', newName);
-                nameHeader.textContent = newName;
-            }
-        }
+    <main id="track-feed" style="max-width: 600px; margin: 0 auto;">
+        <p style="color: #444;">Syncing with AI Brain...</p>
+    </main>
 
-        if (!memory.tracks || memory.tracks.length === 0) {
-            feed.innerHTML = "<p>No tracks released yet. Head to the Studio!</p>";
-            return;
-        }
-
-        feed.innerHTML = "";
-        memory.tracks.reverse().forEach(track => {
-            const trackLink = `fan-link.html?track=${encodeURIComponent(track.name)}`;
-            const item = document.createElement('div');
-            item.className = "track-card"; // You can style this in your CSS
-            item.style.cssText = "background: #111; padding: 20px; border: 1px solid #333; border-radius: 12px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;";
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const feed = document.getElementById('track-feed');
+            const nameHeader = document.getElementById('artist-name');
             
-            item.innerHTML = `
-                <div style="text-align: left;">
-                    <span style="font-weight: bold; display: block; color: #fff;">${track.name}</span>
-                    <small style="color: #00ff41;">AI Optimized Strategy</small>
-                </div>
-                <button onclick="window.location.href='${trackLink}'" style="background: transparent; border: 1px solid #00ff41; color: #00ff41; padding: 8px 18px; border-radius: 20px; cursor: pointer;">View Link</button>
-            `;
-            feed.appendChild(item);
+            // 1. Get Memory (Safety Check)
+            const memory = (typeof MusicAIBrain !== 'undefined') ? MusicAIBrain.memory : { tracks: [] };
+
+            // 2. Personalize Name
+            const savedName = localStorage.getItem('sparkam_artist_name');
+            if (savedName) nameHeader.textContent = savedName;
+
+            // 3. Render Tracks
+            if (!memory.tracks || memory.tracks.length === 0) {
+                feed.innerHTML = `
+                    <div style="padding: 40px; border: 1px dashed #333; border-radius: 15px;">
+                        <p style="color: #888;">Your feed is currently empty.</p>
+                        <a href="ai-studio.html" style="color: #00ff41; text-decoration: none; font-weight: bold;">+ Analyze your first track</a>
+                    </div>`;
+                return;
+            }
+
+            feed.innerHTML = ""; // Clear loader
+            
+            memory.tracks.slice().reverse().forEach(track => {
+                const trackLink = `fan-link.html?track=${encodeURIComponent(track.name || "Untitled")}`;
+                const card = document.createElement('div');
+                
+                card.style.cssText = "background: #111; padding: 25px; border: 1px solid #222; border-radius: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; text-align: left;";
+                
+                card.innerHTML = `
+                    <div>
+                        <span style="font-weight: bold; font-size: 1.2rem; display: block; color: #fff;">${track.name || "Untitled Track"}</span>
+                        <small style="color: #00ff41;">Strategy: ${track.recommendation ? track.recommendation.replace(/_/g, ' ') : 'Optimized'}</small>
+                    </div>
+                    <a href="${trackLink}" style="background: transparent; border: 2px solid #00ff41; color: #00ff41; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Listen</a>
+                `;
+                
+                feed.appendChild(card);
+            });
         });
-    });
-</script>
+    </script>
+</body>
+</html>
