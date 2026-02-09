@@ -6,18 +6,39 @@
     <title>Studio | Sparkam</title>
     <script src="brain-core.js"></script>
     <style>
-        body { background: #0b0114; color: white; font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; padding: 20px; box-sizing: border-box; }
-        .studio-box { width: 100%; max-width: 450px; background: #1a0b26; padding: 40px 30px; border-radius: 24px; border: 1px solid rgba(255, 45, 125, 0.2); text-align: center; }
-        input, select { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid #333; padding: 15px; border-radius: 12px; color: white; margin-bottom: 20px; font-size: 1rem; box-sizing: border-box; }
-        input:focus { border-color: #ff2d7d; outline: none; }
-        .btn-launch { width: 100%; background: #ff2d7d; color: white; border: none; padding: 18px; border-radius: 12px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; }
-        .btn-launch:active { transform: scale(0.98); }
+        body { background: #0b0114; color: white; font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; padding: 20px; overflow: hidden; }
+        
+        .studio-box { 
+            width: 100%; max-width: 450px; background: rgba(26, 11, 38, 0.8); 
+            padding: 40px 30px; border-radius: 24px; border: 1px solid rgba(255, 45, 125, 0.2); 
+            text-align: center; backdrop-filter: blur(10px);
+        }
+
+        input, select { 
+            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid #333; 
+            padding: 15px; border-radius: 12px; color: white; margin-bottom: 20px; font-size: 1rem; box-sizing: border-box;
+        }
+
+        /* Dark Glow Animation */
+        .btn-launch { 
+            width: 100%; background: #ff2d7d; color: white; border: none; padding: 18px; 
+            border-radius: 12px; font-weight: bold; font-size: 1rem; cursor: pointer;
+            transition: 0.3s; animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 45, 125, 0.7); }
+            70% { box-shadow: 0 0 20px 10px rgba(255, 45, 125, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 45, 125, 0); }
+        }
+
+        .btn-launch:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
     <div class="studio-box">
         <h2 style="color: #ff2d7d; margin-top: 0;">AI Track Analysis</h2>
-        <p style="color: #888; margin-bottom: 35px;">Input track details to activate the Brain.</p>
+        <p style="color: #888; margin-bottom: 35px;">Connect your track to the AI Brain.</p>
         
         <input type="text" id="trackName" placeholder="Enter Track Name">
         <select id="trackVibe">
@@ -26,15 +47,14 @@
         </select>
         
         <button class="btn-launch" id="launchBtn">Analyze & Schedule</button>
-        <p style="margin-top: 20px;"><a href="dashboard.html" style="color: #666; text-decoration: none; font-size: 0.8rem;">Return to Dashboard</a></p>
+        <p style="margin-top: 25px;"><a href="dashboard.html" style="color: #444; text-decoration: none; font-size: 0.8rem; letter-spacing: 1px;">&lt;&lt; BACK TO DASHBOARD</a></p>
     </div>
 
     <script>
         document.getElementById('launchBtn').onclick = () => {
             const name = document.getElementById('trackName').value;
             const vibe = document.getElementById('trackVibe').value;
-            if(!name) return alert("Please enter a track name.");
-            
+            if(!name) return;
             MusicAIBrain.processNewTrack(name, vibe);
             window.location.href = "dashboard.html";
         };
