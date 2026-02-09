@@ -3,196 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparkam | Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-deep: #050505;
-            --sidebar-black: #000000;
-            --sparkam-pink: #ff007a;
-            --text-high: #ffffff;
-            --text-low: #888888;
-            --glow: rgba(255, 0, 122, 0.4);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-deep);
-            color: var(--text-high);
-            display: grid;
-            grid-template-columns: 260px 1fr; /* Rigid sidebar width */
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* --- Sidebar --- */
-        aside {
-            background-color: var(--sidebar-black);
-            border-right: 1px solid #1a1a1a;
-            padding: 40px 30px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--sparkam-pink);
-            text-decoration: none;
-            margin-bottom: 60px;
-            letter-spacing: -1px;
-        }
-
-        nav ul { list-style: none; }
-        nav li { margin-bottom: 25px; }
-        nav a {
-            color: var(--text-low);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-            transition: 0.3s ease;
-        }
-        nav a:hover, nav a.active { color: var(--text-high); }
-
-        /* --- Main Content --- */
-        main {
-            padding: 60px 6%;
-            max-width: 1400px;
-        }
-
-        h1 {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            letter-spacing: -2px;
-        }
-
-        .admin-tag {
-            background: var(--sparkam-pink);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 50px;
-            box-shadow: 0 0 15px var(--glow);
-        }
-
-        /* --- Stats Layout (Grid Fix) --- */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin-bottom: 60px;
-        }
-
-        .card {
-            background: #111111;
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid #222;
-        }
-
-        .card .label {
-            color: var(--text-low);
-            font-size: 14px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .card .value {
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .success-text { color: #00ff41; }
-
-        /* --- Quick Launch --- */
-        .quick-launch {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .launch-btn {
-            background: #0a0a0a;
-            border: 1px dashed #333;
-            padding: 40px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .launch-btn:hover {
-            border-color: var(--sparkam-pink);
-            background: #111;
-            transform: translateY(-2px);
-        }
-
-        .launch-btn h3 { margin-bottom: 8px; font-size: 20px; }
-        .launch-btn p { color: var(--text-low); font-size: 14px; line-height: 1.5; }
-
-        /* Mobile Responsive */
-        @media (max-width: 1024px) {
-            body { grid-template-columns: 1fr; }
-            aside { display: none; }
-            .dashboard-grid { grid-template-columns: 1fr 1fr; }
-        }
-    </style>
+    <title>Sparkam | AI Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="brain-core.js"></script>
+    <script src="promotion-engine.js"></script>
 </head>
 <body>
-
-    <aside>
-        <a href="#" class="logo">Sparkam.</a>
-        <nav>
-            <ul>
-                <li><a href="#" class="active">Dashboard</a></li>
-                <li><a href="#">Campaigns</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="#">AI Studio</a></li>
-            </ul>
-        </nav>
-    </aside>
+    <header>
+        <h1>AI Command Center</h1>
+        <nav><a href="ai-studio.html">Back to Studio</a></nav>
+    </header>
 
     <main>
-        <h1>Welcome back, Admin!</h1>
-        <div class="admin-tag">Admin Portal</div>
+        <section id="status-board">
+            <h2>Current Autonomous Status</h2>
+            <div id="active-strategy" class="card">Loading Brain...</div>
+        </section>
 
-        <div class="dashboard-grid">
-            <div class="card">
-                <span class="label">Campaigns</span>
-                <span class="value">24</span>
-            </div>
-            <div class="card">
-                <span class="label">Active</span>
-                <span class="value success-text">07</span>
-            </div>
-            <div class="card">
-                <span class="label">Reach</span>
-                <span class="value">128K</span>
-            </div>
-            <div class="card">
-                <span class="label">Impact</span>
-                <span class="value">4.8%</span>
-            </div>
-        </div>
-
-        <h2 style="margin-bottom: 30px; font-size: 22px;">Quick Launch</h2>
-        <div class="quick-launch">
-            <div class="launch-btn">
-                <h3>🚀 New Campaign</h3>
-                <p>Launch a viral rollout and start tracking real-time engagement data.</p>
-            </div>
-            <div class="launch-btn">
-                <h3>♫ AI Analysis</h3>
-                <p>Run your tracks through the neural hit-predictor for instant feedback.</p>
-            </div>
-        </div>
+        <section id="campaign-queue">
+            <h2>AI Generated Campaigns</h2>
+            <div id="campaign-list">
+                </div>
+        </section>
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const memory = MusicAIBrain.memory;
+            const strategyEl = document.getElementById('active-strategy');
+            const listEl = document.getElementById('campaign-list');
+
+            if (memory.tracks.length === 0) {
+                strategyEl.innerHTML = "<p>Brain is Idle. Analyze a track in the Studio to begin.</p>";
+            } else {
+                strategyEl.innerHTML = `<h3>Active Strategy: ${memory.currentStrategy}</h3>`;
+                
+                // Display each track and its AI-generated promotion
+                memory.tracks.forEach(track => {
+                    const campaign = PromotionEngine.generateCampaign(track);
+                    const div = document.createElement('div');
+                    div.className = 'card';
+                    div.innerHTML = `
+                        <strong>Track:</strong> ${track.name}<br>
+                        <strong>Platform:</strong> ${campaign.platform}<br>
+                        <strong>Draft:</strong> <em>"${campaign.postContent}"</em><br>
+                        <button onclick="alert('Deploying to API...')">Approve & Deploy</button>
+                    `;
+                    listEl.appendChild(div);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
