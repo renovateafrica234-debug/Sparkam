@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="promotion-engine.js"></script>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparkam | AI Studio</title>
     <script src="brain-core.js"></script>
@@ -35,6 +36,23 @@
         alert("Brain Connected! Strategy: " + result.recommendation);
     });
    </script>
+    <script>
+    const analyzeBtn = document.querySelector('.upload-zone') || document.querySelector('button');
+
+    if (analyzeBtn) {
+        analyzeBtn.addEventListener('click', function() {
+            const trackTitle = document.querySelector('input')?.value || "New Sparkam Track";
+            
+            // 1. Brain Analyzes
+            const analysis = MusicAIBrain.processNewTrack(trackTitle, "General", "Energetic");
+            
+            // 2. Engine Generates Promotion
+            const campaign = PromotionEngine.generateCampaign(analysis);
+            
+            alert(`🧠 Brain Result: ${analysis.recommendation}\n📢 AI Draft: "${campaign.postContent}"`);
+        });
+    }
+    </script>
     
 <body>
     <aside>
