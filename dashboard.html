@@ -2,71 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI Command Center | Sparkam</title>
+    <title>DASHBOARD | SPARKAM</title>
     <script src="brain-core.js"></script>
-    <script src="promotion-engine.js"></script>
+    <style>
+        body { background: #000; color: #fff; font-family: 'Courier New', Courier, monospace; padding: 40px; text-transform: uppercase; }
+        .header { border-bottom: 4px solid #fff; padding-bottom: 20px; margin-bottom: 50px; }
+        .campaign-card { border: 2px solid #fff; padding: 30px; margin-bottom: 30px; background: #000; transition: background 0.2s; }
+        .campaign-card:hover { background: #111; }
+        .status-tag { background: #fff; color: #000; padding: 5px 10px; font-weight: bold; font-size: 0.8rem; margin-bottom: 15px; display: inline-block; }
+        .btn { display: inline-block; border: 2px solid #fff; padding: 15px 30px; color: #fff; text-decoration: none; font-weight: bold; margin-right: 10px; cursor: pointer; background: none; }
+        .btn:hover { background: #fff; color: #000; }
+        .btn-filled { background: #fff; color: #000; }
+    </style>
 </head>
-<body style="background: #000; color: #fff; font-family: sans-serif; padding: 30px;">
+<body>
 
-    <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-        <div>
-            <h1 style="color: #00ff41; margin: 0;">AI Command Center</h1>
-            <p style="color: #555; margin: 5px 0;">Monitoring Autonomous Data Flow</p>
-        </div>
-        <a href="ai-studio.html" style="color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 10px 20px; border-radius: 8px; font-weight: bold;">+ New Analysis</a>
+    <header class="header">
+        <h1 style="font-size: 2.5rem; margin: 0;">COMMAND_CENTER</h1>
+        <p style="letter-spacing: 5px; color: #666;">SPARKAM_SYSTEM_v1.0</p>
     </header>
 
-    <main id="campaign-list">
-        <h2 style="color: #222;">Syncing with Brain...</h2>
-    </main>
+    <div id="campaign-list">
+        </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const listEl = document.getElementById('campaign-list');
-            const tracks = (MusicAIBrain.memory && MusicAIBrain.memory.tracks) ? MusicAIBrain.memory.tracks : [];
+            const list = document.getElementById('campaign-list');
+            const tracks = MusicAIBrain.memory.tracks || [];
 
             if (tracks.length === 0) {
-                listEl.innerHTML = "<h2>No active campaigns. Visit the Studio to begin.</h2>";
+                list.innerHTML = "<h2>NO_ACTIVE_DATA_FOUND</h2>";
                 return;
             }
 
-            listEl.innerHTML = "<h2 style='margin-bottom: 25px;'>Active AI Campaigns</h2>";
-            
             tracks.slice().reverse().forEach(track => {
-                const campaign = PromotionEngine.generateCampaign(track);
-                
-                // Fallback for missing autonomous data
-                const dateText = track.scheduledDate ? `${track.scheduledDate} @ ${track.scheduledTime}` : "Finalizing Schedule...";
-
                 const card = document.createElement('div');
-                card.style.cssText = "background: #0a0a0a; padding: 25px; border-radius: 15px; border-left: 5px solid #00ff41; margin-bottom: 25px; border-top: 1px solid #222; border-right: 1px solid #222; border-bottom: 1px solid #222;";
-                
+                card.className = 'campaign-card';
                 card.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3 style="color: #00ff41; margin: 0; font-size: 1.5rem;">${track.name}</h3>
-                        <span style="font-size: 0.7rem; background: #222; padding: 5px 10px; border-radius: 5px; color: #888;">ID: ${track.id}</span>
-                    </div>
-
-                    <p style="color: #ffaa00; font-weight: bold; margin-bottom: 20px; font-size: 0.9rem;">
-                        📅 AI RELEASE TARGET: ${dateText}
-                    </p>
-
-                    <div style="background: #000; padding: 15px; border-radius: 8px; border: 1px solid #1a1a1a; margin-bottom: 20px;">
-                        <p style="color: #ccc; font-style: italic; margin: 0; line-height: 1.5;">"${campaign.postContent}"</p>
-                    </div>
-
-                    <div style="display: flex; gap: 10px;">
-                        <button onclick="window.location.href='fan-link.html?track=${encodeURIComponent(track.name)}'" 
-                                style="background: #00ff41; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; color: #000; flex: 1;">
-                            View Fan-Link
-                        </button>
-                        <button onclick="alert('Copied to clipboard!')" 
-                                style="background: transparent; border: 1px solid #444; color: #fff; padding: 12px 20px; border-radius: 5px; cursor: pointer; flex: 1;">
-                            Copy Strategy
-                        </button>
+                    <div class="status-tag">ACTIVE_CAMPAIGN</div>
+                    <h2 style="font-size: 2rem; margin: 10px 0;">${track.name}</h2>
+                    <p style="margin-bottom: 30px;">TARGET_RELEASE: ${track.scheduledDate} // ${track.scheduledTime}</p>
+                    <div style="display: flex;">
+                        <a href="fan-link.html?track=${encodeURIComponent(track.name)}" class="btn btn-filled">VIEW_FAN_LINK</a>
+                        <button class="btn" onclick="alert('LOGS_COPIED')">EXPORT_LOGS</button>
                     </div>
                 `;
-                listEl.appendChild(card);
+                list.appendChild(card);
             });
         });
     </script>
