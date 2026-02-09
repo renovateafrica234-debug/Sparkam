@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparkam | Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --bg: #050505; --pink: #ff007a; --gray: #888888; --white: #fff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--white); display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
-        aside { background: #000; border-right: 1px solid #222; padding: 40px 30px; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--pink); text-decoration: none; display: block; margin-bottom: 60px; }
-        main { padding: 60px 6%; }
-        .profile-header { display: flex; align-items: center; gap: 30px; margin-bottom: 50px; }
-        .avatar { width: 100px; height: 100px; background: linear-gradient(45deg, var(--pink), #5000ff); border-radius: 50%; }
-        .stat-bar { display: flex; gap: 40px; background: #111; padding: 30px; border-radius: 16px; border: 1px solid #222; }
-    </style>
+    <meta charset="UTF-8">
+    <title>Artist Profile | Sparkam AI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="brain-core.js"></script>
 </head>
-<body>
-    <aside><a href="dashboard.html" class="logo">Sparkam.</a></aside>
-    <main>
-        <div class="profile-header">
-            <div class="avatar"></div>
-            <div>
-                <h1>Admin User</h1>
-                <p style="color:var(--gray)">Sparkam Elite Tier</p>
-            </div>
-        </div>
-        <div class="stat-bar">
-            <div><p style="color:var(--gray); font-size:12px">Member Since</p><h3>Feb 2026</h3></div>
-            <div><p style="color:var(--gray); font-size:12px">Total Impact</p><h3>2.4M</h3></div>
-            <div><p style="color:var(--gray); font-size:12px">Credits</p><h3>450</h3></div>
-        </div>
+<body style="background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 50px;">
+    
+    <header>
+        <div style="width: 100px; height: 100px; background: #00ff41; border-radius: 50%; margin: 0 auto 20px;"></div>
+        <h1 id="artist-name">Verified Sparkam Artist</h1>
+        <p style="color: #888;">AI-Optimized Music Feed</p>
+    </header>
+
+    <main id="track-feed" style="max-width: 500px; margin: 40px auto;">
+        <p>Loading your hits...</p>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const feed = document.getElementById('track-feed');
+            const memory = MusicAIBrain.memory;
+
+            if (!memory.tracks || memory.tracks.length === 0) {
+                feed.innerHTML = "<p>No tracks released yet. Head to the Studio!</p>";
+                return;
+            }
+
+            feed.innerHTML = ""; // Clear loading text
+
+            // Loop through all tracks in the AI Brain's memory
+            memory.tracks.reverse().forEach(track => {
+                const trackLink = `fan-link.html?track=${encodeURIComponent(track.name)}`;
+                const item = document.createElement('div');
+                item.style.cssText = "background: #111; padding: 20px; border: 1px solid #333; border-radius: 12px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;";
+                
+                item.innerHTML = `
+                    <div style="text-align: left;">
+                        <span style="font-weight: bold; display: block;">${track.name}</span>
+                        <small style="color: #00ff41;">Status: AI Optimized</small>
+                    </div>
+                    <a href="${trackLink}" style="color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;">Listen</a>
+                `;
+                feed.appendChild(item);
+            });
+        });
+    </script>
 </body>
 </html>
