@@ -1,51 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Artist Profile | Sparkam AI</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="brain-core.js"></script>
-</head>
-<body style="background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 50px;">
-    
-    <header>
-        <div style="width: 100px; height: 100px; background: #00ff41; border-radius: 50%; margin: 0 auto 20px;"></div>
-        <h1 id="artist-name">Verified Sparkam Artist</h1>
-        <p style="color: #888;">AI-Optimized Music Feed</p>
-    </header>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const feed = document.getElementById('track-feed');
+        const nameHeader = document.getElementById('artist-name');
+        const memory = MusicAIBrain.memory;
 
-    <main id="track-feed" style="max-width: 500px; margin: 40px auto;">
-        <p>Loading your hits...</p>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const feed = document.getElementById('track-feed');
-            const memory = MusicAIBrain.memory;
-
-            if (!memory.tracks || memory.tracks.length === 0) {
-                feed.innerHTML = "<p>No tracks released yet. Head to the Studio!</p>";
-                return;
+        // 1. Let the artist set their name (Optional but cool)
+        const savedName = localStorage.getItem('sparkam_artist_name');
+        if (savedName) {
+            nameHeader.textContent = savedName;
+        } else {
+            const newName = prompt("What is your Artist Name?");
+            if (newName) {
+                localStorage.setItem('sparkam_artist_name', newName);
+                nameHeader.textContent = newName;
             }
+        }
 
-            feed.innerHTML = ""; // Clear loading text
+        if (!memory.tracks || memory.tracks.length === 0) {
+            feed.innerHTML = "<p>No tracks released yet. Head to the Studio!</p>";
+            return;
+        }
 
-            // Loop through all tracks in the AI Brain's memory
-            memory.tracks.reverse().forEach(track => {
-                const trackLink = `fan-link.html?track=${encodeURIComponent(track.name)}`;
-                const item = document.createElement('div');
-                item.style.cssText = "background: #111; padding: 20px; border: 1px solid #333; border-radius: 12px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;";
-                
-                item.innerHTML = `
-                    <div style="text-align: left;">
-                        <span style="font-weight: bold; display: block;">${track.name}</span>
-                        <small style="color: #00ff41;">Status: AI Optimized</small>
-                    </div>
-                    <a href="${trackLink}" style="color: #00ff41; text-decoration: none; border: 1px solid #00ff41; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;">Listen</a>
-                `;
-                feed.appendChild(item);
-            });
+        feed.innerHTML = "";
+        memory.tracks.reverse().forEach(track => {
+            const trackLink = `fan-link.html?track=${encodeURIComponent(track.name)}`;
+            const item = document.createElement('div');
+            item.className = "track-card"; // You can style this in your CSS
+            item.style.cssText = "background: #111; padding: 20px; border: 1px solid #333; border-radius: 12px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;";
+            
+            item.innerHTML = `
+                <div style="text-align: left;">
+                    <span style="font-weight: bold; display: block; color: #fff;">${track.name}</span>
+                    <small style="color: #00ff41;">AI Optimized Strategy</small>
+                </div>
+                <button onclick="window.location.href='${trackLink}'" style="background: transparent; border: 1px solid #00ff41; color: #00ff41; padding: 8px 18px; border-radius: 20px; cursor: pointer;">View Link</button>
+            `;
+            feed.appendChild(item);
         });
-    </script>
-</body>
-</html>
+    });
+</script>
