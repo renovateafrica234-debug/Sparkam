@@ -1,38 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparkam | Listen Now</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body { background: #050505; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
-        .fan-card { text-align: center; padding: 40px; background: #111; border: 1px solid #00ff41; border-radius: 20px; width: 90%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 255, 65, 0.1); }
-        .art-placeholder { width: 150px; height: 150px; background: linear-gradient(45deg, #00ff41, #008f11); margin: 0 auto 20px; border-radius: 10px; }
-        h1 { color: #fff; margin-bottom: 5px; font-size: 1.5rem; }
-        p { color: #888; margin-bottom: 25px; }
-        .btn-stream { display: block; padding: 15px; margin: 12px 0; background: #fff; color: #000; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; }
-        .btn-stream:hover { transform: scale(1.05); background: #00ff41; }
-    </style>
-</head>
-<body>
-    <div class="fan-card">
-        <div class="art-placeholder"></div>
-        <h1 id="track-name">Loading Track...</h1>
-        <p>Choose your platform</p>
-        
-        <a href="#" class="btn-stream">Spotify</a>
-        <a href="#" class="btn-stream">Apple Music</a>
-        <a href="#" class="btn-stream">YouTube</a>
-    </div>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const song = params.get('track') || "Exclusive Release";
+    document.getElementById('track-name').textContent = song;
 
-    <script>
-        // Pure Logic: Grab the song name from the URL
-        const params = new URLSearchParams(window.location.search);
-        const song = params.get('track') || "Exclusive Sparkam Release";
-        document.getElementById('track-name').textContent = song;
-        document.title = `Listen to ${song} | Sparkam`;
-    </script>
-</body>
-</html>
-
+    // AI Theme Logic: Change colors based on the song title length or keywords
+    const card = document.querySelector('.fan-card');
+    if (song.toLowerCase().includes('freedom') || song.length > 10) {
+        // High Energy Theme
+        document.body.style.background = "linear-gradient(135deg, #000 0%, #004411 100%)";
+        card.style.borderColor = "#00ff41";
+    } else {
+        // Chill Theme
+        document.body.style.background = "linear-gradient(135deg, #000 0%, #110044 100%)";
+        card.style.borderColor = "#7700ff";
+    }
+</script>
