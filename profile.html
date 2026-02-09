@@ -2,79 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist Profile | Sparkam AI</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Profile | Sparkam</title>
     <script src="brain-core.js"></script>
-    <script src="promotion-engine.js"></script>
 </head>
-<body id="profile-body" style="background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 50px; transition: background 0.5s ease;">
+<body style="background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 60px 20px;">
     
-    <header style="margin-bottom: 40px;">
-        <div id="profile-pic" style="width: 120px; height: 120px; background: #00ff41; border-radius: 50%; margin: 0 auto 20px; box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);"></div>
-        <h1 id="artist-name" style="font-size: 2.5rem; margin: 0;">Sparkam Artist</h1>
-        <p id="artist-bio" style="color: #888; max-width: 500px; margin: 15px auto; line-height: 1.6; font-style: italic;">
-            Syncing bio with AI Brain...
-        </p>
+    <header style="margin-bottom: 50px;">
+        <div style="width: 100px; height: 100px; background: #fff; border-radius: 50%; margin: 0 auto 25px; box-shadow: 0 0 20px rgba(255,255,255,0.1);"></div>
+        <h1 style="font-size: 2rem; margin: 0; letter-spacing: -1px;">Sparkam Artist</h1>
+        <p id="artist-bio" style="color: #666; max-width: 450px; margin: 15px auto; font-size: 0.9rem; line-height: 1.5;"></p>
     </header>
 
-    <main id="track-feed" style="max-width: 600px; margin: 0 auto;">
-        <p style="color: #444;">Gathering release data...</p>
-    </main>
+    <main id="track-feed" style="max-width: 500px; margin: 0 auto;">
+        </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const feed = document.getElementById('track-feed');
-            const bioText = document.getElementById('artist-bio');
-            const body = document.getElementById('profile-body');
-            const pic = document.getElementById('profile-pic');
-            
-            // 1. Get Memory and handle safety
-            const memory = (typeof MusicAIBrain !== 'undefined') ? MusicAIBrain.memory : { tracks: [] };
+            const bio = document.getElementById('artist-bio');
+            const memory = MusicAIBrain.memory;
+
+            bio.textContent = MusicAIBrain.generateBio();
 
             if (!memory.tracks || memory.tracks.length === 0) {
-                feed.innerHTML = "<p style='color: #666;'>No public releases yet. Head to the Studio to launch.</p>";
-                bioText.textContent = "New creator in the Sparkam AI ecosystem.";
+                feed.innerHTML = "<p style='color:#333;'>No releases analyzed.</p>";
                 return;
             }
 
-            // 2. Dynamic Bio and Theme based on the latest track
-            const latestTrack = memory.tracks[memory.tracks.length - 1];
-            
-            // Update Bio
-            if (latestTrack.mood === "Energetic") {
-                bioText.textContent = `A high-octane creator currently pushing ${memory.tracks.length} heavy hitters. Latest pulse: '${latestTrack.name}'.`;
-                body.style.background = "linear-gradient(180deg, #051005 0%, #000000 100%)";
-            } else {
-                bioText.textContent = `Visionary artist focused on atmospheric depth and chill vibes. Curating a journey through ${memory.tracks.length} AI-optimized releases.`;
-                body.style.background = "linear-gradient(180deg, #050510 0%, #000000 100%)";
-                pic.style.background = "#007aff";
-                pic.style.boxShadow = "0 0 20px rgba(0, 122, 255, 0.4)";
-            }
-
-            feed.innerHTML = ""; // Clear loader
-            
-            // 3. Render Tracks
             memory.tracks.slice().reverse().forEach(track => {
-                if (!track.name) return; // Skip broken data
-
-                const trackLink = `fan-link.html?track=${encodeURIComponent(track.name)}`;
+                if (!track.name) return;
                 const card = document.createElement('div');
-                
-                card.style.cssText = "background: rgba(255,255,255,0.03); padding: 25px; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; text-align: left; backdrop-filter: blur(10px);";
-                
+                card.style.cssText = "background: #0a0a0a; padding: 20px; border: 1px solid #1a1a1a; border-radius: 12px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; text-align: left;";
                 card.innerHTML = `
                     <div>
-                        <span style="font-weight: bold; font-size: 1.2rem; display: block; color: #fff;">${track.name}</span>
-                        <small style="color: #888;">AI Release: ${track.scheduledDate || 'Optimized'}</small>
+                        <span style="display: block; font-weight: bold;">${track.name}</span>
+                        <small style="color: #444; font-size: 0.75rem;">${track.scheduledDate}</small>
                     </div>
-                    <a href="${trackLink}" style="background: transparent; border: 2px solid #00ff41; color: #00ff41; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: 0.3s;">Listen</a>
+                    <a href="fan-link.html?track=${encodeURIComponent(track.name)}" style="color: #fff; text-decoration: none; border: 1px solid #333; padding: 8px 20px; border-radius: 5px; font-size: 0.8rem; font-weight: bold;">Listen</a>
                 `;
-                
                 feed.appendChild(card);
             });
         });
     </script>
 </body>
-    </html>
-    
+</html>
