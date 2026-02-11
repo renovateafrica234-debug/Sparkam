@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkam | Deploy</title>
+    <style>
+        body { background: #050505; color: #fff; font-family: sans-serif; padding: 40px; }
+        .card { max-width: 500px; margin: auto; background: #0a0a0a; padding: 30px; border-radius: 12px; border: 1px solid #1a1a1a; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid #333; color: #fff; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #00ff7f; border: none; font-weight: bold; cursor: pointer; border-radius: 6px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Deploy New Track</h2>
+        <input type="text" id="artist" placeholder="Artist Name (Zeeter Oliver)">
+        <input type="text" id="title" placeholder="Track Title (Sugar Daddy)">
+        <input type="text" id="spotify" placeholder="Spotify URL (Optional)">
+        <label style="font-size: 0.7rem; color: #444;">OR UPLOAD TEST MP3</label>
+        <input type="file" id="audio" accept="audio/*">
+        <button onclick="deploy()">Initialize AI Brain</button>
+    </div>
+
+    <script src="brain-core.js"></script>
+    <script>
+        function deploy() {
+            const title = document.getElementById('title').value;
+            const data = {
+                artist: document.getElementById('artist').value,
+                spotify: document.getElementById('spotify').value || null,
+                localFile: document.getElementById('audio').files[0] ? URL.createObjectURL(document.getElementById('audio').files[0]) : null
+            };
+            window.sparkamBrain.saveTrack(title, data);
+            window.location.href = "dashboard.html";
+        }
+    </script>
+</body>
+</html>
+  
