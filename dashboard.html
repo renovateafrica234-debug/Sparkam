@@ -4,62 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparkam | AI Command Center</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        body {
-            background: #050505; color: #00ff7f;
-            font-family: 'Inter', sans-serif; margin: 0; padding: 20px;
-        }
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #111; }
-        .brand { font-weight: 900; letter-spacing: 2px; color: #fff; }
-        
+        :root { --primary: #00ff7f; --accent: #ff0095; --bg: #050505; }
+        body { background: var(--bg); color: var(--primary); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
         .card { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 20px; border-radius: 12px; }
-        
-        .campaign-url-text { background: #111; padding: 10px; border-radius: 6px; color: #fff; font-size: 0.8rem; word-break: break-all; }
-        
-        /* Terminal Window */
-        .ai-terminal-window {
-            background: #000; border: 1px solid #00ff7f; border-radius: 8px;
-            font-family: 'Courier New', monospace; padding: 15px; height: 180px;
-            overflow-y: hidden; box-shadow: 0 0 20px rgba(0, 255, 127, 0.1);
-        }
-        .terminal-header { border-bottom: 1px solid #222; margin-bottom: 10px; padding-bottom: 5px; opacity: 0.5; font-size: 0.7rem; }
-        .terminal-body { font-size: 0.75rem; line-height: 1.4; }
-        
-        .stat-val { font-size: 2rem; font-weight: bold; color: #fff; }
+        .btn { background: var(--primary); border: none; color: #000; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; }
+        .dl-btn { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid #333; padding: 6px 12px; border-radius: 4px; font-size: 0.65rem; cursor: pointer; margin-top: 5px; }
+        #promoCanvas { display: none; }
+        .qr-section { text-align: center; }
+        #qrcode { background: #fff; padding: 10px; border-radius: 8px; width: 120px; margin: 10px auto; }
+        #qrcode img { width: 100%; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; color: #fff; }
+        th { text-align: left; color: #444; font-size: 0.6rem; text-transform: uppercase; padding: 10px; }
     </style>
 </head>
 <body>
-
-    <div class="header">
-        <div class="brand">SPARKAM AI COMMAND</div>
-        <div style="font-size: 0.7rem;">SYSTEM STATUS: <span style="color: #00ff7f;">OPTIMAL</span></div>
+    <div style="display:flex; justify-content:space-between;">
+        <h2>SPARKAM COMMAND</h2>
+        <button class="btn" onclick="window.location.href='upload.html'">+ Deploy Song</button>
     </div>
 
     <div class="grid">
         <div class="card">
-            <h3>Active Campaign</h3>
-            <p style="color:#888;">Current Track: <strong>SUGAR DADDY</strong></p>
-            <div class="campaign-url-text" id="campaign-url">Loading AI Path...</div>
-        </div>
-        
-        <div class="card">
-            <h3>Network Health</h3>
-            <div class="ai-terminal-window">
-                <div class="terminal-header">CORE_BRAIN_STREAM v2.1.0</div>
-                <div id="terminal-body" class="terminal-body">
-                    <div>[SYSTEM] Awaiting Data Flow...</div>
-                </div>
+            <h3>Active: <span id="active-track-name" style="color:#fff;">---</span></h3>
+            <div id="campaign-url" style="font-size:0.7rem; color:#888; background:#111; padding:10px; border-radius:5px;"></div>
+            <div class="qr-section">
+                <div id="qrcode"></div>
+                <button id="download-qr" class="dl-btn">Download QR</button>
+                <button id="generate-flyer" class="dl-btn" style="border-color:var(--accent);">Gen Promo Flyer</button>
             </div>
         </div>
-    </div>
 
-    <div class="grid" style="grid-template-columns: 1fr 1fr 1fr;">
-        <div class="card"><div class="stat-val">24ms</div><div style="font-size:0.7rem">LATENCY</div></div>
-        <div class="card"><div class="stat-val">100%</div><div style="font-size:0.7rem">UPTIME</div></div>
-        <div class="card"><div class="stat-val">LIVE</div><div style="font-size:0.7rem">MONITORING</div></div>
+        <div class="card">
+            <h3>Global Traffic Flow</h3>
+            <canvas id="trafficChart" height="150"></canvas>
+        </div>
+
+        <div class="card" style="grid-column: span 2;">
+            <h3>Campaign History</h3>
+            <table>
+                <thead><tr><th>Track</th><th>Artist</th><th>Action</th></tr></thead>
+                <tbody id="history-body"></tbody>
+            </table>
+        </div>
     </div>
+    <canvas id="promoCanvas" width="1080" height="1080"></canvas>
 
     <script src="brain-core.js"></script>
+    <script>
+        window.onload = () => {
+            const db = window.sparkamBrain.db;
+            const keys = Object.keys(db);
+            const latest = keys[keys.length - 1];
+            const url = window.sparkamBrain.config.baseUrl + "/fan-link.html?track=" + encodeURIComponent(latest);
+
+            document.getElementById('active-track-name').innerText = latest;
+            document.getElementById('campaign-url').innerText = url;
+
+            // QR Init
+            const qr = new QRCode(document.getElementById("qrcode"), { text: url, width: 128, height: 128 });
+            
+            // History Build
+            const historyBody = document.getElementById('history-body');
+            keys.reverse().forEach(k => {
+                historyBody.innerHTML += `<tr><td>${k}</td><td>${db[k].artist}</td><td><a href="fan-link.html?track=${k}" style="color:var(--primary)">VIEW</a></td></tr>`;
+            });
+
+            // Analytics Sim
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: { labels: ['1m', '2m', '3m', '4m', '5m'], datasets: [{ data: [10, 25, 15, 35, 20], borderColor: '#00ff7f', tension: 0.4 }] },
+                options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { ticks: { color: '#444' } } } }
+            });
+        };
+
+        // Flyer Engine
+        document.getElementById('generate-flyer').onclick = () => {
+            const c = document.getElementById('promoCanvas');
+            const ctx = c.getContext('2d');
+            const track = document.getElementById('active-track-name').innerText;
+            ctx.fillStyle = '#050505'; ctx.fillRect(0,0,1080,1080);
+            ctx.fillStyle = '#00ff7f'; ctx.font = 'bold 120px Inter'; ctx.textAlign='center';
+            ctx.fillText(track.toUpperCase(), 540, 540);
+            ctx.font = '40px Inter'; ctx.fillText('SPARKAM EVOLUTION', 540, 1000);
+            const link = document.createElement('a'); link.download = 'promo.png'; link.href = c.toDataURL(); link.click();
+        };
+    </script>
 </body>
 </html>
