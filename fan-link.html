@@ -3,91 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparkam | Music Evolution</title>
+    <title>Sparkam | Play Now</title>
     <style>
-        :root { --primary: #00ff7f; --accent: #ff0095; }
-        body {
-            background: radial-gradient(circle at top, #1a0b2e 0%, #000000 100%);
-            color: white; 
-            font-family: 'Inter', -apple-system, sans-serif;
-            display: flex; justify-content: center; align-items: center; 
-            min-height: 100vh; margin: 0;
-        }
-        .fan-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2.5rem; border-radius: 24px; text-align: center;
-            width: 320px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .status-pill {
-            font-size: 10px; color: var(--primary); letter-spacing: 2px;
-            border: 1px solid var(--primary); padding: 4px 12px; border-radius: 20px;
-            text-transform: uppercase;
-        }
-        .artwork-shield {
-            width: 160px; height: 160px; margin: 2rem auto;
-            background: #111; border-radius: 12px;
-            display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 30px rgba(255, 0, 149, 0.15);
-        }
-        .track-title { margin: 0.5rem 0; font-size: 1.6rem; font-weight: 800; text-transform: uppercase; }
-        .artist-name { color: #888; font-size: 0.8rem; margin-bottom: 2rem; letter-spacing: 1px; }
-        .links-container { margin-top: 2rem; }
-        .dsp-btn {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255,255,255,0.05); color: white;
-            text-decoration: none; padding: 14px 20px; border-radius: 12px;
-            margin-bottom: 12px; font-weight: 600; transition: 0.3s;
-            border-left: 3px solid transparent;
-        }
-        .dsp-btn:hover { background: rgba(255,255,255,0.12); transform: translateX(4px); }
-        .spotify { border-color: #1DB954; }
-        .apple { border-color: #FC3C44; }
-        .audiomack { border-color: #ffa200; }
-        .youtube { border-color: #ff0000; }
+        body { background: #000; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; text-align: center; }
+        .card { width: 300px; padding: 30px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid #222; }
+        .artist { color: #00ff7f; font-size: 0.7rem; letter-spacing: 2px; }
+        .btn { display: block; padding: 15px; margin: 10px 0; background: #111; border: 1px solid #333; color: #fff; text-decoration: none; border-radius: 10px; }
+        audio { width: 100%; margin-top: 20px; filter: invert(1); }
     </style>
 </head>
 <body>
-
-    <div class="fan-card">
-        <span class="status-pill">AI Strategy: Active</span>
-        
-        <div class="artwork-shield">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-        </div>
-
-        <h1 id="track-display" class="track-title">Loading...</h1>
-        <p class="artist-name">SPARKAM OFFICIAL</p>
-        
-        <div id="links-wrapper" class="links-container">
-            </div>
+    <div class="card">
+        <div id="artist-name" class="artist"></div>
+        <h1 id="track-name"></h1>
+        <div id="content"></div>
     </div>
-
     <script src="brain-core.js"></script>
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const trackName = params.get('track') || "SUGAR DADDY";
-        document.getElementById('track-display').innerText = trackName;
-
-        const trackData = window.sparkamBrain.getTrackData(trackName);
-        const wrapper = document.getElementById('links-wrapper');
-
-        if (trackData) {
-            const platforms = ['spotify', 'apple', 'audiomack', 'youtube'];
-            platforms.forEach(platform => {
-                if (trackData[platform]) {
-                    const btn = document.createElement('a');
-                    btn.href = trackData[platform];
-                    btn.className = `dsp-btn ${platform}`;
-                    btn.target = "_blank";
-                    btn.innerHTML = `${platform.toUpperCase()} <span>PLAY</span>`;
-                    btn.onclick = () => window.sparkamBrain.logClick(platform, trackName);
-                    wrapper.appendChild(btn);
-                }
-            });
-        } else {
-            wrapper.innerHTML = "<p style='color:#666'>Syncing Release Data...</p>";
+        const name = new URLSearchParams(window.location.search).get('track') || "Sugar Daddy";
+        const data = window.sparkamBrain.getTrackData(name);
+        if(data) {
+            document.getElementById('artist-name').innerText = data.artist;
+            document.getElementById('track-name').innerText = name;
+            const cont = document.getElementById('content');
+            if(data.spotify) {
+                cont.innerHTML = `<a href="${data.spotify}" class="btn">SPOTIFY</a>`;
+            } else if(data.localFile) {
+                cont.innerHTML = `<p>PREVIEW MODE</p><audio src="${data.localFile}" controls></audio>`;
+            }
         }
     </script>
 </body>
