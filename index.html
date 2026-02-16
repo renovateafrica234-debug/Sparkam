@@ -24,46 +24,43 @@
         .nav-links a { color: #ccc; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--primary-pink); }
         .btn-dashboard { background: var(--primary-pink); color: #fff; padding: 10px 25px; border-radius: 30px; font-weight: bold; text-decoration: none; transition: 0.3s; border: none; cursor: pointer; }
-        .btn-dashboard:hover { background: var(--brand-purple); box-shadow: 0 0 20px rgba(255, 0, 149, 0.4); }
 
         /* Hero Section */
         section { padding: 120px 10vw; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
         .hero { text-align: center; background: radial-gradient(circle at top right, rgba(106, 13, 173, 0.2), transparent), radial-gradient(circle at bottom left, rgba(255, 0, 149, 0.1), transparent); }
-        .hero h1 { font-size: 5rem; margin: 0; line-height: 1; font-weight: 900; letter-spacing: -2px; }
-        .hero p { color: #aaa; font-size: 1.3rem; max-width: 650px; margin: 25px auto; }
+        .hero h1 { font-size: 5.5rem; margin: 0; line-height: 0.9; font-weight: 900; letter-spacing: -3px; }
+        .hero p { color: #aaa; font-size: 1.3rem; max-width: 650px; margin: 25px auto; font-weight: 300; }
         .badge { color: var(--primary-pink); border: 1px solid var(--primary-pink); padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px; display: inline-block; }
 
-        /* Pocket Label Block */
-        .pocket-label { background: var(--card); border-radius: 40px; margin: 50px 0; padding: 80px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: center; }
-        .pocket-label h2 { font-size: 3.5rem; margin-bottom: 20px; }
-
-        /* Enchanted How it Works Grid */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
-        .step-card { 
-            background: #13131f; border-radius: 25px; overflow: hidden; position: relative; 
-            height: 550px; transition: 0.4s ease; border: 1px solid rgba(255,255,255,0.05);
-        }
-        .step-card:hover { transform: translateY(-10px); }
-        .step-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0.5; filter: grayscale(50%) contrast(110%); transition: 0.4s; }
-        .step-card:hover .step-img { opacity: 0.7; filter: grayscale(0%) contrast(100%); }
-        .step-content { position: absolute; bottom: 0; width: 100%; padding: 40px; background: linear-gradient(to top, #0f0f1a 60%, transparent); z-index: 2; }
-        .step-num { font-size: 0.8rem; color: var(--primary-pink); font-weight: bold; margin-bottom: 10px; display: block; letter-spacing: 2px; }
-        .neon-accent { position: absolute; top: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; opacity: 0.6; z-index: 3; }
-
-        /* Why Sparkam */
-        .why-block { background: linear-gradient(135deg, #050505 0%, #1a0525 100%); border-radius: 30px; padding: 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; border: 1px solid rgba(106, 13, 173, 0.3); }
+        /* Block 2: Mini Record Label */
+        .pocket-label { background: var(--card); border-radius: 40px; margin: 50px 0; padding: 80px; border: 1px solid rgba(0, 255, 127, 0.1); text-align: center; }
         .tech-pill { background: rgba(0, 255, 127, 0.1); color: var(--backend-green); padding: 5px 12px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
 
-        /* Pricing */
-        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 50px; }
-        .price-card { background: #0a0a0a; border: 1px solid #222; padding: 50px 30px; border-radius: 35px; text-align: center; transition: 0.3s; position: relative; }
-        .price-card.featured { border: 2px solid var(--primary-pink); background: #0f0f1a; transform: scale(1.05); z-index: 5; }
-        .amount { font-size: 4rem; font-weight: 900; margin: 20px 0; }
-        .amount span { font-size: 1rem; color: #555; }
+        /* Block 3: Enchanted Grid */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
+        .step-card { 
+            background: #000; border-radius: 30px; overflow: hidden; position: relative; 
+            height: 600px; transition: 0.4s ease; border: 1px solid rgba(255,255,255,0.03);
+        }
+        .step-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0.35; filter: grayscale(100%) contrast(110%); transition: 0.5s; }
+        .step-card:hover .step-img { opacity: 0.6; filter: grayscale(0%) contrast(100%); transform: scale(1.05); }
+        .step-content { position: absolute; bottom: 0; width: 100%; padding: 40px; background: linear-gradient(to top, #000 50%, transparent); z-index: 2; }
+        .step-num { font-size: 0.7rem; color: var(--primary-pink); font-weight: bold; margin-bottom: 10px; display: block; letter-spacing: 3px; }
+        .neon-accent { position: absolute; top: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; opacity: 0.6; z-index: 3; }
 
-        .footer { padding: 60px 10vw; background: #000; text-align: center; border-top: 1px solid #111; color: #444; }
+        /* Why Sparkam Block */
+        .why-block { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; padding: 80px 0; }
+        .console-box { background: #000; padding: 40px; border-radius: 25px; border: 1px solid var(--brand-purple); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+
+        /* Pricing Block */
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .price-card { background: #0a0a0a; border: 1px solid #222; padding: 50px 30px; border-radius: 35px; text-align: center; transition: 0.3s; }
+        .price-card.featured { border: 2px solid var(--primary-pink); background: #0f0f1a; transform: scale(1.05); }
+        .amount { font-size: 3.5rem; font-weight: 900; margin: 15px 0; }
+
+        .footer { padding: 60px 10vw; background: #000; text-align: center; color: #444; border-top: 1px solid #111; }
         
-        @media (max-width: 1000px) { .grid, .why-block, .price-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 3.5rem; } .price-card.featured { transform: scale(1); } }
+        @media (max-width: 1000px) { .grid, .why-block, .price-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 3.5rem; } }
     </style>
 </head>
 <body>
@@ -71,7 +68,7 @@
     <nav>
         <a href="/" class="logo"><div class="logo-dot"></div> Sparkam</a>
         <div class="nav-links">
-            <a href="#how-it-works">How it works</a>
+            <a href="#how-it-works">Process</a>
             <a href="#why-sparkam">Why us</a>
             <a href="#pricing">Pricing</a>
             <a href="/dashboard" class="btn-dashboard">Dashboard</a>
@@ -79,53 +76,54 @@
     </nav>
 
     <section class="hero">
-        <div class="badge">NOW IN BETA</div>
+        <div class="badge">AUTONOMOUS RECORD LABEL</div>
         <h1>Spark am.</h1>
-        <p>AI promotion for your drops—before and after release. Position your music worldwide with autonomous agents.</p>
-        <div style="display:flex; gap:20px; justify-content:center; margin-top: 20px;">
-            <a href="/upload" class="btn-dashboard" style="padding: 18px 45px; font-size: 1.1rem;">Start a campaign →</a>
-            <a href="#how-it-works" class="btn-dashboard" style="background:transparent; border:1px solid #333; padding: 18px 45px;">See how it works</a>
+        <p>AI-powered promotion for your drops—before and after release. Position your music worldwide with autonomous agents.</p>
+        <div style="display:flex; gap:20px; justify-content:center; margin-top: 30px;">
+            <a href="/upload" class="btn-dashboard" style="padding: 18px 45px; font-size: 1.1rem;">Start Campaign →</a>
+            <a href="#how-it-works" class="btn-dashboard" style="background:transparent; border:1px solid #333; padding: 18px 45px;">Explore Blueprint</a>
         </div>
     </section>
 
-    <section id="pocket-label">
+    <section>
         <div class="pocket-label">
             <span class="tech-pill">ALL-IN-ONE SYSTEM</span>
-            <h2>Your Mini Record Label <br><span style="color:var(--brand-purple)">In Your Pocket.</span></h2>
-            <p style="max-width: 800px; margin: 20px auto; color: #888; font-size: 1.2rem;">Sparkam puts the entire label infrastructure in one place, allowing the AI Brain to handle the data while you focus on the art.</p>
+            <h2 style="font-size: 3.5rem; margin: 20px 0;">Your Mini Record Label <br><span style="color:var(--brand-purple)">In Your Pocket.</span></h2>
+            <p style="max-width: 750px; margin: 0 auto; color: #777; font-size: 1.2rem; font-weight: 300;">One central intelligence layer that manages your entire release cycle. One place for deployment, analysis, and global positioning.</p>
         </div>
     </section>
 
-    <section id="how-it-works">
-        <h2 style="text-align:center; font-size: 3rem; margin-bottom: 10px;">The AI Brain Advantage</h2>
-        <p style="text-align:center; color:#666; margin-bottom: 50px;">A central intelligence layer that manages your entire release cycle.</p>
+    <section id="how-it-works" style="background: radial-gradient(circle at center, #0f051a 0%, #050505 100%);">
+        <div style="text-align:center; margin-bottom: 60px;">
+            <h2 style="font-size: 3.5rem; letter-spacing: -2px;">The AI Brain Advantage</h2>
+        </div>
         
         <div class="grid">
             <div class="step-card">
-                <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="neon-accent" style="border: 2px solid var(--primary-pink); box-shadow: 0 0 20px var(--primary-pink);"></div>
+                <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="neon-accent" style="border: 2px solid var(--primary-pink); box-shadow: 0 0 30px var(--primary-pink);"></div>
                 <div class="step-content">
-                    <span class="step-num">01 / ANALYZE</span>
-                    <h3>Autonomous Promo</h3>
-                    <p style="font-size: 0.9rem; color: #aaa;">AI generates 15s teasers, flyers, and social captions instantly based on your track's genre.</p>
+                    <span class="step-num">01 / CREATION</span>
+                    <h3 style="font-size: 1.8rem;">Autonomous Promo</h3>
+                    <p style="color: #888;">AI generates 15s teasers, flyers, and social captions instantly based on your track's DNA.</p>
                 </div>
             </div>
             <div class="step-card">
-                <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1514525253361-b83f859b71c0?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="neon-accent" style="border: 2px solid var(--backend-green); box-shadow: 0 0 20px var(--backend-green);"></div>
+                <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="neon-accent" style="border: 2px solid var(--backend-green); border-radius: 5px; box-shadow: 0 0 30px var(--backend-green);"></div>
                 <div class="step-content">
-                    <span class="step-num">02 / OPTIMIZE</span>
-                    <h3>Real-time Analytics</h3>
-                    <p style="font-size: 0.9rem; color: #aaa;">Live global traffic data is fed directly into the Brain to optimize your growth strategy.</p>
+                    <span class="step-num">02 / DEPLOY</span>
+                    <h3 style="font-size: 1.8rem;">Global Positioning</h3>
+                    <p style="color: #888;">Agents deploy worldwide, positioning your music in regions where it's shown to be most listened to.</p>
                 </div>
             </div>
             <div class="step-card">
-                <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1520127877998-122c33e8eb38?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="neon-accent" style="border: 2px solid var(--brand-purple); box-shadow: 0 0 20px var(--brand-purple);"></div>
+                <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="neon-accent" style="border: 2px solid var(--brand-purple); border-radius: 20px; width: 40px; box-shadow: 0 0 30px var(--brand-purple);"></div>
                 <div class="step-content">
-                    <span class="step-num">03 / SCALE</span>
-                    <h3>Ethical Growth</h3>
-                    <p style="font-size: 0.9rem; color: #aaa;">High-standard routing ensures credible fan engagement and verified, label-safe streams.</p>
+                    <span class="step-num">03 / RESULT</span>
+                    <h3 style="font-size: 1.8rem;">Ethical Growth</h3>
+                    <p style="color: #888;">Verified, label-safe growth with streaming traffic routed through credible, high-standard channels.</p>
                 </div>
             </div>
         </div>
@@ -134,70 +132,63 @@
     <section id="why-sparkam">
         <div class="why-block">
             <div>
-                <h2 style="font-size: 3.5rem; line-height: 1.1;">Why you need <br>Sparkam.</h2>
-                <p style="color:#888; margin: 20px 0;">Other artists are manually deploying tools. Sparkam automates the entire internet worldwide to position you exactly where your music will be most listened to.</p>
-                <div style="margin-top: 30px;">
-                    <div style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color:var(--backend-green); margin-right: 10px;"></i> 150+ countries targeted</div>
-                    <div style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color:var(--backend-green); margin-right: 10px;"></i> Local audience insights</div>
-                    <div><i class="fas fa-check-circle" style="color:var(--backend-green); margin-right: 10px;"></i> Instant geo-targeting</div>
-                </div>
+                <h2 style="font-size: 4rem; line-height: 0.9;">All the tools.<br><span style="color:var(--primary-pink)">One place.</span></h2>
+                <p style="color: #666; font-size: 1.1rem; margin-top: 30px;">Other artists waste weeks manually managing fragmented tools. Sparkam puts all the tools and more in one place, automating the grind so you can focus on the music.</p>
             </div>
-            <div style="background: #000; padding: 40px; border-radius: 20px; border: 1px solid var(--brand-purple); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+            <div class="console-box">
                 <div style="color: var(--backend-green); font-family: monospace; font-size: 0.85rem;">
-                    [AI_BRAIN_LOG]: Initializing global_agents...<br>
-                    [ANALYSIS]: Track "SUGAR DADDY" detected.<br>
-                    [POSITIONING]: Deploying to UK, NG, USA hubs...<br>
-                    [STATUS]: TARGET REACHED.
+                    [BRAIN_LOG]: Initializing worldwide_agents...<br>
+                    [SCAN]: Social platforms analyzed.<br>
+                    [STATUS]: High listener density found in LAGOS & LONDON.<br>
+                    [ACTION]: Positioning release "SUGAR DADDY"...<br>
+                    [COMPLETED]: 100% Autonomous Coverage.
                 </div>
             </div>
         </div>
     </section>
 
     <section id="pricing">
-        <div style="text-align:center;">
-            <h2 style="font-size: 3rem;">Simple, Artist-First Pricing</h2>
-            <p style="color:#666;">Choose the tier that fits your trajectory.</p>
-        </div>
+        <h2 style="text-align:center; font-size: 3rem; margin-bottom: 50px;">Scale Your Sound</h2>
         <div class="price-grid">
             <div class="price-card">
-                <h3>Emerging</h3>
-                <div class="amount">$0<span>/mo</span></div>
-                <p style="color:#666;">1 Active Campaign<br>Standard AI Analytics<br>Basic Fan Links</p>
-                <a href="/waitlist" class="btn-dashboard" style="background:transparent; border:1px solid #333; margin-top: 20px;">Get Started</a>
+                <h3>Independent</h3>
+                <div class="amount">$0</div>
+                <p style="color:#555;">1 Active Campaign<br>Standard Analysis<br>Basic Fan Links</p>
+                <a href="/waitlist" class="btn-dashboard" style="background:transparent; border:1px solid #333; margin-top: 20px;">Join Free</a>
             </div>
             <div class="price-card featured">
-                <div class="badge" style="background:var(--primary-pink); color:#fff; border:none; position:absolute; top:-15px; left:50%; transform:translateX(-50%);">MOST POPULAR</div>
+                <div class="badge" style="background:var(--primary-pink); color:#fff; border:none; position:absolute; top:-15px; left:50%; transform:translateX(-50%);">RECOMMENDED</div>
                 <h3>Pro Label</h3>
-                <div class="amount">$19<span>/mo</span></div>
-                <p style="color:#aaa;">Unlimited Campaigns<br>Autonomous Global Agents<br>15s Video Teasers</p>
-                <a href="/waitlist" class="btn-dashboard" style="display:block; margin-top: 20px;">Join Waitlist</a>
+                <div class="amount">$19</div>
+                <p>Unlimited Campaigns<br>Autonomous Global Agents<br>15s Video Teasers</p>
+                <a href="/waitlist" class="btn-dashboard" style="display:block; margin-top: 20px;">Get Pro Access</a>
             </div>
             <div class="price-card">
                 <h3>Global Agency</h3>
-                <div class="amount">$49<span>/mo</span></div>
-                <p style="color:#666;">White Label Branding<br>Priority Data Routing<br>Dedicated Manager</p>
+                <div class="amount">$49</div>
+                <p style="color:#555;">Priority Routing<br>Dedicated Manager<br>White-Label Reports</p>
                 <a href="/waitlist" class="btn-dashboard" style="background:transparent; border:1px solid #333; margin-top: 20px;">Contact Us</a>
             </div>
         </div>
     </section>
 
     <section style="text-align:center;">
-        <div style="max-width: 700px; margin: 0 auto;">
-            <i class="fas fa-quote-left" style="color:var(--brand-purple); font-size: 2rem; margin-bottom: 20px;"></i>
-            <h2 style="font-style: italic; font-weight: 300;">"Sparkam is the first tool that actually feels like having a digital manager. My last drop saw a 32% boost in global reach in just 48 hours."</h2>
-            <p style="color:var(--primary-pink); font-weight: bold; margin-top: 10px;">— Zeeter Oliver</p>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <i class="fas fa-quote-left" style="color:var(--brand-purple); font-size: 3rem; margin-bottom: 20px;"></i>
+            <h2 style="font-weight: 300; font-style: italic; font-size: 1.8rem;">"Sparkam automates the deployment process across the entire internet. It's like having a digital manager working 24/7."</h2>
+            <p style="color:var(--primary-pink); font-weight: bold; margin-top: 20px;">— Zeeter Oliver</p>
             
-            <div style="margin-top: 60px;">
-                <p style="color:#555; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 20px;">Join the Evolution</p>
-                <a href="/waitlist" class="btn-dashboard" style="padding: 20px 60px; font-size: 1.3rem; border-radius: 50px;">JOIN THE WAITLIST</a>
+            <div style="margin-top: 80px;">
+                <p style="color:#444; letter-spacing: 4px; font-size: 0.8rem; margin-bottom: 20px;">READY TO DROP?</p>
+                <a href="/waitlist" class="btn-dashboard" style="padding: 22px 70px; font-size: 1.4rem; border-radius: 50px;">JOIN THE WAITLIST</a>
             </div>
         </div>
     </section>
 
     <div class="footer">
-        &copy; 2026 Sparkam AI. The Record Label in Your Pocket.
+        &copy; 2026 Sparkam AI. Built for the independent music evolution.
     </div>
 
 </body>
-                    </html>
-    
+                        </html>
+                    
