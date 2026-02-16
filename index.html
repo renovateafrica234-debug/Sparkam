@@ -8,120 +8,127 @@
     <style>
         :root { 
             --primary-pink: #ff0095; 
-            --brand-purple: #6a0dad; 
-            --deep-violet: #0a001a;
             --backend-green: #00ff7f; 
-            --neon-blue: #00f2ff;
+            --deep-violet: #05000a;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; margin: 0; padding: 0; }
-        body { background: var(--deep-violet); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: var(--deep-violet); 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* Navigation */
+        /* NAVIGATION - HUD STYLE */
         nav { 
-            position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 5%; z-index: 1000; background: rgba(10, 0, 26, 0.4); backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; 
+            align-items: center; padding: 30px 5%; z-index: 1000;
+            mix-blend-mode: exclusion;
         }
-        .logo { font-size: 1.6rem; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: #fff; }
-        .logo span { color: var(--primary-pink); }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; color: #fff; text-decoration: none; }
         .btn-waitlist { 
-            background: var(--primary-pink); color: #fff; padding: 12px 28px; border-radius: 50px; 
-            font-weight: bold; text-decoration: none; font-size: 0.85rem; box-shadow: 0 0 20px rgba(255, 0, 149, 0.4);
+            background: var(--primary-pink); color: #fff; padding: 14px 32px; 
+            border-radius: 50px; font-weight: 900; text-decoration: none; 
+            text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px;
+            box-shadow: 0 0 30px rgba(255, 0, 149, 0.4);
         }
 
-        /* Hero Slider Container */
-        .hero-slider { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+        /* FULL SCREEN SLIDER */
+        .slider-container { position: relative; width: 100%; height: 100vh; overflow: hidden; }
         .slide { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            opacity: 0; transition: opacity 1s ease-in-out; 
-            display: flex; align-items: center; padding: 0 8%;
+            opacity: 0; transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; align-items: center; justify-content: center;
         }
         .slide.active { opacity: 1; }
-        
-        /* Slide Media (Video or Image) */
+
         .slide-media {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -1; filter: brightness(0.6);
+            object-fit: cover; z-index: -2; filter: brightness(0.7) contrast(1.1);
         }
         .slide-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(70deg, var(--deep-violet) 20%, transparent 100%);
-            z-index: 0;
+            background: radial-gradient(circle at center, transparent 20%, var(--deep-violet) 90%);
+            z-index: -1;
         }
 
-        /* Content & Typography */
-        .slide-content { position: relative; z-index: 10; max-width: 800px; }
-        h1 { font-size: clamp(3rem, 10vw, 6.5rem); font-weight: 900; line-height: 0.85; text-transform: uppercase; }
-        .tagline { color: var(--backend-green); font-family: monospace; letter-spacing: 5px; margin-bottom: 20px; display: block; }
-        .gradient-text { 
-            background: linear-gradient(to right, var(--primary-pink), var(--neon-blue));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .slide-content { text-align: center; z-index: 10; max-width: 900px; padding: 0 20px; }
+        .slide-content h1 { font-size: clamp(3rem, 12vw, 7rem); font-weight: 900; line-height: 0.8; text-transform: uppercase; margin-bottom: 20px; }
+        .slide-content p { font-size: 1.2rem; color: var(--backend-green); font-family: monospace; text-transform: uppercase; letter-spacing: 3px; }
 
-        /* The AI Brain Mixer (Floating over Slider) */
-        .brain-console {
-            position: absolute; bottom: 50px; right: 5%; z-index: 100;
-            background: rgba(0, 0, 0, 0.7); border: 1px solid var(--backend-green);
-            padding: 25px; border-radius: 20px; backdrop-filter: blur(20px); width: 320px;
+        /* THE BRAIN HUD (Mixer) - Persists Everywhere */
+        .brain-hud {
+            position: fixed; bottom: 40px; right: 40px; z-index: 100;
+            background: rgba(0, 0, 0, 0.8); border: 1px solid var(--backend-green);
+            padding: 25px; border-radius: 20px; backdrop-filter: blur(20px); width: 300px;
         }
-        .mixer-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-        .fader-track { flex: 1; height: 4px; background: #222; border-radius: 10px; position: relative; }
-        .fader-knob { position: absolute; top: -6px; width: 16px; height: 16px; background: var(--backend-green); border-radius: 50%; box-shadow: 0 0 10px var(--backend-green); }
-        .code-label { font-family: monospace; font-size: 0.6rem; color: var(--backend-green); text-transform: uppercase; width: 90px; }
+        .mixer-channel { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+        .fader-track { flex: 1; height: 2px; background: rgba(255,255,255,0.1); position: relative; }
+        .fader-knob { 
+            position: absolute; top: -7px; width: 16px; height: 16px; 
+            background: var(--backend-green); border-radius: 50%; 
+            box-shadow: 0 0 10px var(--backend-green);
+        }
+        .hud-label { font-family: monospace; font-size: 0.6rem; color: var(--backend-green); width: 80px; }
 
-        /* USP Grid */
-        .usp-section { padding: 100px 8%; background: #05000d; }
-        .usp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
+        /* USP SECTION - ALIGNED GRID */
+        .section-usp { padding: 120px 5%; background: var(--deep-violet); position: relative; }
+        .usp-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; margin-top: 60px; 
+        }
         .usp-card { 
-            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
-            padding: 50px 30px; border-radius: 30px; transition: 0.4s;
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
+            padding: 60px 40px; border-radius: 30px; transition: 0.4s;
         }
-        .usp-card:hover { border-color: var(--primary-pink); background: rgba(255,0,149,0.05); transform: translateY(-10px); }
-        .usp-card i { font-size: 2.5rem; color: var(--primary-pink); margin-bottom: 25px; }
+        .usp-card:hover { border-color: var(--primary-pink); transform: translateY(-10px); }
+        .usp-card h2 { font-size: 1.5rem; margin: 20px 0; text-transform: uppercase; letter-spacing: 2px; }
+        .usp-card p { color: #888; line-height: 1.6; }
 
-        /* Waitlist Block */
-        .waitlist-wrap { 
-            margin: 100px 5%; padding: 100px 5%; border-radius: 50px;
-            background: linear-gradient(135deg, var(--brand-purple), var(--primary-pink));
-            text-align: center; border: 1px solid rgba(255,255,255,0.2);
+        /* WAITLIST - CIMA STYLE POP */
+        .waitlist-block { 
+            margin: 0 5% 100px; padding: 100px 5%; border-radius: 40px;
+            background: linear-gradient(135deg, #1a0033 0%, var(--primary-pink) 100%);
+            text-align: center; border: 1px solid rgba(255,255,255,0.1);
         }
-        .waitlist-input {
+        .waitlist-form {
             display: flex; max-width: 600px; margin: 40px auto 0;
-            background: rgba(0,0,0,0.3); padding: 10px; border-radius: 60px;
+            background: rgba(0,0,0,0.4); padding: 10px; border-radius: 100px;
         }
-        .waitlist-input input {
+        .waitlist-form input {
             flex: 1; background: transparent; border: none; padding: 0 30px; color: #fff; font-size: 1.1rem; outline: none;
         }
-        .waitlist-input button {
-            background: #fff; color: #000; border: none; padding: 18px 45px; border-radius: 50px; font-weight: 900; cursor: pointer; text-transform: uppercase;
+        .waitlist-form button {
+            background: #fff; color: #000; border: none; padding: 18px 40px; border-radius: 100px; font-weight: 900; cursor: pointer; text-transform: uppercase;
         }
 
-        /* Mobile Adjustments */
+        /* MOBILE ALIGNMENT FIX */
         @media (max-width: 768px) {
-            .brain-console { display: none; } /* Clean look on mobile */
-            .slide-content { text-align: center; }
-            .waitlist-input { flex-direction: column; background: transparent; gap: 15px; }
-            .waitlist-input input { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 50px; }
-            h1 { font-size: 3.5rem; }
+            .brain-hud { display: none; }
+            .slide-content h1 { font-size: 4rem; }
+            .waitlist-form { flex-direction: column; background: transparent; gap: 15px; }
+            .waitlist-form input { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 50px; }
+            .section-usp { text-align: center; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">SPARK<span>AM.</span></a>
+        <a href="#" class="logo">SPARKAM.</a>
         <a href="#waitlist" class="btn-waitlist">Get Access</a>
     </nav>
 
-    <div class="hero-slider" id="mainSlider">
+    <div class="slider-container">
         <div class="slide active">
-            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=2000" class="slide-media" alt="Afrobeats Futuristic">
+            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=2000" class="slide-media">
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <span class="tagline">NEURAL ENGINE ACTIVE</span>
-                <h1>The Brain <br>Behind <span class="gradient-text">Afrobeats.</span></h1>
-                <p>Ultra-realistic positioning for the modern urban artist. High-fashion meets high-performance AI.</p>
+                <p>Digital Management Redefined</p>
+                <h1>Soul in the <br><span style="color: var(--primary-pink)">Software.</span></h1>
             </div>
         </div>
 
@@ -131,52 +138,26 @@
             </video>
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <span class="tagline">DEPLOYMENT SYNC</span>
-                <h1>Global <br><span class="gradient-text">Reach</span>.</h1>
-                <p>Autonomous agents scaling your sound across NYC, London, and Lagos while you stay in the studio.</p>
+                <p>Global Positioning System</p>
+                <h1>Lagos to <br><span style="color: var(--backend-green)">London.</span></h1>
             </div>
         </div>
 
-        <div class="brain-console">
-            <div class="mixer-row">
-                <div class="code-label">GLOBAL_ROUTING</div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=2000" class="slide-media">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <p>The Brain Architecture</p>
+                <h1>One Label. <br><span style="color: var(--primary-pink)">Pocket-sized.</span></h1>
+            </div>
+        </div>
+
+        <div class="brain-hud">
+            <div class="mixer-channel">
+                <div class="hud-label">NEURAL_MAP</div>
                 <div class="fader-track"><div class="fader-knob" style="left: 80%;"></div></div>
             </div>
-            <div class="mixer-row">
-                <div class="code-label">FAN_CONVERSION</div>
+            <div class="mixer-channel">
+                <div class="hud-label">SYNC_RATE</div>
                 <div class="fader-track"><div class="fader-knob" style="left: 65%;"></div></div>
-            </div>
-            <div class="mixer-row">
-                <div class="code-label">BRAIN_LOAD</div>
-                <div class="fader-track"><div class="fader-knob" style="left: 95%;"></div></div>
-            </div>
-            <div style="margin-top: 15px; font-family: monospace; font-size: 0.6rem; color: var(--backend-green);">
-                > STATUS: DEPLOYING_TO_LAGOS...<br>
-                > TARGET: URBAN_GEN_Z
-            </div>
-        </div>
-    </div>
-
-    <section class="usp-section">
-        <h2 style="font-size: 3rem; text-align: center; text-transform: uppercase; letter-spacing: -2px;">Why <span class="gradient-text">Sparkam?</span></h2>
-        <div class="usp-grid">
-            <div class="usp-card">
-                <i class="fas fa-bolt"></i>
-                <h3>Instant Assets</h3>
-                <p>AI generates ultra-realistic flyers and 15s video teasers tailored to your specific urban aesthetic.</p>
-            </div>
-            <div class="usp-card">
-                <i class="fas fa-microchip"></i>
-                <h3>The AI Brain</h3>
-                <p>The central engine that connects your distribution and promotion pages into one seamless data flow.</p>
-            </div>
-            <div class="usp-card">
-                <i class="fas fa-globe-africa"></i>
-                <h3>Afrobeats Hub</h3>
-                <p>Optimized positioning for the most vibrant music scene on the planet. From Lagos to the world.</p>
-            </div>
-        </div>
-    </section>
-
-
     
