@@ -13,143 +13,115 @@
             --bg: #030303; 
         }
         * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; line-height: 1.5; overflow-x: hidden; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; line-height: 1.4; overflow-x: hidden; }
 
-        /* Typography */
-        h1, h2, h3 { font-weight: 900; text-transform: uppercase; letter-spacing: -2px; margin: 0; }
-        p { color: #888; font-weight: 300; }
+        /* Navigation - Minimalist */
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 40px 60px; z-index: 1000; mix-blend-mode: difference; }
+        .logo { font-size: 1.2rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 2px; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 0.8rem; margin-left: 40px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--primary-pink); }
 
-        /* Full Screen Atmospheric Sections */
-        .scrolling-container { height: 100vh; width: 100%; position: relative; overflow: hidden; display: flex; align-items: center; padding: 0 10vw; }
+        /* Hero / Cinematic Section Base */
+        section { position: relative; width: 100%; min-height: 100vh; display: flex; align-items: center; padding: 0 10vw; overflow: hidden; }
         
-        /* The "Artist Backgrounds" - Replace URLs with your actual cropped video stills */
-        .bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; filter: grayscale(1) contrast(1.2); z-index: 1; }
-        .glass-card { 
-            position: relative; z-index: 10; 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(20px); 
-            padding: 60px; border-radius: 40px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            max-width: 600px;
+        /* Ghost Character Backgrounds */
+        .character-bg { 
+            position: absolute; right: -5%; top: 0; width: 60%; height: 100%; 
+            background-size: cover; background-position: center right; 
+            opacity: 0.35; filter: grayscale(1) contrast(1.4); pointer-events: none; z-index: 1; 
+        }
+        
+        /* Typography Scale */
+        h1 { font-size: clamp(4rem, 10vw, 8rem); font-weight: 900; letter-spacing: -6px; line-height: 0.8; margin: 0; text-transform: uppercase; }
+        h2 { font-size: clamp(3rem, 7vw, 5rem); font-weight: 900; letter-spacing: -4px; line-height: 0.9; text-transform: uppercase; margin: 0; }
+        p { font-size: 1.1rem; color: #888; max-width: 500px; font-weight: 300; line-height: 1.6; }
+
+        .glass-ui { 
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); 
+            padding: 40px; border-radius: 0 40px 40px 40px; 
+            border: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 10; 
         }
 
-        /* Navigation */
-        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 30px 50px; z-index: 1000; mix-blend-mode: difference; }
-        .logo { font-size: 1.2rem; font-weight: 900; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .btn-cta { background: var(--primary-pink); color: #fff; padding: 12px 30px; border-radius: 50px; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .btn-main { 
+            display: inline-block; padding: 20px 50px; background: var(--primary-pink); color: #fff; 
+            text-decoration: none; font-weight: 900; border-radius: 50px; margin-top: 30px; 
+            transition: 0.4s; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .btn-main:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 0, 149, 0.4); }
 
-        /* Process Grid */
-        .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; z-index: 10; position: relative; width: 100%; }
-        .process-item { border-left: 1px solid var(--brand-purple); padding-left: 30px; }
-        .process-item span { color: var(--primary-pink); font-size: 0.7rem; font-weight: bold; display: block; margin-bottom: 10px; }
+        /* Pricing Grid */
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; width: 100%; z-index: 10; margin-top: 50px; }
+        .price-item { border-top: 1px solid #222; padding-top: 30px; transition: 0.3s; }
+        .price-item:hover { border-top-color: var(--primary-pink); }
+        .price-item h3 { color: var(--primary-pink); font-size: 0.8rem; letter-spacing: 2px; }
+        .price-item .cost { font-size: 4rem; font-weight: 900; margin: 10px 0; }
 
-        /* Backend Green Accent */
-        .lemon-line { width: 100px; height: 2px; background: var(--backend-green); margin-bottom: 20px; box-shadow: 0 0 10px var(--backend-green); }
+        /* Status Line (Backend Green) */
+        .status-pill { display: flex; align-items: center; gap: 10px; color: var(--backend-green); font-family: monospace; font-size: 0.7rem; margin-bottom: 20px; }
+        .status-dot { width: 6px; height: 6px; background: var(--backend-green); border-radius: 50%; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* Pricing Table */
-        .price-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; width: 100%; z-index: 10; position: relative; }
-        .price-tier { border-top: 1px solid #222; padding-top: 30px; }
-        .price-tier h3 { color: var(--primary-pink); font-size: 1rem; }
-        .price-tier .cost { font-size: 4rem; margin: 10px 0; }
-
-        @media (max-width: 900px) { 
-            .scrolling-container { height: auto; padding: 100px 20px; }
-            .process-grid, .price-row { grid-template-columns: 1fr; }
-            h1 { font-size: 3rem; }
+        @media (max-width: 900px) {
+            section { padding: 100px 20px; height: auto; }
+            .price-grid { grid-template-columns: 1fr; }
+            .character-bg { width: 100%; opacity: 0.2; }
+            h1 { font-size: 4rem; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">SPARKAM.</a>
-        <a href="/waitlist" class="btn-cta">JOIN WAITLIST</a>
+        <a href="/" class="logo">SPARKAM.</a>
+        <div class="nav-links">
+            <a href="#how-it-works">Blueprint</a>
+            <a href="#why-sparkam">Why us</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
     </nav>
 
-    <section class="scrolling-container">
-        <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=1200" class="bg-img">
-        <div class="glass-card">
+    <section>
+        <div class="character-bg" style="background-image: url('https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=1200');"></div>
+        <div style="position: relative; z-index: 10;">
+            <div class="status-pill"><div class="status-dot"></div> ENGINE ONLINE</div>
             <h1>Spark am.</h1>
-            <p style="font-size: 1.2rem; margin: 20px 0;">Your mini record label in your pocket. Autonomous promotion agents that work while you sleep.</p>
-            <div style="display:flex; gap:15px;">
-                <a href="#how-it-works" style="color:var(--primary-pink); text-decoration:none; font-weight:bold;">SCROLL TO DISCOVER ↓</a>
+            <p>The AI record label in your pocket. Autonomous promotion agents deployed worldwide before you even wake up.</p>
+            <a href="/waitlist" class="btn-main">Get Access</a>
+        </div>
+    </section>
+
+    <section style="background: #000;">
+        <div style="z-index: 10;">
+            <h2>Your Label. <br><span style="color:var(--brand-purple)">Simplified.</span></h2>
+            <p style="margin-top: 30px;">Stop juggling ten fragmented tools. Sparkam consolidates distribution, data routing, and content into one AI ecosystem.</p>
+            <div style="width: 150px; height: 1px; background: var(--backend-green); margin-top: 40px; box-shadow: 0 0 10px var(--backend-green);"></div>
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <div class="character-bg" style="background-image: url('https://images.unsplash.com/photo-1514525253361-b83f859b71c0?auto=format&fit=crop&w=1200'); opacity: 0.25;"></div>
+        <div style="width: 100%; z-index: 10;">
+            <h2 style="margin-bottom: 60px;">The AI Brain Advantage</h2>
+            <div class="price-grid">
+                <div class="price-item">
+                    <h3>01. ANALYZE</h3>
+                    <p style="color: #fff; font-weight: 500;">Neural Map</p>
+                    <p style="font-size: 0.9rem;">Scans your track's DNA to identify its unique sonic footprint.</p>
+                </div>
+                <div class="price-item">
+                    <h3>02. DEPLOY</h3>
+                    <p style="color: #fff; font-weight: 500;">Global Agents</p>
+                    <p style="font-size: 0.9rem;">Seeding your sound into high-traffic global hubs and playlists.</p>
+                </div>
+                <div class="price-item">
+                    <h3>03. SCALE</h3>
+                    <p style="color: #fff; font-weight: 500;">Real-time Flow</p>
+                    <p style="font-size: 0.9rem;">The brain shifts focus to where fans are actually engaging.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="scrolling-container" style="background: #000;">
-        <div style="text-align:center; width:100%; z-index:10; position:relative;">
-            <div class="lemon-line" style="margin: 0 auto 30px;"></div>
-            <h2 style="font-size: 4rem;">Your Label. <br><span style="color:var(--brand-purple)">Simplified.</span></h2>
-            <p style="max-width: 600px; margin: 30px auto; font-size: 1.1rem;">Stop wrestling with fragmented tools. Sparkam consolidates distribution, positioning, and content into one AI-driven dashboard.</p>
-        </div>
-    </section>
-
-    <section id="how-it-works" class="scrolling-container">
-        <img src="https://images.unsplash.com/photo-1514525253361-b83f859b71c0?auto=format&fit=crop&w=1200" class="bg-img" style="opacity:0.2;">
-        <div class="process-grid">
-            <div class="process-item">
-                <span>01. ANALYZE</span>
-                <h3>Neural Map</h3>
-                <p>The AI Brain scans your track’s DNA to identify its sonic footprint.</p>
-            </div>
-            <div class="process-item">
-                <span>02. DEPLOY</span>
-                <h3>Global Agents</h3>
-                <p>Autonomous agents seed your music into high-traffic global hubs.</p>
-            </div>
-            <div class="process-item">
-                <span>03. SCALE</span>
-                <h3>Ethical Growth</h3>
-                <p>Real-time routing shifts your budget to where the fans are actually clicking.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="scrolling-container">
-        <div class="glass-card" style="max-width: 800px; background: transparent; border: none;">
-            <h2 style="font-size: 4rem;">Why Sparkam?</h2>
-            <p style="font-size: 1.5rem; color: #fff; margin-top: 20px;">Other artists are deploying tech tools. Sparkam <u>is</u> the tool. We put the entire label infrastructure in one place, allowing the Brain to handle the data flow.</p>
-            <div style="font-family: monospace; color: var(--backend-green); margin-top: 40px; font-size: 0.8rem; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px;">
-                > AGENT_STATUS: ACTIVE <br>
-                > TARGETING: LONDON, LAGOS, NYC <br>
-                > FAN_CONVERSION: 32% INCREASE
-            </div>
-        </div>
-    </section>
-
-    <section id="pricing" class="scrolling-container" style="background: #000;">
-        <div class="price-row">
-            <div class="price-tier">
-                <h3>EMERGING</h3>
-                <div class="cost">$0</div>
-                <p>1 Active Campaign<br>Standard Analysis</p>
-            </div>
-            <div class="price-tier" style="border-top-color: var(--primary-pink);">
-                <h3>PRO LABEL</h3>
-                <div class="cost">$19</div>
-                <p>Unlimited Agents<br>15s Video Teasers<br>Global Routing</p>
-            </div>
-            <div class="price-tier">
-                <h3>AGENCY</h3>
-                <div class="cost">$49</div>
-                <p>White Labeling<br>Priority Data<br>Dedicated Manager</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="scrolling-container" style="justify-content: center; text-align: center;">
-        <div style="z-index:10; position:relative;">
-            <p style="font-size: 1.5rem; font-style: italic; color: #fff; max-width: 800px; margin-bottom: 40px;">"Sparkam is the first tool that actually feels like having a digital manager. My reach saw a 32% boost in 48 hours."</p>
-            <p style="color:var(--primary-pink); font-weight:bold; margin-bottom: 60px;">— ZEETER OLIVER</p>
-            <a href="/waitlist" class="btn-cta" style="padding: 25px 80px; font-size: 1.5rem;">JOIN THE WAITLIST</a>
-        </div>
-    </section>
-
-    <footer style="padding: 40px; text-align: center; color: #333; font-size: 0.8rem;">
-        &copy; 2026 SPARKAM AI. BUILT FOR ARTISTS.
-    </footer>
-
-</body>
-            </html>
-    
+    <section id="why-sparkam">
+        <div class="character-bg" style="background-image: url('
+            
