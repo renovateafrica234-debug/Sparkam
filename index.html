@@ -3,125 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparkam | The AI Brain for Artists</title>
+    <title>Sparkam | The Future of Afrobeats AI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
             --primary-pink: #ff0095; 
             --brand-purple: #6a0dad; 
+            --deep-violet: #1a0033;
             --backend-green: #00ff7f; 
-            --bg: #030303; 
+            --white: #ffffff;
         }
         * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; line-height: 1.4; overflow-x: hidden; }
+        body { background: var(--deep-violet); color: var(--white); font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
-        /* Navigation - Minimalist */
-        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 40px 60px; z-index: 1000; mix-blend-mode: difference; }
-        .logo { font-size: 1.2rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 2px; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 0.8rem; margin-left: 40px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; transition: 0.3s; }
-        .nav-links a:hover { opacity: 1; color: var(--primary-pink); }
+        /* Navigation */
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 30px 60px; z-index: 1000; background: linear-gradient(to bottom, rgba(26,0,51,0.8), transparent); backdrop-filter: blur(10px); }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--white); text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--primary-pink); }
+        .btn-cta { background: var(--primary-pink); color: #fff; padding: 12px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 0.8rem; }
 
-        /* Hero / Cinematic Section Base */
-        section { position: relative; width: 100%; min-height: 100vh; display: flex; align-items: center; padding: 0 10vw; overflow: hidden; }
-        
-        /* Ghost Character Backgrounds */
-        .character-bg { 
-            position: absolute; right: -5%; top: 0; width: 60%; height: 100%; 
-            background-size: cover; background-position: center right; 
-            opacity: 0.35; filter: grayscale(1) contrast(1.4); pointer-events: none; z-index: 1; 
-        }
-        
-        /* Typography Scale */
-        h1 { font-size: clamp(4rem, 10vw, 8rem); font-weight: 900; letter-spacing: -6px; line-height: 0.8; margin: 0; text-transform: uppercase; }
-        h2 { font-size: clamp(3rem, 7vw, 5rem); font-weight: 900; letter-spacing: -4px; line-height: 0.9; text-transform: uppercase; margin: 0; }
-        p { font-size: 1.1rem; color: #888; max-width: 500px; font-weight: 300; line-height: 1.6; }
-
-        .glass-ui { 
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); 
-            padding: 40px; border-radius: 0 40px 40px 40px; 
-            border: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 10; 
+        /* Full Screen Experience Blocks */
+        section { 
+            position: relative; 
+            height: 100vh; 
+            width: 100%; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 10vw; 
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed; /* Parallax feel */
         }
 
-        .btn-main { 
-            display: inline-block; padding: 20px 50px; background: var(--primary-pink); color: #fff; 
-            text-decoration: none; font-weight: 900; border-radius: 50px; margin-top: 30px; 
-            transition: 0.4s; text-transform: uppercase; letter-spacing: 2px;
+        /* Gradient Overlays for Readability */
+        .overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(70deg, rgba(26,0,51,0.9) 30%, rgba(106, 13, 173, 0.2) 100%); 
+            z-index: 1; 
         }
-        .btn-main:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 0, 149, 0.4); }
+
+        .content { position: relative; z-index: 10; max-width: 700px; }
+
+        h1 { font-size: clamp(4rem, 8vw, 7rem); font-weight: 900; line-height: 0.9; margin: 0; text-transform: uppercase; letter-spacing: -2px; }
+        h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
+        p { font-size: 1.2rem; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 30px; }
+
+        /* The AI Brain Mixer UI */
+        .mixer-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            margin-top: 40px;
+        }
+        .mixer-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .fader-track { flex-grow: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; position: relative; }
+        .fader-knob { position: absolute; height: 16px; width: 16px; background: var(--backend-green); border-radius: 50%; top: -6px; box-shadow: 0 0 10px var(--backend-green); }
 
         /* Pricing Grid */
-        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; width: 100%; z-index: 10; margin-top: 50px; }
-        .price-item { border-top: 1px solid #222; padding-top: 30px; transition: 0.3s; }
-        .price-item:hover { border-top-color: var(--primary-pink); }
-        .price-item h3 { color: var(--primary-pink); font-size: 0.8rem; letter-spacing: 2px; }
-        .price-item .cost { font-size: 4rem; font-weight: 900; margin: 10px 0; }
-
-        /* Status Line (Backend Green) */
-        .status-pill { display: flex; align-items: center; gap: 10px; color: var(--backend-green); font-family: monospace; font-size: 0.7rem; margin-bottom: 20px; }
-        .status-dot { width: 6px; height: 6px; background: var(--backend-green); border-radius: 50%; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: 100%; margin-top: 50px; }
+        .card { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 15px; transition: 0.3s; }
+        .card:hover { border-color: var(--primary-pink); transform: translateY(-10px); }
+        .card h3 { color: var(--backend-green); margin: 0; font-size: 0.9rem; letter-spacing: 2px; }
+        .price { font-size: 3.5rem; font-weight: 900; margin: 15px 0; }
 
         @media (max-width: 900px) {
-            section { padding: 100px 20px; height: auto; }
-            .price-grid { grid-template-columns: 1fr; }
-            .character-bg { width: 100%; opacity: 0.2; }
-            h1 { font-size: 4rem; }
+            section { padding: 100px 20px; height: auto; min-height: 100vh; }
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="/" class="logo">SPARKAM.</a>
-        <div class="nav-links">
-            <a href="#how-it-works">Blueprint</a>
-            <a href="#why-sparkam">Why us</a>
-            <a href="/dashboard">Dashboard</a>
-        </div>
+        <a href="#" class="logo">SPARK<span>AM.</span></a>
+        <a href="/waitlist" class="btn-cta">Start Campaign</a>
     </nav>
 
-    <section>
-        <div class="character-bg" style="background-image: url('https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=1200');"></div>
-        <div style="position: relative; z-index: 10;">
-            <div class="status-pill"><div class="status-dot"></div> ENGINE ONLINE</div>
-            <h1>Spark am.</h1>
-            <p>The AI record label in your pocket. Autonomous promotion agents deployed worldwide before you even wake up.</p>
-            <a href="/waitlist" class="btn-main">Get Access</a>
+    <section style="background-image: url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=2070&auto=format&fit=crop');">
+        <div class="overlay"></div>
+        <div class="content">
+            <h3 style="color: var(--backend-green); font-family: monospace; letter-spacing: 3px;">[ SYSTEM_INITIALIZED ]</h3>
+            <h1>Your Mini<br><span style="color: var(--primary-pink);">Record Label.</span></h1>
+            <p>Autonomous AI promotion for the next generation of Afrobeats. We don't just drop music; we deploy global movements.</p>
+            <a href="#how" class="btn-cta" style="background: var(--white); color: var(--deep-violet);">Join the Evolution</a>
         </div>
     </section>
 
-    <section style="background: #000;">
-        <div style="z-index: 10;">
-            <h2>Your Label. <br><span style="color:var(--brand-purple)">Simplified.</span></h2>
-            <p style="margin-top: 30px;">Stop juggling ten fragmented tools. Sparkam consolidates distribution, data routing, and content into one AI ecosystem.</p>
-            <div style="width: 150px; height: 1px; background: var(--backend-green); margin-top: 40px; box-shadow: 0 0 10px var(--backend-green);"></div>
-        </div>
-    </section>
-
-    <section id="how-it-works">
-        <div class="character-bg" style="background-image: url('https://images.unsplash.com/photo-1514525253361-b83f859b71c0?auto=format&fit=crop&w=1200'); opacity: 0.25;"></div>
-        <div style="width: 100%; z-index: 10;">
-            <h2 style="margin-bottom: 60px;">The AI Brain Advantage</h2>
-            <div class="price-grid">
-                <div class="price-item">
-                    <h3>01. ANALYZE</h3>
-                    <p style="color: #fff; font-weight: 500;">Neural Map</p>
-                    <p style="font-size: 0.9rem;">Scans your track's DNA to identify its unique sonic footprint.</p>
+    <section id="how" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop');">
+        <div class="overlay" style="background: linear-gradient(to right, rgba(26,0,51,0.95), transparent);"></div>
+        <div class="content">
+            <h2>The AI Brain <br><span style="color: var(--backend-green);">Advantage</span></h2>
+            <p>A centralized intelligence layer that manages your entire release cycle. Real-time data routing that connects your sound to the right ears in Lagos, London, and NYC.</p>
+            
+            <div class="mixer-card">
+                <div class="mixer-row">
+                    <span style="width: 80px; font-size: 0.7rem;">GLOBAL_REACH</span>
+                    <div class="fader-track"><div class="fader-knob" style="left: 85%;"></div></div>
                 </div>
-                <div class="price-item">
-                    <h3>02. DEPLOY</h3>
-                    <p style="color: #fff; font-weight: 500;">Global Agents</p>
-                    <p style="font-size: 0.9rem;">Seeding your sound into high-traffic global hubs and playlists.</p>
+                <div class="mixer-row">
+                    <span style="width: 80px; font-size: 0.7rem;">FAN_SYNC</span>
+                    <div class="fader-track"><div class="fader-knob" style="left: 60%;"></div></div>
                 </div>
-                <div class="price-item">
-                    <h3>03. SCALE</h3>
-                    <p style="color: #fff; font-weight: 500;">Real-time Flow</p>
-                    <p style="font-size: 0.9rem;">The brain shifts focus to where fans are actually engaging.</p>
+                <div class="mixer-row">
+                    <span style="width: 80px; font-size: 0.7rem;">NEURAL_DROP</span>
+                    <div class="fader-track"><div class="fader-knob" style="left: 95%;"></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="why-sparkam">
-        <div class="character-bg" style="background-image: url('
-            
+    <section style="background-image: url('https://images.unsplash.com/photo-1574677244274-1428236bc752?q=80&w=1974&auto=format&fit=crop');">
+        <div class="overlay" style="background: rgba(26,0,51,0.85);"></div>
+        <div style="width: 100%; position: relative; z-index: 10;">
+            <h2 style="text-align: center;">Simple, <span style="color: var(--primary-pink);">Artist-First</span> Pricing</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>EMERGING</h3>
+                    <div class="price">$0</div>
+                    <p style="font-size: 0.9rem;">1 Active Campaign<br>Basic Brain Routing</p>
+                </div>
+                <div class="card" style="border: 2px solid var(--primary-pink); background: rgba(255,0,149,0.1);">
+                    <h3>PRO LABEL</h3>
+                    <div class="price">$19</div>
+                    <p style="font-size: 0.9rem;">Unlimited Campaigns<br>15s Video Teasers<br>Full AI Brain Persistence</p>
+                </div>
+                <div class="card">
+                    <h3>AGENCY</h3>
+                    <div class="price">$49</div>
+                    <p style="font-size: 0.9rem;">White Label Branding<br>Multi-Artist Dashboard</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 60px; text-align: center; background: #000; color: #444; font-size: 0.8rem; letter-spacing: 1px;">
+        &copy; 2026 SPARKAM AI. DESIGNED FOR THE AFROBEATS RENAISSANCE.
+    </footer>
+
+</body>
+    </html>
+                        
