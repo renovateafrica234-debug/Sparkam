@@ -20,7 +20,7 @@
         nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 25px 6vw; z-index: 1000; background: linear-gradient(to bottom, rgba(18,0,43,0.9), transparent); backdrop-filter: blur(10px); }
         .logo { font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; }
         .logo span { color: var(--primary-pink); }
-        .btn-cta { background: var(--primary-pink); color: #fff; padding: 12px 28px; border-radius: 50px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; box-shadow: 0 10px 20px rgba(255, 0, 149, 0.3); }
+        .btn-cta { background: var(--primary-pink); color: #fff; padding: 12px 28px; border-radius: 50px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; box-shadow: 0 10px 20px rgba(255, 0, 149, 0.3); border: none; cursor: pointer; }
         .btn-cta:hover { transform: scale(1.05); background: #fff; color: var(--primary-pink); }
 
         /* Section Layouts */
@@ -30,7 +30,7 @@
         .artist-bg { 
             position: absolute; top: 0; right: 0; width: 55%; height: 100%; 
             background-size: cover; background-position: center; 
-            z-index: 1; opacity: 0.8;
+            z-index: 1; opacity: 0.9;
             mask-image: linear-gradient(to left, black 60%, transparent 100%);
             -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
         }
@@ -76,39 +76,38 @@
     <nav>
         <a href="#" class="logo">SPARK<span>AM.</span></a>
         <div class="nav-links">
-            <a href="/waitlist" class="btn-cta">Launch Campaign</a>
+            <a href="/waitlist" class="btn-cta">Start Campaign</a>
         </div>
     </nav>
 
     <section id="hero">
         <div class="artist-bg" style="background-image: url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=1200');"></div>
         <div class="content">
-            <h3 style="color: var(--backend-green); font-family: monospace; letter-spacing: 4px;">[ AI_ENGINE_V2.0 ]</h3>
-            <h1>The Brain<br><span style="color: var(--primary-pink);">Behind The Hit.</span></h1>
-            <p>Sparkam is the autonomous record label in your pocket. We use high-fashion AI positioning to deploy your sound across the global Afrobeats map.</p>
-            <a href="#how-it-works" class="btn-cta" style="background: #fff; color: #000;">See the Blueprint</a>
+            <h3 style="color: var(--backend-green); font-family: monospace; letter-spacing: 4px;">[ SYSTEM_READY ]</h3>
+            <h1>Your Mini<br><span style="color: var(--primary-pink);">Record Label.</span></h1>
+            <p>Sparkam is the autonomous AI brain in your pocket. We use high-fashion positioning and data flow to deploy your sound across the global Afrobeats map.</p>
+            <a href="#how-it-works" class="btn-cta" style="background: #fff; color: #000;">Join the Evolution</a>
         </div>
     </section>
 
-    <section id="usp" style="background: #080014;">
+    <section id="usp" style="background: #080014; min-height: 80vh;">
         <div style="width: 100%;">
-            <h3 style="color: var(--primary-pink); text-align: center; letter-spacing: 5px;">THE USP</h3>
-            <h2 style="text-align: center; margin-bottom: 50px;">Why Artists Choose Sparkam</h2>
+            <h2 style="text-align: center; margin-bottom: 50px;">The <span style="color: var(--primary-pink);">USP</span></h2>
             <div class="usp-grid">
                 <div class="usp-item">
+                    <i class="fas fa-brain"></i>
+                    <h4>AI Brain Core</h4>
+                    <p>One centralized engine that connects your pages, routing data flow between studio and fan.</p>
+                </div>
+                <div class="usp-item">
                     <i class="fas fa-bolt"></i>
-                    <h4>Autonomous Promo</h4>
-                    <p>AI generates 15s teasers, flyers, and captions instantly based on your track's DNA.</p>
+                    <h4>Instant Promo</h4>
+                    <p>Autonomous agents generate and deploy 15s teasers and flyers based on your sound.</p>
                 </div>
                 <div class="usp-item">
-                    <i class="fas fa-globe"></i>
-                    <h4>Global Positioning</h4>
-                    <p>Strategic deployment in Lagos, London, and NYC hubs before you wake up.</p>
-                </div>
-                <div class="usp-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <h4>Label-Safe Growth</h4>
-                    <p>Ethical routing ensures credible fan engagement and verified streaming traffic.</p>
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Global Reach</h4>
+                    <p>Ethical stream growth targeting the hottest music hubs in London, Lagos, and NYC.</p>
                 </div>
             </div>
         </div>
@@ -118,20 +117,16 @@
         <div class="artist-bg" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200'); left: 0; mask-image: linear-gradient(to right, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);"></div>
         <div class="content" style="margin-left: auto;">
             <h2>The Brain <br><span style="color: var(--backend-green);">In Control.</span></h2>
-            <p>Our centralized intelligence layer manages your entire release cycle. It's the "AI Brain" that connects your pages and manages data flow between the studio and the fans.</p>
+            <p>Stop juggling fragmented tools. Our AI Brain architecture synchronizes your distribution, promo, and analytics into one high-fashion dashboard.</p>
             
             <div class="mixer-ui">
                 <div class="mixer-channel">
-                    <span style="font-size: 0.7rem; width: 100px;">DATA_ROUTING</span>
-                    <div class="fader"><div class="fader-knob" style="left: 80%;"></div></div>
+                    <span style="font-size: 0.7rem; width: 100px;">DATA_FLOW</span>
+                    <div class="fader"><div class="fader-knob" style="left: 85%;"></div></div>
                 </div>
                 <div class="mixer-channel">
-                    <span style="font-size: 0.7rem; width: 100px;">FAN_SYNC</span>
-                    <div class="fader"><div class="fader-knob" style="left: 65%;"></div></div>
-                </div>
-                <div class="mixer-channel">
-                    <span style="font-size: 0.7rem; width: 100px;">NEURAL_DROP</span>
-                    <div class="fader"><div class="fader-knob" style="left: 90%;"></div></div>
+                    <span style="font-size: 0.7rem; width: 100px;">NEURAL_SYNC</span>
+                    <div class="fader"><div class="fader-knob" style="left: 70%;"></div></div>
                 </div>
             </div>
         </div>
@@ -139,11 +134,11 @@
 
     <section id="waitlist" style="min-height: 60vh;">
         <div class="waitlist-card">
-            <h2 style="font-size: 3.5rem;">Ready to Evolutionize?</h2>
-            <p style="color: #fff; opacity: 0.9; max-width: 600px; margin: 0 auto 40px;">Join 5,000+ artists scaling their sound with the AI Brain. Get early access to the next generation of promotion.</p>
-            <form action="/api/waitlist" method="POST">
+            <h2 style="font-size: 3.5rem;">Join the Waitlist</h2>
+            <p style="color: #fff; opacity: 0.9; max-width: 600px; margin: 0 auto 40px;">Be the first to access the AI Brain for Afrobeats. Secure your spot in the next generation of independent artists.</p>
+            <form action="#">
                 <input type="email" placeholder="Enter your email" required>
-                <button type="submit" class="btn-cta" style="background: #000; padding: 20px 40px;">Join Waitlist</button>
+                <button type="submit" class="btn-cta" style="background: #000;">Get Early Access</button>
             </form>
         </div>
     </section>
@@ -152,29 +147,28 @@
         <div class="footer-grid">
             <div>
                 <a href="#" class="logo" style="font-size: 2rem;">SPARK<span>AM.</span></a>
-                <p style="margin-top: 20px; font-size: 0.9rem;">The Record Label in your pocket. Built for Afrobeats, powered by AI Brain architecture.</p>
+                <p style="margin-top: 20px; font-size: 0.9rem;">The Record Label in your pocket. Built for the Afrobeats renaissance.</p>
             </div>
             <div>
-                <h4 style="margin-bottom: 20px;">PRODUCT</h4>
+                <h4 style="margin-bottom: 20px;">NAVIGATE</h4>
+                <a href="#hero" class="footer-link">Home</a>
+                <a href="#usp" class="footer-link">USP</a>
                 <a href="#how-it-works" class="footer-link">Blueprint</a>
-                <a href="#usp" class="footer-link">Why us</a>
-                <a href="/pricing" class="footer-link">Pricing</a>
             </div>
             <div>
-                <h4 style="margin-bottom: 20px;">LEGAL</h4>
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Terms of Service</a>
-                <div style="margin-top: 20px;">
-                    <i class="fab fa-instagram" style="margin-right: 15px; cursor: pointer;"></i>
+                <h4 style="margin-bottom: 20px;">FOLLOW</h4>
+                <div style="display: flex; gap: 20px;">
+                    <i class="fab fa-instagram" style="cursor: pointer;"></i>
                     <i class="fab fa-twitter" style="cursor: pointer;"></i>
+                    <i class="fab fa-tiktok" style="cursor: pointer;"></i>
                 </div>
             </div>
         </div>
         <div style="margin-top: 60px; text-align: center; color: #333; font-size: 0.8rem;">
-            &copy; 2026 SPARKAM AI. ALL RIGHTS RESERVED.
+            &copy; 2026 SPARKAM AI. DESIGNED FOR THE GLOBAL AFROBEATS ARTIST.
         </div>
     </footer>
 
 </body>
-            </html>
-            
+                    </html>
+                        
