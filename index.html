@@ -25,79 +25,95 @@
         /* NAVIGATION */
         nav { 
             position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; 
-            align-items: center; padding: 25px 5%; z-index: 1000;
-            background: linear-gradient(to bottom, rgba(5,0,10,0.9), transparent);
+            align-items: center; padding: 25px 5%; z-index: 2000;
+            background: linear-gradient(to bottom, rgba(5,0,10,0.95), transparent);
             backdrop-filter: blur(15px);
         }
         .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -1.5px; color: #fff; text-decoration: none; }
         .logo span { color: var(--primary-pink); }
 
-        /* HERO SLIDER - EXCITING CIMA AESTHETIC */
-        .slider-wrapper { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+        /* HERO SLIDER - FIXED BLANK ISSUE */
+        .slider-wrapper { position: relative; width: 100%; height: 100vh; background: #000; }
         .slide { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            opacity: 0; transition: opacity 1.2s ease-in-out; 
+            opacity: 0; transition: opacity 1s ease-in-out; 
             display: flex; align-items: center; padding: 0 8%;
+            z-index: 1;
         }
         .slide.active { opacity: 1; z-index: 10; }
+
+        /* Use high-fashion urban images similar to your CIMA reference */
         .slide-media {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -2; filter: brightness(0.6) saturate(1.2);
+            object-fit: cover; z-index: -2; 
         }
         .slide-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to right, var(--deep-violet) 20%, transparent 80%);
+            background: linear-gradient(to right, var(--deep-violet) 10%, transparent 90%);
             z-index: -1;
         }
-        .slide-content h1 { font-size: clamp(3.2rem, 10vw, 7rem); font-weight: 900; text-transform: uppercase; line-height: 0.85; letter-spacing: -3px; }
+        .slide-content { z-index: 20; position: relative; }
+        .slide-content h1 { font-size: clamp(3rem, 10vw, 7rem); font-weight: 900; text-transform: uppercase; line-height: 0.85; letter-spacing: -2px; }
         .slide-content p { color: var(--backend-green); font-family: monospace; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 12px; font-weight: bold; }
 
-        /* HOW IT WORKS - 4 POINT EMPHASIS */
+        /* HOW IT WORKS - 4 POINT RESPONSIVE GRID */
         section { padding: 100px 8%; position: relative; }
-        .section-title { font-size: clamp(2.5rem, 6vw, 4rem); text-transform: uppercase; margin-bottom: 60px; text-align: left; line-height: 1; }
+        .section-title { font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; margin-bottom: 50px; text-align: left; }
         
-        .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .how-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); /* Desktop: 4 columns */
+            gap: 20px; 
+        }
+
         .how-card { 
             background: var(--glass); border: 1px solid rgba(255,255,255,0.08);
-            padding: 45px 30px; border-radius: 24px; transition: 0.4s ease;
+            padding: 40px 25px; border-radius: 20px; transition: 0.4s ease;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-        .how-card:hover { border-color: var(--backend-green); background: rgba(0, 255, 127, 0.03); transform: translateY(-8px); }
-        .how-card .step-num { font-size: 0.8rem; font-family: monospace; color: var(--primary-pink); margin-bottom: 15px; display: block; letter-spacing: 2px; }
-        .how-card h3 { font-size: 1.5rem; text-transform: uppercase; margin-bottom: 15px; font-weight: 800; }
-        .how-card p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.5; }
+        .how-card:hover { border-color: var(--primary-pink); transform: translateY(-5px); }
+        .step-num { font-family: monospace; color: var(--primary-pink); font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 2px; }
+        .how-card h3 { font-size: 1.3rem; text-transform: uppercase; margin-bottom: 15px; font-weight: 800; }
+        .how-card p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.6; }
 
         /* PRICING */
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .price-card { 
             background: #0d001f; border: 1px solid rgba(255,255,255,0.1); padding: 50px 30px; border-radius: 35px; text-align: center;
-            transition: 0.3s;
         }
-        .price-card.featured { border: 2px solid var(--primary-pink); box-shadow: 0 0 30px rgba(255, 0, 149, 0.15); transform: scale(1.03); }
-        .price-card .amount { font-size: 4rem; font-weight: 900; margin: 15px 0; }
-        .price-btn { display: inline-block; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 900; text-transform: uppercase; font-size: 0.8rem; margin-top: 20px; transition: 0.3s; }
+        .price-card.featured { border: 2px solid var(--primary-pink); box-shadow: 0 0 30px rgba(255, 0, 149, 0.2); }
+        .price-card .amount { font-size: 3.5rem; font-weight: 900; margin: 15px 0; }
 
-        /* WAITLIST */
+        /* WAITLIST - THE CIMA STYLE REFIX */
         .waitlist-wrap { 
-            background: linear-gradient(135deg, #12002b, var(--primary-pink));
-            padding: 80px 40px; border-radius: 40px; text-align: center; margin: 40px 0;
+            background: linear-gradient(135deg, #1a0033, var(--primary-pink));
+            padding: 80px 5%; border-radius: 40px; text-align: center; margin: 40px 0;
+            position: relative; z-index: 50;
         }
         .waitlist-form {
-            display: flex; max-width: 550px; margin: 40px auto 0;
-            background: rgba(0,0,0,0.4); padding: 8px; border-radius: 100px;
+            display: flex; max-width: 600px; margin: 40px auto 0;
+            background: rgba(0,0,0,0.5); padding: 10px; border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         .waitlist-form input { flex: 1; background: transparent; border: none; padding: 0 25px; color: #fff; font-size: 1rem; outline: none; }
-        .waitlist-form button { background: #fff; color: #000; border: none; padding: 15px 35px; border-radius: 100px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
+        .waitlist-form button { 
+            background: #fff; color: #000; border: none; padding: 15px 35px; border-radius: 100px; 
+            font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+        }
 
-        footer { padding: 40px 8%; text-align: center; border-top: 1px solid #111; opacity: 0.5; font-size: 0.8rem; font-family: monospace; }
+        /* TABLET & MOBILE RESPONSIVENESS */
+        @media (max-width: 1024px) {
+            .how-grid { grid-template-columns: repeat(2, 1fr); } /* Tablet: 2x2 grid */
+        }
 
-        /* MOBILE FIXES */
         @media (max-width: 768px) {
-            section { padding: 80px 25px; }
-            .slide { padding: 0 5%; text-align: center; justify-content: center; }
+            .how-grid { grid-template-columns: 1fr; } /* Mobile: 1 column */
+            section { padding: 60px 20px; }
+            .slide { text-align: center; justify-content: center; }
             .slide-overlay { background: rgba(5,0,10,0.7); }
-            .waitlist-form { flex-direction: column; background: transparent; gap: 10px; }
-            .waitlist-form input { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 50px; }
-            .price-card.featured { transform: scale(1); }
+            .waitlist-form { flex-direction: column; background: transparent; border: none; padding: 0; gap: 10px; }
+            .waitlist-form input { background: rgba(0,0,0,0.5); padding: 20px; border-radius: 50px; width: 100%; border: 1px solid rgba(255,255,255,0.1); }
+            .waitlist-form button { width: 100%; padding: 20px; }
         }
     </style>
 </head>
@@ -105,12 +121,12 @@
 
     <nav>
         <a href="#" class="logo">SPARK<span>AM.</span></a>
-        <a href="#waitlist" style="background:var(--primary-pink); color:#fff; text-decoration:none; font-weight:900; font-size:0.75rem; padding: 12px 25px; border-radius: 50px; letter-spacing: 1px;">GET ACCESS</a>
+        <a href="#waitlist" style="background:var(--primary-pink); color:#fff; text-decoration:none; font-weight:900; font-size:0.75rem; padding: 12px 25px; border-radius: 50px;">GET ACCESS</a>
     </nav>
 
     <div class="slider-wrapper">
         <div class="slide active">
-            <img src="https://images.unsplash.com/photo-1574677244274-1428236bc752?auto=format&fit=crop&q=80&w=2000" class="slide-media">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=2000" class="slide-media">
             <div class="slide-overlay"></div>
             <div class="slide-content">
                 <p>Digital Management 2.0</p>
@@ -118,13 +134,11 @@
             </div>
         </div>
         <div class="slide">
-            <video autoplay muted loop playsinline class="slide-media">
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-dancing-in-neon-lights-42521-large.mp4" type="video/mp4">
-            </video>
+            <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=2000" class="slide-media">
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <p>Autonomous Deployment</p>
-                <h1>Global Hits <br><span style="color: var(--backend-green);">On Autopilot.</span></h1>
+                <p>AI Neural Routing</p>
+                <h1>Lagos to <br><span style="color: var(--backend-green);">The World.</span></h1>
             </div>
         </div>
     </div>
@@ -133,24 +147,32 @@
         <h2 class="section-title">The <span style="color: var(--primary-pink);">Blueprint</span></h2>
         <div class="how-grid">
             <div class="how-card">
-                <span class="step-num">01 / CONNECTION</span>
-                <h3>Sync Your Catalog</h3>
-                <p>Connect your Spotify or Apple Music. The AI Brain instantly maps your published hits and upcoming new releases.</p>
+                <div>
+                    <span class="step-num">01 / SYNC</span>
+                    <h3>Catalog Upload</h3>
+                </div>
+                <p>Promote your existing published hits or drop new releases. The Brain analyzes your sonic footprint instantly.</p>
             </div>
             <div class="how-card">
-                <span class="step-num">02 / VISUAL GEN</span>
-                <h3>Instant Assets</h3>
-                <p>Our engine generates ultra-realistic high-fashion video teasers and 15s clips tailored to your track's specific vibe.</p>
+                <div>
+                    <span class="step-num">02 / VISUALS</span>
+                    <h3>CIMA Grade Assets</h3>
+                </div>
+                <p>Our engine generates high-fashion, ultra-realistic video teasers and 15s clips for TikTok and Reels automatically.</p>
             </div>
             <div class="how-card">
-                <span class="step-num">03 / ROUTING</span>
-                <h3>Neural Deployment</h3>
-                <p>The Brain routes your music into global traffic hubs (Lagos, NYC, London) using autonomous promotional agents.</p>
+                <div>
+                    <span class="step-num">03 / ROUTING</span>
+                    <h3>Global Traffic</h3>
+                </div>
+                <p>The AI Brain routes your data into peak traffic zones across Lagos, London, and NYC using autonomous agents.</p>
             </div>
             <div class="how-card">
-                <span class="step-num">04 / GROWTH</span>
-                <h3>Scale & Profit</h3>
-                <p>Whether it's a 2-year-old classic or a fresh drop, the Brain maintains data flow to maximize your streaming revenue.</p>
+                <div>
+                    <span class="step-num">04 / FLOW</span>
+                    <h3>Neural Growth</h3>
+                </div>
+                <p>Whether it's a 2-year-old classic or a fresh drop, the Brain maintains data flow to maximize your royalties.</p>
             </div>
         </div>
     </section>
@@ -159,29 +181,49 @@
         <h2 class="section-title">Simple <span style="color: var(--backend-green);">Plans</span></h2>
         <div class="pricing-grid">
             <div class="price-card">
-                <h4 style="color: var(--backend-green); letter-spacing: 2px;">EMERGING</h4>
+                <h4 style="color: var(--backend-green); letter-spacing: 2px; font-size: 0.8rem;">EMERGING</h4>
                 <div class="amount">$0</div>
                 <p style="color: #666; margin-bottom: 25px;">1 Active Campaign<br>Basic Brain Routing</p>
-                <a href="#waitlist" class="price-btn" style="border: 1px solid #333; color: #fff;">Select</a>
             </div>
             <div class="price-card featured">
-                <h4 style="color: var(--primary-pink); letter-spacing: 2px;">PRO LABEL</h4>
+                <h4 style="color: var(--primary-pink); letter-spacing: 2px; font-size: 0.8rem;">PRO LABEL</h4>
                 <div class="amount">$19</div>
                 <p style="color: #aaa; margin-bottom: 25px;">Unlimited Campaigns<br>15s AI Video Teasers<br>Global Agents</p>
-                <a href="#waitlist" class="price-btn" style="background: var(--primary-pink); color: #fff;">Get Pro</a>
             </div>
             <div class="price-card">
-                <h4 style="color: var(--backend-green); letter-spacing: 2px;">AGENCY</h4>
+                <h4 style="color: var(--backend-green); letter-spacing: 2px; font-size: 0.8rem;">AGENCY</h4>
                 <div class="amount">$49</div>
                 <p style="color: #666; margin-bottom: 25px;">Multi-Artist Dashboard<br>White Label Reports</p>
-                <a href="#waitlist" class="price-btn" style="border: 1px solid #333; color: #fff;">Contact</a>
             </div>
         </div>
     </section>
 
     <section id="waitlist">
         <div class="waitlist-wrap">
-            <h2 style="font-size: 3rem; margin-bottom: 10px;">Join the <span style="color: #000;">Brain</span></h2>
-            <p>Secure early access to the autonomous record label engine.</p>
-            <div class="waitlist-form
-                
+            <h2 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 10px;">Join the Brain</h2>
+            <p style="opacity: 0.8;">The first AI record label engine for Afrobeats artists.</p>
+            <div class="waitlist-form">
+                <input type="email" placeholder="Artist email address...">
+                <button>Get Early Access</button>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; border-top: 1px solid #111; opacity: 0.4; font-size: 0.7rem;">
+        &copy; 2026 SPARKAM AI // SYSTEM_STATUS: ONLINE
+    </footer>
+
+    <script>
+        // SLIDER LOGIC - FIXED
+        const slides = document.querySelectorAll('.slide');
+        let current = 0;
+        function cycle() {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }
+        setInterval(cycle, 6000);
+    </script>
+</body>
+                        </html>
+    
