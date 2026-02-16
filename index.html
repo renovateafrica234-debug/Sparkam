@@ -10,7 +10,7 @@
             --primary-pink: #ff0095; 
             --backend-green: #00ff7f; 
             --deep-violet: #05000a;
-            --glass: rgba(255, 255, 255, 0.03);
+            --brand-purple: #6a0dad;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,116 +19,97 @@
             color: #fff; 
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* NAVIGATION - HUD STYLE */
+        /* NAVIGATION */
         nav { 
             position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; 
-            align-items: center; padding: 30px 5%; z-index: 1000;
-            mix-blend-mode: exclusion;
+            align-items: center; padding: 25px 5%; z-index: 1000;
+            background: linear-gradient(to bottom, rgba(5,0,10,0.8), transparent);
+            backdrop-filter: blur(10px);
         }
-        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; color: #fff; text-decoration: none; }
-        .btn-waitlist { 
-            background: var(--primary-pink); color: #fff; padding: 14px 32px; 
-            border-radius: 50px; font-weight: 900; text-decoration: none; 
-            text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px;
-            box-shadow: 0 0 30px rgba(255, 0, 149, 0.4);
-        }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; color: #fff; text-decoration: none; }
+        .logo span { color: var(--primary-pink); }
 
-        /* FULL SCREEN SLIDER */
-        .slider-container { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+        /* CINEMATIC SLIDER */
+        .slider-wrapper { position: relative; width: 100%; height: 100vh; overflow: hidden; }
         .slide { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            opacity: 0; transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 1s ease-in-out; 
+            display: flex; align-items: center; justify-content: flex-start;
+            padding: 0 8%;
         }
-        .slide.active { opacity: 1; }
+        .slide.active { opacity: 1; z-index: 10; }
 
         .slide-media {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -2; filter: brightness(0.7) contrast(1.1);
+            object-fit: cover; z-index: -2; filter: brightness(0.5) contrast(1.2);
         }
         .slide-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 20%, var(--deep-violet) 90%);
+            background: linear-gradient(90deg, var(--deep-violet) 20%, transparent 70%);
             z-index: -1;
         }
 
-        .slide-content { text-align: center; z-index: 10; max-width: 900px; padding: 0 20px; }
-        .slide-content h1 { font-size: clamp(3rem, 12vw, 7rem); font-weight: 900; line-height: 0.8; text-transform: uppercase; margin-bottom: 20px; }
-        .slide-content p { font-size: 1.2rem; color: var(--backend-green); font-family: monospace; text-transform: uppercase; letter-spacing: 3px; }
+        .slide-content { max-width: 700px; }
+        .slide-content h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 900; text-transform: uppercase; line-height: 0.9; }
+        .slide-content p { font-size: 1.2rem; margin: 25px 0; color: rgba(255,255,255,0.8); line-height: 1.6; }
 
-        /* THE BRAIN HUD (Mixer) - Persists Everywhere */
-        .brain-hud {
-            position: fixed; bottom: 40px; right: 40px; z-index: 100;
-            background: rgba(0, 0, 0, 0.8); border: 1px solid var(--backend-green);
-            padding: 25px; border-radius: 20px; backdrop-filter: blur(20px); width: 300px;
-        }
-        .mixer-channel { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
-        .fader-track { flex: 1; height: 2px; background: rgba(255,255,255,0.1); position: relative; }
-        .fader-knob { 
-            position: absolute; top: -7px; width: 16px; height: 16px; 
-            background: var(--backend-green); border-radius: 50%; 
-            box-shadow: 0 0 10px var(--backend-green);
-        }
-        .hud-label { font-family: monospace; font-size: 0.6rem; color: var(--backend-green); width: 80px; }
+        /* USP & HOW IT WORKS (Integrated into Slides) */
+        .usp-tag { display: inline-block; padding: 8px 15px; background: var(--backend-green); color: #000; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
 
-        /* USP SECTION - ALIGNED GRID */
-        .section-usp { padding: 120px 5%; background: var(--deep-violet); position: relative; }
-        .usp-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; margin-top: 60px; 
+        /* WAITLIST SECTION (The Pop) */
+        .waitlist-container { 
+            padding: 120px 8%; background: var(--deep-violet); text-align: center;
         }
-        .usp-card { 
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
-            padding: 60px 40px; border-radius: 30px; transition: 0.4s;
-        }
-        .usp-card:hover { border-color: var(--primary-pink); transform: translateY(-10px); }
-        .usp-card h2 { font-size: 1.5rem; margin: 20px 0; text-transform: uppercase; letter-spacing: 2px; }
-        .usp-card p { color: #888; line-height: 1.6; }
-
-        /* WAITLIST - CIMA STYLE POP */
-        .waitlist-block { 
-            margin: 0 5% 100px; padding: 100px 5%; border-radius: 40px;
-            background: linear-gradient(135deg, #1a0033 0%, var(--primary-pink) 100%);
-            text-align: center; border: 1px solid rgba(255,255,255,0.1);
+        .waitlist-card {
+            background: linear-gradient(135deg, var(--brand-purple), var(--primary-pink));
+            padding: 80px 40px; border-radius: 40px; position: relative; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(255, 0, 149, 0.2);
         }
         .waitlist-form {
-            display: flex; max-width: 600px; margin: 40px auto 0;
-            background: rgba(0,0,0,0.4); padding: 10px; border-radius: 100px;
+            display: flex; max-width: 500px; margin: 40px auto 0;
+            background: rgba(0,0,0,0.3); padding: 8px; border-radius: 60px;
         }
         .waitlist-form input {
-            flex: 1; background: transparent; border: none; padding: 0 30px; color: #fff; font-size: 1.1rem; outline: none;
+            flex: 1; background: transparent; border: none; padding: 0 25px; color: #fff; font-size: 1rem; outline: none;
         }
         .waitlist-form button {
-            background: #fff; color: #000; border: none; padding: 18px 40px; border-radius: 100px; font-weight: 900; cursor: pointer; text-transform: uppercase;
+            background: #fff; color: #000; border: none; padding: 15px 35px; border-radius: 50px; font-weight: 900; cursor: pointer;
         }
 
-        /* MOBILE ALIGNMENT FIX */
+        /* FOOTER BRAIN BAR */
+        .brain-bar {
+            background: #000; padding: 20px 5%; border-top: 1px solid var(--backend-green);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .status-dot { height: 8px; width: 8px; background: var(--backend-green); border-radius: 50%; display: inline-block; margin-right: 10px; box-shadow: 0 0 10px var(--backend-green); }
+
+        /* MOBILE FIXES */
         @media (max-width: 768px) {
-            .brain-hud { display: none; }
-            .slide-content h1 { font-size: 4rem; }
-            .waitlist-form { flex-direction: column; background: transparent; gap: 15px; }
-            .waitlist-form input { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 50px; }
-            .section-usp { text-align: center; }
+            .slide { text-align: center; justify-content: center; padding: 0 20px; }
+            .slide-overlay { background: rgba(5,0,10,0.7); }
+            .waitlist-form { flex-direction: column; background: transparent; }
+            .waitlist-form input { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 50px; margin-bottom: 15px; }
+            .brain-bar { flex-direction: column; gap: 10px; text-align: center; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">SPARKAM.</a>
-        <a href="#waitlist" class="btn-waitlist">Get Access</a>
+        <a href="#" class="logo">SPARK<span>AM.</span></a>
+        <a href="#waitlist" style="color:#fff; text-decoration:none; font-weight:900; text-transform:uppercase; font-size:0.8rem; border:1px solid var(--primary-pink); padding: 10px 20px; border-radius: 5px;">Join the Brain</a>
     </nav>
 
-    <div class="slider-container">
+    <div class="slider-wrapper">
         <div class="slide active">
             <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=2000" class="slide-media">
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <p>Digital Management Redefined</p>
+                <span class="usp-tag">The USP: Autonomous Promo</span>
                 <h1>Soul in the <br><span style="color: var(--primary-pink)">Software.</span></h1>
+                <p>Ultra-realistic positioning for the urban modern artist. We turn your tracks into global movements while you focus on the craft.</p>
             </div>
         </div>
 
@@ -138,8 +119,9 @@
             </video>
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <p>Global Positioning System</p>
-                <h1>Lagos to <br><span style="color: var(--backend-green)">London.</span></h1>
+                <span class="usp-tag">How it works: Neural Sync</span>
+                <h1>Lagos to <br><span style="color: var(--backend-green)">The World.</span></h1>
+                <p>The AI Brain connects your pages and data flow, deploying agents to NYC, London, and Lagos traffic zones automatically.</p>
             </div>
         </div>
 
@@ -147,17 +129,46 @@
             <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=2000" class="slide-media">
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <p>The Brain Architecture</p>
-                <h1>One Label. <br><span style="color: var(--primary-pink)">Pocket-sized.</span></h1>
+                <span class="usp-tag">The USP: Global Positioning</span>
+                <h1>One Label. <br><span style="color: var(--primary-pink)">In your pocket.</span></h1>
+                <p>Scale your reach with urban-modern tech designed specifically for the next generation of independent Afrobeats stars.</p>
             </div>
         </div>
+    </div>
 
-        <div class="brain-hud">
-            <div class="mixer-channel">
-                <div class="hud-label">NEURAL_MAP</div>
-                <div class="fader-track"><div class="fader-knob" style="left: 80%;"></div></div>
+    <div id="waitlist" class="waitlist-container">
+        <div class="waitlist-card">
+            <h2 style="font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase;">Join the <span style="color:#000">Renaissance</span></h2>
+            <p style="color:#fff; opacity: 0.9; margin-top: 15px;">Secure your beta access to the AI Brain. The future of artist management is here.</p>
+            <div class="waitlist-form">
+                <input type="email" placeholder="Artist Email...">
+                <button>Get Access</button>
             </div>
-            <div class="mixer-channel">
-                <div class="hud-label">SYNC_RATE</div>
-                <div class="fader-track"><div class="fader-knob" style="left: 65%;"></div></div>
-    
+        </div>
+    </div>
+
+    <div class="brain-bar">
+        <div style="font-size: 0.7rem; font-family: monospace; color: var(--backend-green);">
+            <span class="status-dot"></span> AI BRAIN ENGINE: ONLINE
+        </div>
+        <div style="font-size: 0.7rem; color: #444;">
+            &copy; 2026 SPARKAM AI / URBAN MODERN FUTURE
+        </div>
+    </div>
+
+    <script>
+        // CIMA SLIDER SCRIPT
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 6000); // 6-second rotation
+    </script>
+</body>
+        </html>
+        
