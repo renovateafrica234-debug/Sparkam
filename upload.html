@@ -3,133 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparkam | Deploy Campaign</title>
+    <title>Sparkam | Deployment Console</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --primary: #00ff7f; --accent: #ff0095; --bg: #050505; --card: #0a0a0a; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 40px; }
-        .container { max-width: 650px; margin: auto; }
-        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
         
-        h2 { margin-top: 0; font-size: 1.8rem; display: flex; align-items: center; gap: 10px; }
-        .field-group { margin-bottom: 25px; }
-        label { display: block; font-size: 0.75rem; color: #555; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; font-weight: bold; }
+        .layout { display: grid; grid-template-columns: 1fr 400px; gap: 30px; max-width: 1200px; margin: auto; }
         
+        /* Form Side */
+        .card { background: var(--card); border: 1px solid #1a1a1a; padding: 30px; border-radius: 24px; }
+        h2 { margin-top: 0; font-size: 1.5rem; color: var(--primary); }
+        .field-group { margin-bottom: 20px; }
+        label { display: block; font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
         input, select { 
-            width: 100%; padding: 15px; background: #111; border: 1px solid #222; 
-            color: #fff; border-radius: 12px; font-size: 1rem; transition: 0.3s;
+            width: 100%; padding: 12px; background: #111; border: 1px solid #222; 
+            color: #fff; border-radius: 10px; font-size: 0.9rem; 
         }
-        input:focus { border-color: var(--primary); outline: none; background: #151515; }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         
-        /* Targeting UI */
-        .targeting-box { 
-            background: #111; border: 1px solid #222; padding: 20px; border-radius: 12px; 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+        /* Preview Side (The "Phone" Mockup) */
+        .preview-container { position: sticky; top: 20px; }
+        .phone-frame { 
+            width: 100%; height: 700px; background: #000; border: 8px solid #1a1a1a; 
+            border-radius: 40px; overflow: hidden; position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
         }
-        .region-tag { 
-            display: flex; align-items: center; gap: 8px; font-size: 0.8rem; 
-            color: #888; cursor: pointer; padding: 5px; 
-        }
-        .region-tag input { width: auto; }
+        .preview-content { padding: 40px 20px; text-align: center; height: 100%; transition: 0.5s; }
+        .preview-artist { font-size: 0.6rem; letter-spacing: 2px; color: var(--primary); margin-bottom: 10px; }
+        .preview-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #333; color: #fff; border-radius: 10px; font-size: 0.8rem; text-decoration: none; pointer-events: none; }
 
         .btn-deploy { 
-            width: 100%; padding: 20px; background: var(--primary); color: #000; 
-            border: none; border-radius: 40px; font-weight: 900; font-size: 1.1rem; 
-            cursor: pointer; margin-top: 30px; text-transform: uppercase; transition: 0.3s;
+            width: 100%; padding: 18px; background: var(--primary); color: #000; 
+            border: none; border-radius: 30px; font-weight: 900; cursor: pointer; 
+            margin-top: 20px; text-transform: uppercase; 
         }
-        .btn-deploy:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0,255,127,0.3); }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <a href="/dashboard" style="color: #444; text-decoration: none; font-size: 0.8rem; margin-bottom: 20px; display: block;">← BACK TO COMMAND CENTER</a>
-        
+    <div class="layout">
         <div class="card">
-            <h2><i class="fas fa-rocket" style="color:var(--primary)"></i> Deploy AI Agents</h2>
-            <p style="color:#666; font-size: 0.9rem; margin-bottom: 30px;">Initialize the AI Brain with your track metadata for autonomous global positioning.</p>
-
-            <div class="field-group">
-                <label>Artist Name</label>
-                <input type="text" id="artist" placeholder="e.g. Zeeter Oliver" value="Zeeter Oliver">
-            </div>
-
+            <h2><i class="fas fa-satellite-dish"></i> Campaign Console</h2>
+            
             <div class="field-group">
                 <label>Track Title</label>
-                <input type="text" id="title" placeholder="e.g. Sugar Daddy">
-            </div>
-
-            <div class="grid-2">
-                <div class="field-group">
-                    <label>Primary Genre</label>
-                    <select id="genre">
-                        <option value="Afrobeats">Afrobeats</option>
-                        <option value="Soul">Soul</option>
-                        <option value="Amapiano">Amapiano</option>
-                        <option value="Drill">Drill / Rap</option>
-                    </select>
-                </div>
-                <div class="field-group">
-                    <label>ISRC (Optional)</label>
-                    <input type="text" id="isrc" placeholder="US-XXX-26-00000">
-                </div>
+                <input type="text" id="title" placeholder="e.g. Sugar Daddy" oninput="updatePreview()">
             </div>
 
             <div class="field-group">
-                <label>Autonomous Agent Targeting</label>
-                <div class="targeting-box">
-                    <label class="region-tag"><input type="checkbox" checked> West Africa</label>
-                    <label class="region-tag"><input type="checkbox" checked> United Kingdom</label>
-                    <label class="region-tag"><input type="checkbox"> North America</label>
-                    <label class="region-tag"><input type="checkbox"> Europe (Central)</label>
-                </div>
+                <label>Vibe / Genre</label>
+                <select id="genre" onchange="updatePreview()">
+                    <option value="Afrobeats">Afrobeats (Vibrant Green)</option>
+                    <option value="Soul">Soul (Golden Warmth)</option>
+                    <option value="Amapiano">Amapiano (Electric Indigo)</option>
+                    <option value="Drill">Drill (Gritty Slate)</option>
+                </select>
             </div>
 
             <div class="field-group">
-                <label>Audio Source (For AI Analysis)</label>
-                <input type="file" id="audio" accept="audio/*" style="font-size: 0.8rem; padding: 10px;">
+                <label>Primary Target Market</label>
+                <input type="text" id="target" placeholder="e.g. Lagos, London, Accra">
             </div>
 
-            <button class="btn-deploy" onclick="initiateDeployment()">Launch Campaign</button>
+            <div class="field-group">
+                <label>Store Links (Spotify/Audiomack)</label>
+                <input type="url" id="link" placeholder="Paste link here..." oninput="updatePreview()">
+            </div>
+
+            <button class="btn-deploy" onclick="initiateDeployment()">Deploy Autonomous Agents</button>
+        </div>
+
+        <div class="preview-container">
+            <p style="text-align: center; color: #444; font-size: 0.8rem; margin-bottom: 10px;">FAN LINK PREVIEW</p>
+            <div class="phone-frame">
+                <div id="preview-bg" class="preview-content">
+                    <div id="p-artist" class="preview-artist">ZEETER OLIVER</div>
+                    <h1 id="p-title" style="margin: 0 0 40px 0; font-size: 2rem;">Song Title</h1>
+                    
+                    <div class="preview-btn">LISTEN ON SPOTIFY</div>
+                    <div class="preview-btn">LISTEN ON AUDIOMACK</div>
+                    <div id="p-link-status" style="font-size: 0.6rem; color: #444; margin-top: 20px;">READY FOR DEPLOYMENT</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="js/brain-core.js"></script>
-
     <script>
+        function updatePreview() {
+            const title = document.getElementById('title').value || "Song Title";
+            const genre = document.getElementById('genre').value;
+            const palette = window.sparkamBrain.applyMood(genre);
+
+            // Update Text
+            document.getElementById('p-title').innerText = title;
+            
+            // Update Colors in Preview
+            const previewBg = document.getElementById('preview-bg');
+            const previewArtist = document.getElementById('p-artist');
+            
+            previewArtist.style.color = palette.primary;
+            previewBg.style.background = `radial-gradient(circle at top, ${palette.primary}22, #000)`;
+            
+            // Update CSS Variables for the whole page
+            document.documentElement.style.setProperty('--primary', palette.primary);
+        }
+
         function initiateDeployment() {
             const title = document.getElementById('title').value;
-            const artist = document.getElementById('artist').value;
             const genre = document.getElementById('genre').value;
-            const audioFile = document.getElementById('audio').files[0];
+            
+            if(!title) return alert("Track Title is required!");
 
-            if(!title) { alert("Please enter a track title."); return; }
-
-            const deploymentData = {
-                artist: artist,
+            window.sparkamBrain.saveTrack(title, {
+                artist: "Zeeter Oliver",
                 genre: genre,
-                isrc: document.getElementById('isrc').value || "PENDING",
-                localFile: audioFile ? URL.createObjectURL(audioFile) : null,
-                stats: { reach: "Initializing...", engagement: "Calculating..." },
-                timestamp: new Date().toISOString()
-            };
+                timestamp: new Date().toISOString(),
+                stats: { reach: "Pending Analysis...", engagement: "0%" }
+            });
 
-            // Save to the AI Brain Persistence Layer
-            window.sparkamBrain.saveTrack(title, deploymentData);
-
-            // Trigger visual feedback
             const btn = document.querySelector('.btn-deploy');
-            btn.innerHTML = "<i class='fas fa-circle-notch fa-spin'></i> ANALYZING AUDIO...";
-            btn.style.background = "#fff";
-
-            // Simulate the Neural Analysis delay
+            btn.innerHTML = "<i class='fas fa-dna fa-spin'></i> DEPLOYING AGENTS...";
+            
             setTimeout(() => {
                 window.location.href = "/dashboard";
-            }, 2000);
+            }, 2500);
         }
+
+        // Run once on load
+        window.onload = updatePreview;
     </script>
 </body>
-    </html>
-    
+</html>
