@@ -10,7 +10,7 @@
             --primary-pink: #ff0095; 
             --backend-green: #00ff7f; 
             --deep-violet: #05000a;
-            --brand-purple: #6a0dad;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,79 +19,89 @@
             color: #fff; 
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
+            line-height: 1.5;
         }
 
         /* NAVIGATION */
         nav { 
             position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; 
             align-items: center; padding: 25px 5%; z-index: 1000;
-            background: linear-gradient(to bottom, rgba(5,0,10,0.8), transparent);
+            background: linear-gradient(to bottom, rgba(5,0,10,0.9), transparent);
             backdrop-filter: blur(10px);
         }
         .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; color: #fff; text-decoration: none; }
         .logo span { color: var(--primary-pink); }
 
-        /* CINEMATIC SLIDER */
+        /* HERO SLIDER */
         .slider-wrapper { position: relative; width: 100%; height: 100vh; overflow: hidden; }
         .slide { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            opacity: 0; transition: opacity 1s ease-in-out; 
-            display: flex; align-items: center; justify-content: flex-start;
-            padding: 0 8%;
+            opacity: 0; transition: opacity 1.2s ease-in-out; 
+            display: flex; align-items: center; padding: 0 8%;
         }
         .slide.active { opacity: 1; z-index: 10; }
-
         .slide-media {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -2; filter: brightness(0.5) contrast(1.2);
+            object-fit: cover; z-index: -2; filter: brightness(0.6) contrast(1.1);
         }
         .slide-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, var(--deep-violet) 20%, transparent 70%);
+            background: radial-gradient(circle at 30%, transparent, var(--deep-violet) 110%);
             z-index: -1;
         }
+        .slide-content h1 { font-size: clamp(3rem, 10vw, 6.5rem); font-weight: 900; text-transform: uppercase; line-height: 0.85; }
+        .slide-content p { color: var(--backend-green); font-family: monospace; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
 
-        .slide-content { max-width: 700px; }
-        .slide-content h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 900; text-transform: uppercase; line-height: 0.9; }
-        .slide-content p { font-size: 1.2rem; margin: 25px 0; color: rgba(255,255,255,0.8); line-height: 1.6; }
+        /* GENERAL SECTION STYLING */
+        section { padding: 120px 8%; position: relative; }
+        h2 { font-size: clamp(2.5rem, 6vw, 4rem); text-transform: uppercase; margin-bottom: 50px; text-align: center; }
 
-        /* USP & HOW IT WORKS (Integrated into Slides) */
-        .usp-tag { display: inline-block; padding: 8px 15px; background: var(--backend-green); color: #000; font-weight: 900; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-
-        /* WAITLIST SECTION (The Pop) */
-        .waitlist-container { 
-            padding: 120px 8%; background: var(--deep-violet); text-align: center;
+        /* HOW IT WORKS GRID */
+        .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .how-card { 
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
+            padding: 50px 35px; border-radius: 30px; transition: 0.4s ease;
         }
-        .waitlist-card {
-            background: linear-gradient(135deg, var(--brand-purple), var(--primary-pink));
-            padding: 80px 40px; border-radius: 40px; position: relative; overflow: hidden;
-            box-shadow: 0 30px 60px rgba(255, 0, 149, 0.2);
+        .how-card:hover { border-color: var(--primary-pink); background: rgba(255,0,149,0.03); transform: translateY(-10px); }
+        .how-card i { font-size: 2.5rem; color: var(--primary-pink); margin-bottom: 25px; }
+        .how-card h3 { font-size: 1.4rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
+        .how-card p { color: #888; font-size: 1rem; line-height: 1.6; }
+
+        /* PRICING TABLE */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+        .price-card { 
+            background: #0a001a; border: 1px solid rgba(255,255,255,0.1); padding: 50px 30px; border-radius: 40px; text-align: center;
+            transition: 0.3s;
+        }
+        .price-card.featured { border: 2px solid var(--primary-pink); background: rgba(255,0,149,0.02); transform: scale(1.05); }
+        .price-card h4 { color: var(--backend-green); letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 15px; }
+        .price-card .amount { font-size: 4rem; font-weight: 900; margin-bottom: 20px; }
+        .price-card ul { list-style: none; margin-bottom: 30px; color: #aaa; font-size: 0.9rem; }
+        .price-card ul li { margin-bottom: 12px; }
+
+        /* WAITLIST BLOCK */
+        .waitlist-wrap { 
+            background: linear-gradient(135deg, #12002b, var(--primary-pink));
+            padding: 100px 40px; border-radius: 50px; text-align: center; margin-top: 50px;
         }
         .waitlist-form {
             display: flex; max-width: 500px; margin: 40px auto 0;
-            background: rgba(0,0,0,0.3); padding: 8px; border-radius: 60px;
+            background: rgba(0,0,0,0.3); padding: 8px; border-radius: 100px;
         }
-        .waitlist-form input {
-            flex: 1; background: transparent; border: none; padding: 0 25px; color: #fff; font-size: 1rem; outline: none;
-        }
-        .waitlist-form button {
-            background: #fff; color: #000; border: none; padding: 15px 35px; border-radius: 50px; font-weight: 900; cursor: pointer;
-        }
+        .waitlist-form input { flex: 1; background: transparent; border: none; padding: 0 25px; color: #fff; font-size: 1rem; outline: none; }
+        .waitlist-form button { background: #fff; color: #000; border: none; padding: 15px 35px; border-radius: 100px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
 
-        /* FOOTER BRAIN BAR */
-        .brain-bar {
-            background: #000; padding: 20px 5%; border-top: 1px solid var(--backend-green);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .status-dot { height: 8px; width: 8px; background: var(--backend-green); border-radius: 50%; display: inline-block; margin-right: 10px; box-shadow: 0 0 10px var(--backend-green); }
+        /* FOOTER */
+        footer { padding: 60px 8%; background: #000; text-align: center; border-top: 1px solid #111; }
+        .status-bar { color: var(--backend-green); font-family: monospace; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 20px; }
 
-        /* MOBILE FIXES */
+        /* MOBILE ALIGNMENT */
         @media (max-width: 768px) {
-            .slide { text-align: center; justify-content: center; padding: 0 20px; }
-            .slide-overlay { background: rgba(5,0,10,0.7); }
-            .waitlist-form { flex-direction: column; background: transparent; }
-            .waitlist-form input { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 50px; margin-bottom: 15px; }
-            .brain-bar { flex-direction: column; gap: 10px; text-align: center; }
+            section { padding: 80px 20px; }
+            .slide { text-align: center; justify-content: center; }
+            .price-card.featured { transform: scale(1); }
+            .waitlist-form { flex-direction: column; background: transparent; gap: 10px; }
+            .waitlist-form input { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 50px; }
         }
     </style>
 </head>
@@ -99,76 +109,114 @@
 
     <nav>
         <a href="#" class="logo">SPARK<span>AM.</span></a>
-        <a href="#waitlist" style="color:#fff; text-decoration:none; font-weight:900; text-transform:uppercase; font-size:0.8rem; border:1px solid var(--primary-pink); padding: 10px 20px; border-radius: 5px;">Join the Brain</a>
+        <a href="#waitlist" style="color:var(--primary-pink); text-decoration:none; font-weight:900; font-size:0.8rem; border:1px solid var(--primary-pink); padding: 10px 20px; border-radius: 50px;">BETA ACCESS</a>
     </nav>
 
     <div class="slider-wrapper">
         <div class="slide active">
-            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=2000" class="slide-media">
+            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=2000" class="slide-media">
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <span class="usp-tag">The USP: Autonomous Promo</span>
-                <h1>Soul in the <br><span style="color: var(--primary-pink)">Software.</span></h1>
-                <p>Ultra-realistic positioning for the urban modern artist. We turn your tracks into global movements while you focus on the craft.</p>
+                <p>System Initialized</p>
+                <h1>Soul In The <br><span style="color: var(--primary-pink);">Software.</span></h1>
             </div>
         </div>
-
         <div class="slide">
             <video autoplay muted loop playsinline class="slide-media">
                 <source src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-dancing-in-neon-lights-42521-large.mp4" type="video/mp4">
             </video>
             <div class="slide-overlay"></div>
             <div class="slide-content">
-                <span class="usp-tag">How it works: Neural Sync</span>
-                <h1>Lagos to <br><span style="color: var(--backend-green)">The World.</span></h1>
-                <p>The AI Brain connects your pages and data flow, deploying agents to NYC, London, and Lagos traffic zones automatically.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=2000" class="slide-media">
-            <div class="slide-overlay"></div>
-            <div class="slide-content">
-                <span class="usp-tag">The USP: Global Positioning</span>
-                <h1>One Label. <br><span style="color: var(--primary-pink)">In your pocket.</span></h1>
-                <p>Scale your reach with urban-modern tech designed specifically for the next generation of independent Afrobeats stars.</p>
+                <p>Neural Deployment</p>
+                <h1>Lagos to <br><span style="color: var(--backend-green);">The World.</span></h1>
             </div>
         </div>
     </div>
 
-    <div id="waitlist" class="waitlist-container">
-        <div class="waitlist-card">
-            <h2 style="font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase;">Join the <span style="color:#000">Renaissance</span></h2>
-            <p style="color:#fff; opacity: 0.9; margin-top: 15px;">Secure your beta access to the AI Brain. The future of artist management is here.</p>
+    <section id="how-it-works">
+        <h2>How The <span style="color: var(--primary-pink);">Brain</span> Works</h2>
+        <div class="how-grid">
+            <div class="how-card">
+                <i class="fas fa-upload"></i>
+                <h3>01. Input Stems</h3>
+                <p>Upload your tracks. Our AI Brain analyzes the sonic DNA to create ultra-realistic high-fashion visuals.</p>
+            </div>
+            <div class="how-card">
+                <i class="fas fa-project-diagram"></i>
+                <h3>02. Route Data</h3>
+                <p>The Brain connects your distribution and social pages, creating a seamless flow of fan engagement.</p>
+            </div>
+            <div class="how-card">
+                <i class="fas fa-rocket"></i>
+                <h3>03. Deploy Agents</h3>
+                <p>Autonomous agents hit NYC, London, and Lagos traffic zones, scaling your reach while you sleep.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" style="background: #030008;">
+        <h2>Simple <span style="color: var(--backend-green);">Pricing</span></h2>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h4>EMERGING</h4>
+                <div class="amount">$0</div>
+                <ul>
+                    <li>1 Active Campaign</li>
+                    <li>Basic AI Brain Routing</li>
+                    <li>Community Support</li>
+                </ul>
+                <a href="#waitlist" style="color: #fff; text-decoration: none; font-weight: 700; font-size: 0.8rem; border: 1px solid #333; padding: 12px 30px; border-radius: 50px;">Select</a>
+            </div>
+            <div class="price-card featured">
+                <h4>PRO LABEL</h4>
+                <div class="amount">$19</div>
+                <ul>
+                    <li>Unlimited Campaigns</li>
+                    <li>15s AI Video Teasers</li>
+                    <li>Global Agent Deployment</li>
+                </ul>
+                <a href="#waitlist" style="background: var(--primary-pink); color: #fff; text-decoration: none; font-weight: 700; font-size: 0.8rem; padding: 12px 30px; border-radius: 50px;">Get Pro</a>
+            </div>
+            <div class="price-card">
+                <h4>AGENCY</h4>
+                <div class="amount">$49</div>
+                <ul>
+                    <li>Multi-Artist Dashboard</li>
+                    <li>White Label Reports</li>
+                    <li>Priority Neural Routing</li>
+                </ul>
+                <a href="#waitlist" style="color: #fff; text-decoration: none; font-weight: 700; font-size: 0.8rem; border: 1px solid #333; padding: 12px 30px; border-radius: 50px;">Contact</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="waitlist-area">
+        <div class="waitlist-wrap">
+            <h2 style="margin-bottom: 10px; color: #fff;">Join the Evolution</h2>
+            <p>Limited beta spots available for the next generation of Afrobeats stars.</p>
             <div class="waitlist-form">
-                <input type="email" placeholder="Artist Email...">
-                <button>Get Access</button>
+                <input type="email" placeholder="Artist email address...">
+                <button>Join Waitlist</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="brain-bar">
-        <div style="font-size: 0.7rem; font-family: monospace; color: var(--backend-green);">
-            <span class="status-dot"></span> AI BRAIN ENGINE: ONLINE
-        </div>
-        <div style="font-size: 0.7rem; color: #444;">
-            &copy; 2026 SPARKAM AI / URBAN MODERN FUTURE
-        </div>
-    </div>
+    <footer>
+        <div class="status-bar">> AI_BRAIN_STATUS: OPTIMIZED_FOR_AFROBEATS</div>
+        <p style="color: #333; font-size: 0.8rem;">&copy; 2026 SPARKAM AI. ALL RIGHTS RESERVED.</p>
+    </footer>
 
     <script>
-        // CIMA SLIDER SCRIPT
+        // SLIDER SCRIPT
         const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
-
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+        let current = 0;
+        function cycle() {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
         }
-
-        setInterval(nextSlide, 6000); // 6-second rotation
+        setInterval(cycle, 6000);
     </script>
 </body>
-                    </html>
-        
+    </html>
+    
